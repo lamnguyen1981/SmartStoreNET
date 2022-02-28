@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductSpecificationAttributeMap()
         {
-            this.ToTable("Product_SpecificationAttribute_Mapping");
+            this.ToTable("SSProduct_SpecificationAttribute_Mapping");
             this.HasKey(psa => psa.Id);
 
             this.HasRequired(psa => psa.SpecificationAttributeOption)

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Directory
     {
         public QuantityUnitMap()
         {
-            ToTable("QuantityUnit");
+            ToTable("SSQuantityUnit");
             HasKey(c => c.Id);
             Property(c => c.Name).IsRequired().HasMaxLength(50);
             Property(c => c.NamePlural).IsRequired().HasMaxLength(50);

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductTagMap()
         {
-            this.ToTable("ProductTag");
+            this.ToTable("SSProductTag");
             this.HasKey(pt => pt.Id);
             this.Property(pt => pt.Name).IsRequired().HasMaxLength(400);
         }

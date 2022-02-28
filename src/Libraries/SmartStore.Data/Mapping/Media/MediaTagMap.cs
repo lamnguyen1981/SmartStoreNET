@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Media
     {
         public MediaTagMap()
         {
-            ToTable("MediaTag");
+            ToTable("SSMediaTag");
             HasKey(c => c.Id);
             Property(c => c.Name).IsRequired().HasMaxLength(100);
 

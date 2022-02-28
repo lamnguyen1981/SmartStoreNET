@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Messages
     {
         public MessageTemplateMap()
         {
-            this.ToTable("MessageTemplate");
+            this.ToTable("SSMessageTemplate");
             this.HasKey(mt => mt.Id);
 
             this.Property(mt => mt.Name).IsRequired().HasMaxLength(200);

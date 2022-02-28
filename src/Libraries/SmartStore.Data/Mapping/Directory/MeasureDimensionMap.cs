@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Directory
     {
         public MeasureDimensionMap()
         {
-            this.ToTable("MeasureDimension");
+            this.ToTable("SSMeasureDimension");
             this.HasKey(m => m.Id);
             this.Property(m => m.Name).IsRequired().HasMaxLength(100);
             this.Property(m => m.SystemKeyword).IsRequired().HasMaxLength(100);

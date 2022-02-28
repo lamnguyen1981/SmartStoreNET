@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductMap()
         {
-            this.ToTable("Product");
+            this.ToTable("SSProduct");
             this.HasKey(p => p.Id);
             this.Property(p => p.Name).IsRequired().HasMaxLength(400);
             this.Property(p => p.MetaKeywords).HasMaxLength(400);
@@ -73,7 +73,7 @@ namespace SmartStore.Data.Mapping.Catalog
 
             this.HasMany(p => p.ProductTags)
                 .WithMany(pt => pt.Products)
-                .Map(m => m.ToTable("Product_ProductTag_Mapping"));
+                .Map(m => m.ToTable("SSProduct_ProductTag_Mapping"));
         }
     }
 }

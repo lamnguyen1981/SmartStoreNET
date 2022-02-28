@@ -54,7 +54,7 @@ namespace SmartStore.Services.Media.Migration
             }
 
             // Put all unassigned files to content album
-            _db.ExecuteSqlCommand($"UPDATE [MediaFile] SET [FolderId] = {contentAlbum.Id} WHERE ([FolderId] IS NULL)");
+            _db.ExecuteSqlCommand($"UPDATE [SSMediaFile] SET [FolderId] = {contentAlbum.Id} WHERE ([FolderId] IS NULL)");
 
             // Delete all obsolete albums
             var namesToDelete = new[] { "product", "category", "brand", "blog", "news", "forum" };
@@ -75,7 +75,7 @@ namespace SmartStore.Services.Media.Migration
                 var oldAlbum = albums.Get(oldAlbumName);
                 if (oldAlbum != null)
                 {
-                    _db.ExecuteSqlCommand($"UPDATE [MediaFile] SET [FolderId] = {newAlbum.Id} WHERE [FolderId] = {oldAlbum.Id}");
+                    _db.ExecuteSqlCommand($"UPDATE [SSMediaFile] SET [FolderId] = {newAlbum.Id} WHERE [FolderId] = {oldAlbum.Id}");
                 }
             }
         }

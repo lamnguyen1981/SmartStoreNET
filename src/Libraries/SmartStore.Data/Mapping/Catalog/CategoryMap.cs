@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public CategoryMap()
         {
-            ToTable("Category");
+            ToTable("SSCategory");
             HasKey(c => c.Id);
             Property(c => c.Name).IsRequired().HasMaxLength(400);
             Property(c => c.FullName).HasMaxLength(400);
@@ -27,7 +27,7 @@ namespace SmartStore.Data.Mapping.Catalog
 
             HasMany(d => d.RuleSets)
                 .WithMany(rs => rs.Categories)
-                .Map(m => m.ToTable("RuleSet_Category_Mapping"));
+                .Map(m => m.ToTable("SSRuleSet_Category_Mapping"));
         }
     }
 }

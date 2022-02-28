@@ -6,7 +6,7 @@ namespace SmartStore.Core.Domain.Security
     /// <summary>
     /// Represents a permission to role mapping.
     /// </summary>
-    [Table("PermissionRoleMapping")]
+    [Table("SSPermissionRoleMapping")]
     public partial class PermissionRoleMapping : BaseEntity
     {
         /// <summary>

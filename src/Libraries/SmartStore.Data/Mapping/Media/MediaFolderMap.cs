@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Media
     {
         public MediaFolderMap()
         {
-            ToTable("MediaFolder");
+            ToTable("SSMediaFolder");
             HasKey(c => c.Id);
             Property(c => c.Name).IsRequired().HasMaxLength(255);
             Property(c => c.Slug).HasMaxLength(255);

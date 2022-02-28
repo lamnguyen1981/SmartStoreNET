@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.DataExchange
     {
         public ExportProfileMap()
         {
-            this.ToTable("ExportProfile");
+            this.ToTable("SSExportProfile");
             this.HasKey(x => x.Id);
 
             this.Property(x => x.Name).IsRequired().HasMaxLength(100);

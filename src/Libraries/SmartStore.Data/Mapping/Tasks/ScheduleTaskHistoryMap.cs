@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Tasks
     {
         public ScheduleTaskHistoryMap()
         {
-            ToTable("ScheduleTaskHistory");
+            ToTable("SSScheduleTaskHistory");
             HasKey(x => x.Id);
             Property(x => x.MachineName).IsRequired().HasMaxLength(400);
             Property(x => x.Error);

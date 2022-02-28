@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Common
     {
         public GenericAttributeMap()
         {
-            this.ToTable("GenericAttribute");
+            this.ToTable("SSGenericAttribute");
             this.HasKey(ga => ga.Id);
 
             this.Property(ga => ga.KeyGroup).IsRequired().HasMaxLength(400);

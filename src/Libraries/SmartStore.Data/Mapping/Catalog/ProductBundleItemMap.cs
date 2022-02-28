@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductBundleItemMap()
         {
-            this.ToTable("ProductBundleItem");
+            this.ToTable("SSProductBundleItem");
             this.HasKey(pbi => pbi.Id);
 
             this.Property(pbi => pbi.Discount).HasPrecision(18, 4).IsOptional();

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.DataExchange
     {
         public SyncMappingMap()
         {
-            this.ToTable("SyncMapping");
+            this.ToTable("SSSyncMapping");
             this.HasKey(x => x.Id);
 
             this.Property(x => x.EntityName).IsRequired().HasMaxLength(100);

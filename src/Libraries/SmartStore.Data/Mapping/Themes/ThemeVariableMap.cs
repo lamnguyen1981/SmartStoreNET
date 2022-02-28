@@ -9,7 +9,7 @@ namespace SmartStore.Data.Mapping.Themes
     {
         public ThemeVariableMap()
         {
-            this.ToTable("ThemeVariable");
+            this.ToTable("SSThemeVariable");
             this.HasKey(t => t.Id);
             this.Property(t => t.Theme).HasMaxLength(400);
             this.Property(t => t.Name).HasMaxLength(400);

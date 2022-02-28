@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Directory
     {
         public CurrencyMap()
         {
-            this.ToTable("Currency");
+            this.ToTable("SSCurrency");
             this.HasKey(c => c.Id);
             this.Property(c => c.Name).IsRequired().HasMaxLength(50);
             this.Property(c => c.CurrencyCode).IsRequired().HasMaxLength(5);

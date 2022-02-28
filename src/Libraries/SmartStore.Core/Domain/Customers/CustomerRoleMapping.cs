@@ -7,7 +7,7 @@ namespace SmartStore.Core.Domain.Customers
     /// Represents a customer to customer role mapping.
     /// </summary>
     [DataContract]
-    [Table("CustomerRoleMapping")]
+    [Table("SSCustomerRoleMapping")]
     public partial class CustomerRoleMapping : BaseEntity
     {
         /// <summary>

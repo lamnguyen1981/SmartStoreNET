@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Discounts
     {
         public DiscountUsageHistoryMap()
         {
-            this.ToTable("DiscountUsageHistory");
+            this.ToTable("SSDiscountUsageHistory");
             this.HasKey(duh => duh.Id);
 
             this.HasRequired(duh => duh.Discount)

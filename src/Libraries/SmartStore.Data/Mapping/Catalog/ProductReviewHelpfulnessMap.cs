@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductReviewHelpfulnessMap()
         {
-            this.ToTable("ProductReviewHelpfulness");
+            this.ToTable("SSProductReviewHelpfulness");
             //commented because it's already configured by CustomerContentMap class
             //this.HasKey(pr => pr.Id);
 

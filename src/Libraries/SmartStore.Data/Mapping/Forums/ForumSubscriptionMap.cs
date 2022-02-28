@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Forums
     {
         public ForumSubscriptionMap()
         {
-            this.ToTable("Forums_Subscription");
+            this.ToTable("SSForums_Subscription");
             this.HasKey(fs => fs.Id);
 
             this.HasRequired(fs => fs.Customer)

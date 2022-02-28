@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductManufacturerMap()
         {
-            this.ToTable("Product_Manufacturer_Mapping");
+            this.ToTable("SSProduct_Manufacturer_Mapping");
             this.HasKey(pm => pm.Id);
 
             this.HasRequired(pm => pm.Manufacturer)

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Logging
     {
         public LogMap()
         {
-            this.ToTable("Log");
+            this.ToTable("SSLog");
             this.HasKey(l => l.Id);
             this.Property(l => l.ShortMessage).IsRequired().HasMaxLength(4000);
             this.Property(l => l.Logger).IsRequired().HasMaxLength(400);

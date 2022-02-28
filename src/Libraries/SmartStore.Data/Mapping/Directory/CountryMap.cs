@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Directory
     {
         public CountryMap()
         {
-            ToTable("Country");
+            ToTable("SSCountry");
             HasKey(c => c.Id);
             Property(c => c.Name).IsRequired().HasMaxLength(100);
             Property(c => c.TwoLetterIsoCode).HasMaxLength(2);

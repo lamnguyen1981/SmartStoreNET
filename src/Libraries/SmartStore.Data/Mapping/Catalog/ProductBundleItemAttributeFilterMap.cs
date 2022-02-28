@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductBundleItemAttributeFilterMap()
         {
-            this.ToTable("ProductBundleItemAttributeFilter");
+            this.ToTable("SSProductBundleItemAttributeFilter");
             this.HasKey(biaf => biaf.Id);
 
             this.HasRequired(biaf => biaf.BundleItem)

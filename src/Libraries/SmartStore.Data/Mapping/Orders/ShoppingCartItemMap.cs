@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public ShoppingCartItemMap()
         {
-            this.ToTable("ShoppingCartItem");
+            this.ToTable("SSShoppingCartItem");
             this.HasKey(sci => sci.Id);
 
             this.Property(sci => sci.CustomerEnteredPrice).HasPrecision(18, 4);

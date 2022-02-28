@@ -205,7 +205,7 @@ namespace SmartStore.Data.Utilities
                 {
                     foreach (var kvp in chunk)
                     {
-                        context.ExecuteSqlCommand("Update [Product] Set [MainPictureId] = {0} WHERE [Id] = {1}", false, null, kvp.Value, kvp.Key);
+                        context.ExecuteSqlCommand("Update [SSProduct] Set [MainPictureId] = {0} WHERE [Id] = {1}", false, null, kvp.Value, kvp.Key);
                     }
 
                     context.SaveChanges();
@@ -1271,7 +1271,7 @@ DELETE TOP(20000) [c]
                 {
                     if (systemNames.Contains(permission.SystemName))
                     {
-                        ctx.Database.ExecuteSqlCommand("Delete From [dbo].[PermissionRecord] Where [Id] = {0}", permission.Id);
+                        ctx.Database.ExecuteSqlCommand("Delete From [dbo].[SSPermissionRecord] Where [Id] = {0}", permission.Id);
                     }
                 }
 
@@ -1279,7 +1279,7 @@ DELETE TOP(20000) [c]
                 // Name and category property cannot be null, exist in database, but not in the domain model -> use SQL.
                 foreach (var name in systemNames)
                 {
-                    ctx.Database.ExecuteSqlCommand("Insert Into PermissionRecord (SystemName, Name, Category) Values({0}, {1}, {2})",
+                    ctx.Database.ExecuteSqlCommand("Insert Into SSPermissionRecord (SystemName, Name, Category) Values({0}, {1}, {2})",
                         name, string.Empty, string.Empty);
                 }
 

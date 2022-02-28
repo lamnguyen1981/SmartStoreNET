@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Forums
     {
         public ForumGroupMap()
         {
-            this.ToTable("Forums_Group");
+            this.ToTable("SSForums_Group");
             this.HasKey(fg => fg.Id);
             this.Property(fg => fg.Name).IsRequired().HasMaxLength(200);
             this.Property(fg => fg.Description).IsMaxLength();

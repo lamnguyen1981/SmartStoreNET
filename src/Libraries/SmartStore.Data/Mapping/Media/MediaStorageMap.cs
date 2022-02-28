@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Media
     {
         public MediaStorageMap()
         {
-            ToTable("MediaStorage");
+            ToTable("SSMediaStorage");
             HasKey(x => x.Id);
             Property(x => x.Data).IsRequired().IsMaxLength();
         }

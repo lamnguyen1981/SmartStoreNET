@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public CheckoutAttributeMap()
         {
-            this.ToTable("CheckoutAttribute");
+            this.ToTable("SSCheckoutAttribute");
             this.HasKey(ca => ca.Id);
             this.Property(ca => ca.Name).IsRequired().HasMaxLength(400);
 

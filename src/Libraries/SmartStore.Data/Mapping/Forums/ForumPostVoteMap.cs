@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Forums
     {
         public ForumPostVoteMap()
         {
-            ToTable("ForumPostVote");
+            ToTable("SSForumPostVote");
 
             HasRequired(fpl => fpl.ForumPost)
                 .WithMany(fp => fp.ForumPostVotes)

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Stores
     {
         public StoreMap()
         {
-            ToTable("Store");
+            ToTable("SSStore");
             HasKey(s => s.Id);
             Property(s => s.Name).IsRequired().HasMaxLength(400);
             Property(s => s.Url).IsRequired().HasMaxLength(400);

@@ -8,7 +8,7 @@ namespace SmartStore.Data.Mapping.Customers
     {
         public CustomerMap()
         {
-            ToTable("Customer");
+            ToTable("SSCustomer");
             HasKey(c => c.Id);
             Property(u => u.Username).HasMaxLength(500);
             Property(u => u.Email).HasMaxLength(500);
@@ -29,7 +29,7 @@ namespace SmartStore.Data.Mapping.Customers
 
             HasMany<Address>(c => c.Addresses)
                 .WithMany()
-                .Map(m => m.ToTable("CustomerAddresses"));
+                .Map(m => m.ToTable("SSCustomerAddresses"));
 
             HasOptional<Address>(c => c.BillingAddress);
             HasOptional<Address>(c => c.ShippingAddress);

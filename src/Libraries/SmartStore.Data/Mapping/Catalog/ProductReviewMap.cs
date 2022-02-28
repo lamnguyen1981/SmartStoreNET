@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductReviewMap()
         {
-            this.ToTable("ProductReview");
+            this.ToTable("SSProductReview");
             //commented because it's already configured by CustomerContentMap class
             //this.HasKey(pr => pr.Id);
             this.Property(m => m.ReviewText).IsMaxLength();

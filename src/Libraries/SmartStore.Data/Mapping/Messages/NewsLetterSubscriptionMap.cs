@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Messages
     {
         public NewsLetterSubscriptionMap()
         {
-            this.ToTable("NewsLetterSubscription");
+            this.ToTable("SSNewsLetterSubscription");
             this.HasKey(nls => nls.Id);
 
             this.Property(nls => nls.Email).IsRequired().HasMaxLength(255);

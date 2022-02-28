@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.News
     {
         public NewsItemMap()
         {
-            ToTable("News");
+            ToTable("SSNews");
             HasKey(x => x.Id);
             Property(x => x.Title).IsRequired();
             Property(x => x.Short).IsRequired();

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Discounts
     {
         public DiscountMap()
         {
-            ToTable("Discount");
+            ToTable("SSDiscount");
             HasKey(d => d.Id);
             Property(d => d.Name).IsRequired().HasMaxLength(200);
             Property(d => d.CouponCode).HasMaxLength(100);
@@ -19,19 +19,19 @@ namespace SmartStore.Data.Mapping.Discounts
 
             HasMany(d => d.RuleSets)
                 .WithMany(rs => rs.Discounts)
-                .Map(m => m.ToTable("RuleSet_Discount_Mapping"));
+                .Map(m => m.ToTable("SSRuleSet_Discount_Mapping"));
 
             HasMany(dr => dr.AppliedToCategories)
                 .WithMany(c => c.AppliedDiscounts)
-                .Map(m => m.ToTable("Discount_AppliedToCategories"));
+                .Map(m => m.ToTable("SSDiscount_AppliedToCategories"));
 
             HasMany(dr => dr.AppliedToManufacturers)
                 .WithMany(x => x.AppliedDiscounts)
-                .Map(m => m.ToTable("Discount_AppliedToManufacturers"));
+                .Map(m => m.ToTable("SSDiscount_AppliedToManufacturers"));
 
             HasMany(dr => dr.AppliedToProducts)
                 .WithMany(p => p.AppliedDiscounts)
-                .Map(m => m.ToTable("Discount_AppliedToProducts"));
+                .Map(m => m.ToTable("SSDiscount_AppliedToProducts"));
         }
     }
 }

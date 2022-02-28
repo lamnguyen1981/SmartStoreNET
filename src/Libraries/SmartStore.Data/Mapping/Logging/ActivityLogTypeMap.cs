@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Logging
     {
         public ActivityLogTypeMap()
         {
-            this.ToTable("ActivityLogType");
+            this.ToTable("SSActivityLogType");
             this.HasKey(alt => alt.Id);
 
             this.Property(alt => alt.SystemKeyword).IsRequired().HasMaxLength(100);

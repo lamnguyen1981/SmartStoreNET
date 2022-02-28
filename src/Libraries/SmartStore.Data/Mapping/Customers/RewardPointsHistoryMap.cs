@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Customers
     {
         public RewardPointsHistoryMap()
         {
-            this.ToTable("RewardPointsHistory");
+            this.ToTable("SSRewardPointsHistory");
             this.HasKey(rph => rph.Id);
 
             this.Property(rph => rph.UsedAmount).HasPrecision(18, 4);

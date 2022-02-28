@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductCategoryMap()
         {
-            this.ToTable("Product_Category_Mapping");
+            this.ToTable("SSProduct_Category_Mapping");
             this.HasKey(pc => pc.Id);
 
             this.HasRequired(pc => pc.Category)

@@ -34,7 +34,7 @@ namespace SmartStore.Services.Logging
         {
             try
             {
-                _dbContext.ExecuteSqlCommand("TRUNCATE TABLE [Log]");
+                _dbContext.ExecuteSqlCommand("TRUNCATE TABLE [SSLog]");
             }
             catch
             {
@@ -42,7 +42,7 @@ namespace SmartStore.Services.Logging
                 {
                     for (int i = 0; i < 100000; ++i)
                     {
-                        if (_dbContext.ExecuteSqlCommand("Delete Top ({0}) From [Log]", false, null, _deleteNumberOfEntries) < _deleteNumberOfEntries)
+                        if (_dbContext.ExecuteSqlCommand("Delete Top ({0}) From [SSLog]", false, null, _deleteNumberOfEntries) < _deleteNumberOfEntries)
                             break;
                     }
                 }
@@ -50,13 +50,13 @@ namespace SmartStore.Services.Logging
 
                 try
                 {
-                    _dbContext.ExecuteSqlCommand("DBCC CHECKIDENT('Log', RESEED, 0)");
+                    _dbContext.ExecuteSqlCommand("DBCC CHECKIDENT('SSLog', RESEED, 0)");
                 }
                 catch
                 {
                     try
                     {
-                        _dbContext.ExecuteSqlCommand("Alter Table [Log] Alter Column [Id] Identity(1,1)");
+                        _dbContext.ExecuteSqlCommand("Alter Table [SSLog] Alter Column [Id] Identity(1,1)");
                     }
                     catch { }
                 }

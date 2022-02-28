@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public RecurringPaymentHistoryMap()
         {
-            this.ToTable("RecurringPaymentHistory");
+            this.ToTable("SSRecurringPaymentHistory");
             this.HasKey(rph => rph.Id);
 
             this.HasRequired(rph => rph.RecurringPayment)

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public RelatedProductMap()
         {
-            this.ToTable("RelatedProduct");
+            this.ToTable("SSRelatedProduct");
             this.HasKey(c => c.Id);
         }
     }

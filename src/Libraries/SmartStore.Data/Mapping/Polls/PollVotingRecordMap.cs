@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Polls
     {
         public PollVotingRecordMap()
         {
-            this.ToTable("PollVotingRecord");
+            this.ToTable("SSPollVotingRecord");
             //commented because it's already configured by CustomerContentMap class
             //this.HasKey(pr => pr.Id);
 

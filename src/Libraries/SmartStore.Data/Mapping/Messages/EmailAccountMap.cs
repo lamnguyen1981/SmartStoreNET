@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Messages
     {
         public EmailAccountMap()
         {
-            this.ToTable("EmailAccount");
+            this.ToTable("SSEmailAccount");
             this.HasKey(ea => ea.Id);
 
             this.Property(ea => ea.Email).IsRequired().HasMaxLength(255);

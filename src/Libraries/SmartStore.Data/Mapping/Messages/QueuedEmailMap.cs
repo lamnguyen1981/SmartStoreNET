@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Messages
     {
         public QueuedEmailMap()
         {
-            this.ToTable("QueuedEmail");
+            this.ToTable("SSQueuedEmail");
             this.HasKey(qe => qe.Id);
 
             this.Property(qe => qe.From).IsRequired().HasMaxLength(500);

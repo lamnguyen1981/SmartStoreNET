@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Tax
     {
         public TaxCategoryMap()
         {
-            this.ToTable("TaxCategory");
+            this.ToTable("SSTaxCategory");
             this.HasKey(tc => tc.Id);
             this.Property(tc => tc.Name).IsRequired().HasMaxLength(400);
         }

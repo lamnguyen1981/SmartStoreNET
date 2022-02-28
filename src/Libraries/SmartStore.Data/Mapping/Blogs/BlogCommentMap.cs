@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Blogs
     {
         public BlogCommentMap()
         {
-            this.ToTable("BlogComment");
+            this.ToTable("SSBlogComment");
             //commented because it's already configured by CustomerContentMap class
             //this.HasKey(pr => pr.Id);
 

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.News
     {
         public NewsCommentMap()
         {
-            this.ToTable("NewsComment");
+            this.ToTable("SSNewsComment");
             //commented because it's already configured by CustomerContentMap class
             //this.HasKey(pr => pr.Id);
             this.Property(nc => nc.CommentText).IsMaxLength();

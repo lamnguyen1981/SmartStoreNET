@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Rules
     {
         public RuleSetMap()
         {
-            this.ToTable("RuleSet");
+            this.ToTable("SSRuleSet");
         }
     }
 
@@ -15,7 +15,7 @@ namespace SmartStore.Data.Mapping.Rules
     {
         public RuleMap()
         {
-            this.ToTable("Rule");
+            this.ToTable("SSRule");
         }
     }
 }

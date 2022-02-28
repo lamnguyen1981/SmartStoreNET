@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductMediaFileMap()
         {
-            ToTable("Product_MediaFile_Mapping");
+            ToTable("SSProduct_MediaFile_Mapping");
             HasKey(pp => pp.Id);
             Property(pp => pp.MediaFileId).HasColumnName("MediaFileId");
 

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public TierPriceMap()
         {
-            this.ToTable("TierPrice");
+            this.ToTable("SSTierPrice");
             this.HasKey(tp => tp.Id);
             this.Property(tp => tp.Price).HasPrecision(18, 4);
 

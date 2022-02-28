@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Forums
     {
         public ForumTopicMap()
         {
-            ToTable("Forums_Topic");
+            ToTable("SSForums_Topic");
             HasKey(ft => ft.Id);
             Property(ft => ft.Subject).IsRequired().HasMaxLength(450);
 

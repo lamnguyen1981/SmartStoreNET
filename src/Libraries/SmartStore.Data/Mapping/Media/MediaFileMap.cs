@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Media
     {
         public MediaFileMap()
         {
-            ToTable("MediaFile");
+            ToTable("SSMediaFile");
             HasKey(x => x.Id);
 
             Property(x => x.Name).HasMaxLength(300).HasColumnName("Name");
@@ -30,7 +30,7 @@ namespace SmartStore.Data.Mapping.Media
 
             HasMany(x => x.Tags)
                 .WithMany(t => t.MediaFiles)
-                .Map(m => m.ToTable("MediaFile_Tag_Mapping"));
+                .Map(m => m.ToTable("SSMediaFile_Tag_Mapping"));
 
             HasMany(x => x.Tracks)
                 .WithRequired(x => x.MediaFile)

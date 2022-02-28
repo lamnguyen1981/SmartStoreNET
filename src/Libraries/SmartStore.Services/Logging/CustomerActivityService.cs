@@ -299,7 +299,7 @@ namespace SmartStore.Services.Logging
         {
             try
             {
-                _dbContext.ExecuteSqlCommand("TRUNCATE TABLE [ActivityLog]");
+                _dbContext.ExecuteSqlCommand("TRUNCATE TABLE [SSActivityLog]");
             }
             catch
             {
@@ -307,7 +307,7 @@ namespace SmartStore.Services.Logging
                 {
                     for (int i = 0; i < 100000; ++i)
                     {
-                        if (_dbContext.ExecuteSqlCommand("Delete Top ({0}) From [ActivityLog]", false, null, _deleteNumberOfEntries) < _deleteNumberOfEntries)
+                        if (_dbContext.ExecuteSqlCommand("Delete Top ({0}) From [SSActivityLog]", false, null, _deleteNumberOfEntries) < _deleteNumberOfEntries)
                             break;
                     }
                 }
@@ -315,13 +315,13 @@ namespace SmartStore.Services.Logging
 
                 try
                 {
-                    _dbContext.ExecuteSqlCommand("DBCC CHECKIDENT('ActivityLog', RESEED, 0)");
+                    _dbContext.ExecuteSqlCommand("DBCC CHECKIDENT('SSActivityLog', RESEED, 0)");
                 }
                 catch
                 {
                     try
                     {
-                        _dbContext.ExecuteSqlCommand("Alter Table [ActivityLog] Alter Column [Id] Identity(1,1)");
+                        _dbContext.ExecuteSqlCommand("Alter Table [SSActivityLog] Alter Column [Id] Identity(1,1)");
                     }
                     catch { }
                 }

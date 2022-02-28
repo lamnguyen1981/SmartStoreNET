@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductVariantAttributeValueMap()
         {
-            ToTable("ProductVariantAttributeValue");
+            ToTable("SSProductVariantAttributeValue");
             HasKey(pvav => pvav.Id);
             Property(pvav => pvav.Alias).HasMaxLength(100);
             Property(pvav => pvav.Name);

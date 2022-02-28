@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Media
     {
         public MediaTrackMap()
         {
-            ToTable("MediaTrack");
+            ToTable("SSMediaTrack");
             HasKey(x => x.Id);
 
             Property(x => x.EntityId);

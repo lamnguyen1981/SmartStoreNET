@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Logging
     {
         public ActivityLogMap()
         {
-            this.ToTable("ActivityLog");
+            this.ToTable("SSActivityLog");
             this.HasKey(al => al.Id);
             this.Property(al => al.Comment).IsRequired().IsMaxLength();
 

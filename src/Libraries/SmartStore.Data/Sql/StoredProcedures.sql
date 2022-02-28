@@ -86,4 +86,3 @@ BEGIN
 	GROUP BY pt.Id
 	ORDER BY pt.Id
 END
-GO

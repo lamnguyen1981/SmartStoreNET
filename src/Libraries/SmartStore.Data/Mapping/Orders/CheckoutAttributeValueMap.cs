@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public CheckoutAttributeValueMap()
         {
-            ToTable("CheckoutAttributeValue");
+            ToTable("SSCheckoutAttributeValue");
             HasKey(cav => cav.Id);
             Property(cav => cav.Name).IsRequired().HasMaxLength(400);
             Property(cav => cav.PriceAdjustment).HasPrecision(18, 4);

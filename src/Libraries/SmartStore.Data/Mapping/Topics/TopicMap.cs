@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Topics
     {
         public TopicMap()
         {
-            this.ToTable("Topic");
+            this.ToTable("SSTopic");
             this.HasKey(t => t.Id);
             this.Property(t => t.ShortTitle).HasMaxLength(50);
             this.Property(t => t.Intro).HasMaxLength(255);

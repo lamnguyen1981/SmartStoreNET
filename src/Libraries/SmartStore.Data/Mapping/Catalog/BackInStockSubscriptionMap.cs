@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public BackInStockSubscriptionMap()
         {
-            this.ToTable("BackInStockSubscription");
+            this.ToTable("SSBackInStockSubscription");
             this.HasKey(x => x.Id);
 
             this.HasRequired(x => x.Product)

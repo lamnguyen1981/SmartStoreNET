@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public OrderMap()
         {
-            this.ToTable("Order");
+            this.ToTable("SSOrder");
             this.HasKey(o => o.Id);
             this.Property(o => o.CurrencyRate).HasPrecision(18, 8);
             this.Property(o => o.OrderSubtotalInclTax).HasPrecision(18, 4);

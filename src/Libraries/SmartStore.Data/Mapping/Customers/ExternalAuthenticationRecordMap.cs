@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Customers
     {
         public ExternalAuthenticationRecordMap()
         {
-            this.ToTable("ExternalAuthenticationRecord");
+            this.ToTable("SSExternalAuthenticationRecord");
 
             this.HasKey(ear => ear.Id);
 

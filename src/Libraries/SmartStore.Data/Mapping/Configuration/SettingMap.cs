@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Configuration
     {
         public SettingMap()
         {
-            ToTable("Setting");
+            ToTable("SSSetting");
             HasKey(x => x.Id);
             Property(x => x.Name).IsRequired().HasMaxLength(400);
             Property(x => x.Value).IsRequired().IsMaxLength(); //.HasMaxLength(2000);

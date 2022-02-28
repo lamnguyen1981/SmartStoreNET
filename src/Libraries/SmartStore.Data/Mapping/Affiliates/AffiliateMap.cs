@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Affiliates
     {
         public AffiliateMap()
         {
-            this.ToTable("Affiliate");
+            this.ToTable("SSAffiliate");
             this.HasKey(a => a.Id);
 
             this.HasRequired(a => a.Address).WithMany().HasForeignKey(x => x.AddressId).WillCascadeOnDelete(false);

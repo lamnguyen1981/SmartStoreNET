@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public ReturnRequestMap()
         {
-            this.ToTable("ReturnRequest");
+            this.ToTable("SSReturnRequest");
             this.HasKey(rr => rr.Id);
             this.Property(rr => rr.ReasonForReturn).IsRequired();
             this.Property(rr => rr.RequestedAction).IsRequired();

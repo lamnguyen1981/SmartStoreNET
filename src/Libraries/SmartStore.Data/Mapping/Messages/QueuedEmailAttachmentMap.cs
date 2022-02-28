@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Messages
     {
         public QueuedEmailAttachmentMap()
         {
-            ToTable("QueuedEmailAttachment");
+            ToTable("SSQueuedEmailAttachment");
             HasKey(x => x.Id);
 
             Property(x => x.Path).IsOptional().HasMaxLength(1000);

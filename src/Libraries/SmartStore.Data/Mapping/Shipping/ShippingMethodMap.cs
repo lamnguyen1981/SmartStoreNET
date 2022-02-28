@@ -7,14 +7,14 @@ namespace SmartStore.Data.Mapping.Shipping
     {
         public ShippingMethodMap()
         {
-            ToTable("ShippingMethod");
+            ToTable("SSShippingMethod");
             HasKey(sm => sm.Id);
 
             Property(sm => sm.Name).IsRequired().HasMaxLength(400);
 
             HasMany(sm => sm.RuleSets)
                 .WithMany(rs => rs.ShippingMethods)
-                .Map(m => m.ToTable("RuleSet_ShippingMethod_Mapping"));
+                .Map(m => m.ToTable("SSRuleSet_ShippingMethod_Mapping"));
         }
     }
 }

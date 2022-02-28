@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public OrderNoteMap()
         {
-            this.ToTable("OrderNote");
+            this.ToTable("SSOrderNote");
             this.HasKey(on => on.Id);
             this.Property(on => on.Note).IsRequired().IsMaxLength();
 

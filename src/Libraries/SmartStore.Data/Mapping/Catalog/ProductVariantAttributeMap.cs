@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductVariantAttributeMap()
         {
-            this.ToTable("Product_ProductAttribute_Mapping");
+            this.ToTable("SSProduct_ProductAttribute_Mapping");
             this.HasKey(pva => pva.Id);
             this.Ignore(pva => pva.AttributeControlType);
 

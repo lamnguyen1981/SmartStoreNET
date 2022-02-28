@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Seo
     {
         public UrlRecordMap()
         {
-            this.ToTable("UrlRecord");
+            this.ToTable("SSUrlRecord");
             this.HasKey(lp => lp.Id);
 
             this.Property(lp => lp.EntityName).IsRequired().HasMaxLength(400);

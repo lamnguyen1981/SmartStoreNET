@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ManufacturerMap()
         {
-            ToTable("Manufacturer");
+            ToTable("SSManufacturer");
             HasKey(m => m.Id);
             Property(m => m.Name).IsRequired().HasMaxLength(400);
             Property(m => m.Description).IsMaxLength();

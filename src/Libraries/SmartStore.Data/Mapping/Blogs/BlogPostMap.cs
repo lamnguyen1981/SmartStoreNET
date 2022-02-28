@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Blogs
     {
         public BlogPostMap()
         {
-            ToTable("BlogPost");
+            ToTable("SSBlogPost");
             HasKey(bp => bp.Id);
             Property(bp => bp.Title).IsRequired();
             Property(bp => bp.Body).IsRequired().IsMaxLength();

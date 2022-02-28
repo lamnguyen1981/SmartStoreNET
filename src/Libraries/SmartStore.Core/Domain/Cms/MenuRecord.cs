@@ -12,7 +12,7 @@ namespace SmartStore.Core.Domain.Cms
     /// <summary>
     /// Represents a menu.
     /// </summary>
-    [Table("MenuRecord")]
+    [Table("SSMenuRecord")]
     public class MenuRecord : BaseEntity, ILocalizedEntity, IStoreMappingSupported, IAclSupported
     {
         private ICollection<MenuItemRecord> _items;

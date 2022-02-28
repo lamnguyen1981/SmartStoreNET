@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.DataExchange
     {
         public ExportDeploymentMap()
         {
-            this.ToTable("ExportDeployment");
+            this.ToTable("SSExportDeployment");
             this.HasKey(x => x.Id);
 
             this.Property(x => x.Name).IsRequired().HasMaxLength(100);

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public SpecificationAttributeOptionMap()
         {
-            ToTable("SpecificationAttributeOption");
+            ToTable("SSSpecificationAttributeOption");
             HasKey(sao => sao.Id);
             Property(sao => sao.Name).IsRequired();
             Property(sao => sao.Alias).HasMaxLength(30);

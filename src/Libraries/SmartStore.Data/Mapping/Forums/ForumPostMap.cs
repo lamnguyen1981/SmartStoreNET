@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Forums
     {
         public ForumPostMap()
         {
-            this.ToTable("Forums_Post");
+            this.ToTable("SSForums_Post");
             this.HasKey(fp => fp.Id);
             this.Property(fp => fp.Text).IsRequired().IsMaxLength();
             this.Property(fp => fp.IPAddress).HasMaxLength(100);

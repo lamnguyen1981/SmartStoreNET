@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Shipping
     {
         public ShipmentMap()
         {
-            this.ToTable("Shipment");
+            this.ToTable("SSShipment");
             this.HasKey(s => s.Id);
 
             this.Property(s => s.TotalWeight).HasPrecision(18, 4);

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductAttributeOptionsSetMap()
         {
-            ToTable("ProductAttributeOptionsSet");
+            ToTable("SSProductAttributeOptionsSet");
             HasKey(x => x.Id);
             Property(x => x.Name).HasMaxLength(400);
 

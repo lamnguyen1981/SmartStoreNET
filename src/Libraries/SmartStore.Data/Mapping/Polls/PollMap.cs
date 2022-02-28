@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Polls
     {
         public PollMap()
         {
-            this.ToTable("Poll");
+            this.ToTable("SSPoll");
             this.HasKey(p => p.Id);
             this.Property(p => p.Name).IsRequired();
 

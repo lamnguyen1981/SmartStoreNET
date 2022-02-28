@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Directory
     {
         public StateProvinceMap()
         {
-            this.ToTable("StateProvince");
+            this.ToTable("SSStateProvince");
             this.HasKey(sp => sp.Id);
             this.Property(sp => sp.Name).IsRequired().HasMaxLength(100);
             this.Property(sp => sp.Abbreviation).HasMaxLength(100);

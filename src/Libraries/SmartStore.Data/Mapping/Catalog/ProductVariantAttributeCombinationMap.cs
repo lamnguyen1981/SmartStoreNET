@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public ProductVariantAttributeCombinationMap()
         {
-            ToTable("ProductVariantAttributeCombination");
+            ToTable("SSProductVariantAttributeCombination");
             HasKey(pvac => pvac.Id);
 
             Property(pvac => pvac.Sku).HasMaxLength(400);

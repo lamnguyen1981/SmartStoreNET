@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Customers
     {
         public WalletHistoryMap()
         {
-            ToTable("WalletHistory");
+            ToTable("SSWalletHistory");
             HasKey(x => x.Id);
 
             Property(x => x.Amount).HasPrecision(18, 4);

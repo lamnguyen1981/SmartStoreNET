@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Customers
     {
         public CustomerContentMap()
         {
-            this.ToTable("CustomerContent");
+            this.ToTable("SSCustomerContent");
 
             this.HasKey(cc => cc.Id);
             this.Property(cc => cc.IpAddress).HasMaxLength(200);

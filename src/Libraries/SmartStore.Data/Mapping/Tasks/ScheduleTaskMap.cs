@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Tasks
     {
         public ScheduleTaskMap()
         {
-            ToTable("ScheduleTask");
+            ToTable("SSScheduleTask");
             HasKey(t => t.Id);
             Property(t => t.Name).HasMaxLength(500).IsRequired();
             Property(t => t.Type).HasMaxLength(800).IsRequired();

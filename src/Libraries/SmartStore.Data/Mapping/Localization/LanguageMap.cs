@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Localization
     {
         public LanguageMap()
         {
-            this.ToTable("Language");
+            this.ToTable("SSLanguage");
             this.HasKey(l => l.Id);
             this.Property(l => l.Name).IsRequired().HasMaxLength(100);
             this.Property(l => l.LanguageCulture).IsRequired().HasMaxLength(20);

@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Payments
     {
         public PaymentMethodMap()
         {
-            ToTable("PaymentMethod");
+            ToTable("SSPaymentMethod");
             HasKey(x => x.Id);
 
             Property(x => x.PaymentMethodSystemName).IsRequired().HasMaxLength(4000);
@@ -16,7 +16,7 @@ namespace SmartStore.Data.Mapping.Payments
 
             HasMany(pm => pm.RuleSets)
                 .WithMany(rs => rs.PaymentMethods)
-                .Map(m => m.ToTable("RuleSet_PaymentMethod_Mapping"));
+                .Map(m => m.ToTable("SSRuleSet_PaymentMethod_Mapping"));
         }
     }
 }

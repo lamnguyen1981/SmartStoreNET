@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Media
     {
         public DownloadMap()
         {
-            this.ToTable("Download");
+            this.ToTable("SSDownload");
             this.HasKey(p => p.Id);
 
             HasOptional(x => x.MediaFile)

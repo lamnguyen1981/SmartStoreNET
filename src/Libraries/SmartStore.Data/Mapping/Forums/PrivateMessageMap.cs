@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Forums
     {
         public PrivateMessageMap()
         {
-            this.ToTable("Forums_PrivateMessage");
+            this.ToTable("SSForums_PrivateMessage");
             this.HasKey(pm => pm.Id);
             this.Property(pm => pm.Subject).IsRequired().HasMaxLength(450);
             this.Property(pm => pm.Text).IsRequired().IsMaxLength();

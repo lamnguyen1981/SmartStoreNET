@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public OrderItemMap()
         {
-            this.ToTable("OrderItem");
+            this.ToTable("SSOrderItem");
             this.HasKey(orderItem => orderItem.Id);
             this.Property(orderItem => orderItem.AttributeDescription);
             this.Property(orderItem => orderItem.AttributesXml).IsMaxLength();

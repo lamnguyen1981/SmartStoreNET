@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Messages
     {
         public CampaignMap()
         {
-            this.ToTable("Campaign");
+            this.ToTable("SSCampaign");
             this.HasKey(ea => ea.Id);
 
             this.Property(ea => ea.Name).IsRequired();

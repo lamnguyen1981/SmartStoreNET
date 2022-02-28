@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Catalog
     {
         public CrossSellProductMap()
         {
-            this.ToTable("CrossSellProduct");
+            this.ToTable("SSCrossSellProduct");
             this.HasKey(c => c.Id);
         }
     }

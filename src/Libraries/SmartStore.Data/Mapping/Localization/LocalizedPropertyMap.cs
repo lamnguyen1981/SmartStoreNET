@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Localization
     {
         public LocalizedPropertyMap()
         {
-            this.ToTable("LocalizedProperty");
+            this.ToTable("SSLocalizedProperty");
             this.HasKey(lp => lp.Id);
 
             this.Property(lp => lp.LocaleKeyGroup).IsRequired().HasMaxLength(400);

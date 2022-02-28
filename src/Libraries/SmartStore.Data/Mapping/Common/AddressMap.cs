@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Common
     {
         public AddressMap()
         {
-            this.ToTable("Address");
+            this.ToTable("SSAddress");
             this.HasKey(a => a.Id);
 
             this.HasOptional(a => a.Country)

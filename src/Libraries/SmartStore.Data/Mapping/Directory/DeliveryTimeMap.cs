@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Directory
     {
         public DeliveryTimeMap()
         {
-            this.ToTable("DeliveryTime");
+            this.ToTable("SSDeliveryTime");
             this.HasKey(c => c.Id);
             this.Property(c => c.Name).IsRequired().HasMaxLength(50);
             this.Property(c => c.ColorHexValue).IsRequired().HasMaxLength(50);

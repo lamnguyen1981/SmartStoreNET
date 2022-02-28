@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Security
     {
         public PermissionRecordMap()
         {
-            ToTable("PermissionRecord");
+            ToTable("SSPermissionRecord");
             HasKey(pr => pr.Id);
             Property(pr => pr.SystemName).IsRequired().HasMaxLength(255);
         }

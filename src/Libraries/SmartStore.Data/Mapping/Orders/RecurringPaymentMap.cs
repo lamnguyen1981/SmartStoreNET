@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public RecurringPaymentMap()
         {
-            this.ToTable("RecurringPayment");
+            this.ToTable("SSRecurringPayment");
             this.HasKey(rp => rp.Id);
 
             this.Ignore(rp => rp.NextPaymentDate);

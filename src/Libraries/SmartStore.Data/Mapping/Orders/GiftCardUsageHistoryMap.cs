@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public GiftCardUsageHistoryMap()
         {
-            this.ToTable("GiftCardUsageHistory");
+            this.ToTable("SSGiftCardUsageHistory");
             this.HasKey(gcuh => gcuh.Id);
             this.Property(gcuh => gcuh.UsedValue).HasPrecision(18, 4);
             //this.Property(gcuh => gcuh.UsedValueInCustomerCurrency).HasPrecision(18, 4);

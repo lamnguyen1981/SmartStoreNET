@@ -7,7 +7,7 @@ namespace SmartStore.Data.Mapping.Orders
     {
         public GiftCardMap()
         {
-            this.ToTable("GiftCard");
+            this.ToTable("SSGiftCard");
             this.HasKey(gc => gc.Id);
 
             this.Property(gc => gc.Amount).HasPrecision(18, 4);
