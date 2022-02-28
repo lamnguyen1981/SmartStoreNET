@@ -549,6 +549,10 @@
     <Compile Include="Migrations\202202280132583_change_table_name_prefixSS.designer.cs">
       <DependentUpon>202202280132583_change_table_name_prefixSS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202280900121_update_sp_with_new_tablename.cs" />
+    <Compile Include="Migrations\202202280900121_update_sp_with_new_tablename.designer.cs">
+      <DependentUpon>202202280900121_update_sp_with_new_tablename.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjectContextBase.SaveChanges.cs" />
     <Compile Include="Setup\Builder\ActivityLogTypeMigrator.cs" />
     <Compile Include="Setup\Builder\SettingsBuilder.cs" />
@@ -988,6 +992,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202280132583_change_table_name_prefixSS.resx">
       <DependentUpon>202202280132583_change_table_name_prefixSS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202280900121_update_sp_with_new_tablename.resx">
+      <DependentUpon>202202280900121_update_sp_with_new_tablename.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sql\Indexes.sql" />
     <EmbeddedResource Include="Sql\StoredProcedures.sql" />
