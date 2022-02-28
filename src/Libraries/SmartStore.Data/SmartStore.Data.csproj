@@ -545,13 +545,13 @@
     <Compile Include="Migrations\202112171231491_V420Resources.designer.cs">
       <DependentUpon>202112171231491_V420Resources.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202280132583_change_table_name_prefixSS.cs" />
-    <Compile Include="Migrations\202202280132583_change_table_name_prefixSS.designer.cs">
-      <DependentUpon>202202280132583_change_table_name_prefixSS.cs</DependentUpon>
+    <Compile Include="Migrations\202202280132583_ChangeTableNameToPrefixSS.cs" />
+    <Compile Include="Migrations\202202280132583_ChangeTableNameToPrefixSS.designer.cs">
+      <DependentUpon>202202280132583_ChangeTableNameToPrefixSS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202280900121_update_sp_with_new_tablename.cs" />
-    <Compile Include="Migrations\202202280900121_update_sp_with_new_tablename.designer.cs">
-      <DependentUpon>202202280900121_update_sp_with_new_tablename.cs</DependentUpon>
+    <Compile Include="Migrations\202202280900121_UpdateSPWithNewTablename.cs" />
+    <Compile Include="Migrations\202202280900121_UpdateSPWithNewTablename.designer.cs">
+      <DependentUpon>202202280900121_UpdateSPWithNewTablename.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjectContextBase.SaveChanges.cs" />
     <Compile Include="Setup\Builder\ActivityLogTypeMigrator.cs" />
@@ -990,11 +990,11 @@
     <EmbeddedResource Include="Migrations\202112171231491_V420Resources.resx">
       <DependentUpon>202112171231491_V420Resources.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202280132583_change_table_name_prefixSS.resx">
-      <DependentUpon>202202280132583_change_table_name_prefixSS.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202280132583_ChangeTableNameToPrefixSS.resx">
+      <DependentUpon>202202280132583_ChangeTableNameToPrefixSS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202280900121_update_sp_with_new_tablename.resx">
-      <DependentUpon>202202280900121_update_sp_with_new_tablename.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202280900121_UpdateSPWithNewTablename.resx">
+      <DependentUpon>202202280900121_UpdateSPWithNewTablename.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sql\Indexes.sql" />
     <EmbeddedResource Include="Sql\StoredProcedures.sql" />
