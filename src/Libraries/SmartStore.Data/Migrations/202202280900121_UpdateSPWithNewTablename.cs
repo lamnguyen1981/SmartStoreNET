@@ -11,7 +11,7 @@
         {
             if (HostingEnvironment.IsHosted && DataSettings.Current.IsSqlServer)
             {
-                Sql(GetAlterTagCountProcedureSql(true));
+              //  Sql(GetAlterTagCountProcedureSql(true));
             }
         }
         
@@ -19,7 +19,7 @@
         {
             if (HostingEnvironment.IsHosted && DataSettings.Current.IsSqlServer)
             {
-                Sql(GetAlterTagCountProcedureSql(false));
+              //  Sql(GetAlterTagCountProcedureSql(false));
             }
         }
 

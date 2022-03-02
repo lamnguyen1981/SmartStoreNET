@@ -131,7 +131,7 @@
             RenameTable(name: "dbo.MediaFile_Tag_Mapping", newName: "SSMediaFile_Tag_Mapping");
             RenameTable(name: "dbo.Product_ProductTag_Mapping", newName: "SSProduct_ProductTag_Mapping");
             RenameTable(name: "dbo.CustomerAddresses", newName: "SSCustomerAddresses");
-            GetAlterTagCountProcedureSql(true);
+            Sql(ChangeAlterTagCountProcedureSqlSP(true));
         }
         
         public override void Down()
@@ -260,10 +260,10 @@
             RenameTable(name: "dbo.SSSetting", newName: "Setting");
             RenameTable(name: "dbo.SSTaxCategory", newName: "TaxCategory");
             RenameTable(name: "dbo.SSTopic", newName: "Topic");
-            GetAlterTagCountProcedureSql(false);
+            Sql(ChangeAlterTagCountProcedureSqlSP(false));
         }
 
-        private string GetAlterTagCountProcedureSql(bool isUp)
+        private string ChangeAlterTagCountProcedureSqlSP(bool isUp)
         {
             string result = null;
 
