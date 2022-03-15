@@ -95,7 +95,7 @@ namespace SmartStore.CreditCardPay.Services
                 AuthorizationCode = response.AuthorizationCode,
                 ResponseCode = response.ResponseCode,
                 ResponseText = response.ResponseText
-                
+                //Token = 
             };
 
         }
