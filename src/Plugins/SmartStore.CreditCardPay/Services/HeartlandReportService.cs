@@ -1,8 +1,5 @@
 ﻿using GlobalPayments.Api.Entities;
 using GlobalPayments.Api.Services;
-using SecureSubmit.Entities;
-using SecureSubmit.Fluent.Services;
-using SecureSubmit.Services;
 using SmartStore.Core.Configuration;
 using SmartStore.CreditCardPay.Models;
 using System;

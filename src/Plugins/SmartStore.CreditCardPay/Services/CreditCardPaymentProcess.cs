@@ -1,5 +1,4 @@
 ﻿using GlobalPayments.Api.Entities;
-using SecureSubmit.Infrastructure;
 using SmartStore.Core.Data;
 using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Exceptions;
