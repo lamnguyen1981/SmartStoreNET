@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartStore.CreditCardPay", "SmartStore.CreditCardPay.csproj", "{ACC1E122-B2C8-4441-BDED-D4A77763331A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EFMigrations|Any CPU = EFMigrations|Any CPU
+		PluginDev|Any CPU = PluginDev|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.EFMigrations|Any CPU.ActiveCfg = EFMigrations|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.EFMigrations|Any CPU.Build.0 = EFMigrations|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.PluginDev|Any CPU.ActiveCfg = PluginDev|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.PluginDev|Any CPU.Build.0 = PluginDev|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC1E122-B2C8-4441-BDED-D4A77763331A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {293D63B9-DFE2-4871-9272-AB902CFA37A3}
+	EndGlobalSection
+EndGlobal
