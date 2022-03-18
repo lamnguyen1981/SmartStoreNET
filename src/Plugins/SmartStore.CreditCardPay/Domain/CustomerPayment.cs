@@ -9,7 +9,11 @@ namespace SmartStore.CreditCardPay.Domain
 {
     public class CustomerPayment:  BaseEntity
     {
-       
+        public CustomerPayment()
+        {
+
+        }
+
         public int CustomerProfileId { get; set; } // Customer win Web site
 
         public string TransactionId { get; set; }

@@ -14,45 +14,45 @@ namespace SmartStore.CreditCardPay.Services
     {
         private readonly IHeartlandCreditService _cardSubmitService;
         private readonly IRepository<CustomerPayment> _cusPayRepository;
-        private readonly IRepository<CustomerAddress> _addrRepository;
-        private readonly IRepository<CustomerProfile> _cusProfilerRepository;
+      //  private readonly IRepository<CustomerAddress> _addrRepository;
+      //  private readonly IRepository<CustomerProfile> _cusProfilerRepository;
 
         public CreditCardPaymentProcess(
             IRepository<CustomerPayment> cusPayRepository,
-            IRepository<CustomerAddress> addrRepository,
-            IRepository<CustomerProfile> cusProfilerRepository,
+          //  IRepository<CustomerAddress> addrRepository,
+          //  IRepository<CustomerProfile> cusProfilerRepository,
             IHeartlandCreditService cardSubmitService
             )
         {
             _cardSubmitService = cardSubmitService;
             _cusPayRepository = cusPayRepository;
-            _addrRepository = addrRepository;
-            _cusProfilerRepository = cusProfilerRepository;
+           // _addrRepository = addrRepository;
+          //  _cusProfilerRepository = cusProfilerRepository;
         }
 
         public int ProcessPayment(CreditCardChargeDetail order, int clientCustomerId)
         {
             try
             {
-               // var hlCustomerId = string.Empty;
-                var customerIds = _cusPayRepository.Table.Where(x => x.CustomerProfileId == clientCustomerId).ToList();
+                // var hlCustomerId = string.Empty;
+                 var customerIds = _cusPayRepository.Table.Where(x => x.CustomerProfileId == clientCustomerId).ToList();
 
-                if (customerIds.Count > 0)
-                    order.HlCustomerId = customerIds.FirstOrDefault(x => x.HlCustomerProfileId != null).HlCustomerProfileId;
+                 if (customerIds.Count > 0)
+                     order.HlCustomerId = customerIds.FirstOrDefault(x => x.HlCustomerProfileId != null).HlCustomerProfileId;
 
 
-                var response = _cardSubmitService.Charge(order);
+                 var response = _cardSubmitService.Charge(order);
 
-                var payment = new CustomerPayment
-                {
-                    CreateDate = DateTime.UtcNow,
-                    CustomerProfileId = clientCustomerId,
-                    HlCustomerProfileId = order.HlCustomerId ?? response.HlCustomerId,
-                    TransactionId = response.TransactionId
+                 var payment = new CustomerPayment
+                 {
+                     CreateDate = DateTime.UtcNow,
+                     CustomerProfileId = clientCustomerId,
+                     HlCustomerProfileId = order.HlCustomerId ?? response.HlCustomerId,
+                     TransactionId = response.TransactionId
 
-                };
-                _cusPayRepository.Insert(payment);
-                return payment.Id;
+                 };
+                 _cusPayRepository.Insert(payment);
+                return 0;
               
             }
             catch (BuilderException e)

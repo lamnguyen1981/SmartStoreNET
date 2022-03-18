@@ -11,6 +11,7 @@ namespace SmartStore.CreditCardPay.Services
     public class HeartlandCreditService: HeartlandBaseService, IHeartlandCreditService
     {
         private readonly IHeartlandRecurrService _recurrService;
+
         public HeartlandCreditService(CreditCardPaySettings settings, IHeartlandRecurrService recurrService)
             : base(settings)
         {

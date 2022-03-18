@@ -9,19 +9,22 @@ using System.Web;
 
 namespace SmartStore.CreditCardPay.Services
 {
-    public class HeartlandReportService : HeartlandBaseService, IHeartlandReportService
+    public class HeartlandReportService :  IHeartlandReportService
     {
-
-
-        public HeartlandReportService(CreditCardPaySettings settings): base(settings)
+        public HeartlandReportService()
         {
-            
 
-           // cardSubmitService = new HpsFluentCreditService(ServicesConfig);
         }
-    
 
-       
+        //public HeartlandReportService(CreditCardPaySettings settings): base(settings)
+        //{
+
+
+        //   // cardSubmitService = new HpsFluentCreditService(ServicesConfig);
+        //}
+
+
+
 
         public IEnumerable<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate)
         {
