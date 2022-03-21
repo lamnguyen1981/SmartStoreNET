@@ -3,10 +3,10 @@ using Autofac.Core;
 using SmartStore.Core.Data;
 using SmartStore.Core.Infrastructure;
 using SmartStore.Core.Infrastructure.DependencyManagement;
-using SmartStore.Data;
 using SmartStore.CreditCardPay.Data;
 using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Services;
+using SmartStore.Data;
 
 namespace SmartStore.CreditCardPay
 {

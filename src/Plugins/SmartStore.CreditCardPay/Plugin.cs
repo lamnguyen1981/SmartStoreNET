@@ -1,9 +1,8 @@
-﻿using System.Data.Entity.Migrations;
-using SmartStore.Core.Logging;
+﻿using SmartStore.Core.Logging;
 using SmartStore.Core.Plugins;
+using SmartStore.CreditCardPay.Data;
 using SmartStore.Services.Configuration;
 using SmartStore.Services.Localization;
-using SmartStore.CreditCardPay.Data;
 
 
 namespace SmartStore.CreditCardPay

@@ -4,9 +4,7 @@ using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Exceptions;
 using SmartStore.CreditCardPay.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace SmartStore.CreditCardPay.Services
 {
@@ -56,8 +54,11 @@ namespace SmartStore.CreditCardPay.Services
                  };
 
                 if (String.IsNullOrEmpty(existingCustomerId))
-                     payment.HlCustomerProfileId = response.HlCustomerId;
-                 _cusPayRepository.Insert(payment);
+                {
+                    payment.HlCustomerProfileId = response.HlCustomerId;
+                }
+
+                _cusPayRepository.Insert(payment);
                 return 0;
               
             }
@@ -93,7 +94,7 @@ namespace SmartStore.CreditCardPay.Services
                     Detail = e.Message
                 };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }

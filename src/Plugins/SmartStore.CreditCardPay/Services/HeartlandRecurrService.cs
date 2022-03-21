@@ -5,7 +5,6 @@ using SmartStore.CreditCardPay.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace SmartStore.CreditCardPay.Services
 {
@@ -95,7 +94,10 @@ namespace SmartStore.CreditCardPay.Services
                              .Execute()
                              .FirstOrDefault();
 
-                if (tran != null) payment.CardMask = tran.MaskedCardNumber;
+                if (tran != null)
+                {
+                    payment.CardMask = tran.MaskedCardNumber;
+                }
 
                 result.Add(payment);
 
@@ -108,13 +110,7 @@ namespace SmartStore.CreditCardPay.Services
             return string.Format("{0}-GlobalApi-{1}-{2}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1, 2000000), type);
         }
 
-        private string CustomerId
-        {
-            get
-            {
-                return string.Format("{0}-GlobalApi-{1}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1,2000000));
-            }
-        }
+        private string CustomerId => string.Format("{0}-GlobalApi-{1}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1, 2000000));
     }
 
 }

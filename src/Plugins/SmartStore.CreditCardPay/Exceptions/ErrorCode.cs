@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace SmartStore.CreditCardPay.Exceptions
+﻿namespace SmartStore.CreditCardPay.Exceptions
 {
     public static class ErrorCode
     {
@@ -15,6 +10,6 @@ namespace SmartStore.CreditCardPay.Exceptions
 
         public const int UnsupportedTransactionException = 18502;
 
-            public const int Unknow = 18503;
+        public const int Unknow = 18503;
     }
 }

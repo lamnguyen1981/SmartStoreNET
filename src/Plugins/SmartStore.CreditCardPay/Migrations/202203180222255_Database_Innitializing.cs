@@ -1,8 +1,7 @@
 ﻿namespace SmartStore.CreditCardPay.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Database_Innitializing : DbMigration
     {
         public override void Up()

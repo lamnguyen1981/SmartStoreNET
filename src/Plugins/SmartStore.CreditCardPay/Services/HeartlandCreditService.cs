@@ -2,9 +2,6 @@
 using GlobalPayments.Api.PaymentMethods;
 using SmartStore.CreditCardPay.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SmartStore.CreditCardPay.Services
 {
@@ -99,21 +96,31 @@ namespace SmartStore.CreditCardPay.Services
             }
 
             if (cardChargeInfo.isSaveCard)
+            {
                 cardChargeInfo.PaymentLinkId = _recurrService.AddPaymentMethod(cardChargeInfo.HlCustomerId, cardChargeInfo.Card);
+            }
 
             var builder = hlCard.Charge(cardChargeInfo.Amount);
            // builder.WithP
-            if (cardChargeInfo.WithConvenienceAmt != 0) 
+            if (cardChargeInfo.WithConvenienceAmt != 0)
+            {
                 builder.WithConvenienceAmount(cardChargeInfo.WithConvenienceAmt);
+            }
 
             if (!String.IsNullOrEmpty(cardChargeInfo.OrderId))
+            {
                 builder.WithOrderId(cardChargeInfo.OrderId);
+            }
 
             if (cardChargeInfo.WithShippingAmt != 0)
+            {
                 builder.WithShippingAmt(cardChargeInfo.WithShippingAmt);
+            }
 
             if (cardChargeInfo.WithSurchargeAmount != 0)
+            {
                 builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
+            }
 
             var response = builder.WithCurrency(cardChargeInfo.Currency)
                    .WithAmount(cardChargeInfo.Amount)

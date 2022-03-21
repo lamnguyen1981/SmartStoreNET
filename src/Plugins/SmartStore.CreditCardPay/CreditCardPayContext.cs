@@ -1,12 +1,7 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Reflection;
-using SmartStore.CreditCardPay.Domain;
+﻿using SmartStore.CreditCardPay.Domain;
 using SmartStore.Data;
-using SmartStore.Data.Setup;
 using SmartStore.Shipping.Mapping;
+using System.Data.Entity;
 
 namespace SmartStore.CreditCardPay.Data
 {
