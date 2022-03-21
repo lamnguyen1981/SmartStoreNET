@@ -10,6 +10,6 @@ namespace SmartStore.CreditCardPay.Services
     {
         // HlResponse VerifyCard(CreditCard card);       
 
-        IEnumerable<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate);
+        IList<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate);
     }
 }

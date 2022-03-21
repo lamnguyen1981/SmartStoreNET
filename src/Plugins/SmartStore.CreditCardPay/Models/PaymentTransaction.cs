@@ -39,5 +39,7 @@ namespace SmartStore.CreditCardPay.Models
         public DateTime? TransactionDate { get; set; }
 
         public string TransactionId { get; set; }
+
+        public string CardMask { get; set; }
     }
 }

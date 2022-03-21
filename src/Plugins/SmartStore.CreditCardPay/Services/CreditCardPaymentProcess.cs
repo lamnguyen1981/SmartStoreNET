@@ -35,22 +35,28 @@ namespace SmartStore.CreditCardPay.Services
             try
             {
                 // var hlCustomerId = string.Empty;
-                 var customerIds = _cusPayRepository.Table.Where(x => x.CustomerProfileId == clientCustomerId).ToList();
+                var customerIds = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == clientCustomerId && x.HlCustomerProfileId != null);
+                var existingCustomerId = string.Empty;
 
-                 if (customerIds.Count > 0)
-                     order.HlCustomerId = customerIds.FirstOrDefault(x => x.HlCustomerProfileId != null).HlCustomerProfileId;
+                if (customerIds != null)
+                {
+                    existingCustomerId = customerIds.HlCustomerProfileId;
+                    order.HlCustomerId = existingCustomerId;
+                }
 
+                var response = _cardSubmitService.Charge(order);                               
 
-                 var response = _cardSubmitService.Charge(order);
-
-                 var payment = new CustomerPayment
-                 {
-                     CreateDate = DateTime.UtcNow,
-                     CustomerProfileId = clientCustomerId,
-                     HlCustomerProfileId = order.HlCustomerId ?? response.HlCustomerId,
-                     TransactionId = response.TransactionId
+                var payment = new CustomerPayment
+                {
+                    CreateDate = DateTime.UtcNow,
+                    CustomerProfileId = clientCustomerId,                  
+                    TransactionId = response.TransactionId,
+                    PaymentMethodType = response.PaymentMethodType.ToString()
 
                  };
+
+                if (String.IsNullOrEmpty(existingCustomerId))
+                     payment.HlCustomerProfileId = response.HlCustomerId;
                  _cusPayRepository.Insert(payment);
                 return 0;
               

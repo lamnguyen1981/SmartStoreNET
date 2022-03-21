@@ -25,5 +25,7 @@ namespace SmartStore.CreditCardPay.Models
 
         public string Zip { get; set; }
 
+        public string Country { get; set; }
+
     }
 }

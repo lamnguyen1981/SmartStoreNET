@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Edmx Version="3.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <Runtime>
+    <ConceptualModels>
+      <Schema Namespace="SmartStore.CreditCardPay.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CustomerAddress" customannotation:ClrType="SmartStore.CreditCardPay.Domain.CustomerAddress, SmartStore.CreditCardPay, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CustomerProfile" Relationship="Self.CustomerProfile_CustomerAddress" FromRole="CustomerProfile_CustomerAddress_Target" ToRole="CustomerProfile_CustomerAddress_Source" />
+        </EntityType>
+        <EntityType Name="CustomerProfile" customannotation:ClrType="SmartStore.CreditCardPay.Domain.CustomerProfile, SmartStore.CreditCardPay, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerAddress" Relationship="Self.CustomerProfile_CustomerAddress" FromRole="CustomerProfile_CustomerAddress_Source" ToRole="CustomerProfile_CustomerAddress_Target" />
+        </EntityType>
+        <EntityType Name="CustomerPayment" customannotation:ClrType="SmartStore.CreditCardPay.Domain.CustomerPayment, SmartStore.CreditCardPay, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerProfileId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HlCustomerProfileId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+          <Property Name="PaymentMethodType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="CustomerProfile_CustomerAddress">
+          <End Role="CustomerProfile_CustomerAddress_Source" Type="Self.CustomerProfile" Multiplicity="1" />
+          <End Role="CustomerProfile_CustomerAddress_Target" Type="Self.CustomerAddress" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerProfile_CustomerAddress_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerProfile_CustomerAddress_Target">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CreditCardPayContext" customannotation:UseClrTypes="true">
+          <EntitySet Name="CustomerAddresss" EntityType="Self.CustomerAddress" />
+          <EntitySet Name="CustomerProfiles" EntityType="Self.CustomerProfile" />
+          <EntitySet Name="CustomerPayments" EntityType="Self.CustomerPayment" />
+          <AssociationSet Name="CustomerProfile_CustomerAddress" Association="Self.CustomerProfile_CustomerAddress">
+            <End Role="CustomerProfile_CustomerAddress_Source" EntitySet="CustomerProfiles" />
+            <End Role="CustomerProfile_CustomerAddress_Target" EntitySet="CustomerAddresss" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </ConceptualModels>
+    <Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeFirstDatabase" CdmEntityContainer="CreditCardPayContext">
+          <EntitySetMapping Name="CustomerAddresss">
+            <EntityTypeMapping TypeName="SmartStore.CreditCardPay.Data.CustomerAddress">
+              <MappingFragment StoreEntitySet="CustomerAddress">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerProfiles">
+            <EntityTypeMapping TypeName="SmartStore.CreditCardPay.Data.CustomerProfile">
+              <MappingFragment StoreEntitySet="CustomerProfile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerPayments">
+            <EntityTypeMapping TypeName="SmartStore.CreditCardPay.Data.CustomerPayment">
+              <MappingFragment StoreEntitySet="CustomerPayment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerProfileId" ColumnName="CustomerProfileId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="HlCustomerProfileId" ColumnName="HlCustomerProfileId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="PaymentMethodType" ColumnName="PaymentMethodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </Mappings>
+    <StorageModels>
+      <Schema Namespace="CodeFirstDatabaseSchema" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CustomerAddress" customannotation:Index="{ }">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" customannotation:Index="{ Name: IX_Id, Order: 0 }" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerProfile" customannotation:Index="{ }">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerPayment" customannotation:Index="{ }">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerProfileId" Type="int" Nullable="false" />
+          <Property Name="TransactionId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HlCustomerProfileId" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentMethodType" Type="nvarchar(max)" Nullable="true" />
+        </EntityType>
+        <Association Name="CustomerProfile_CustomerAddress">
+          <End Role="CustomerProfile" Type="Self.CustomerProfile" Multiplicity="1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeFirstDatabase">
+          <EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="dbo" Table="CCCustomerPaymentAddess" />
+          <EntitySet Name="CustomerProfile" EntityType="Self.CustomerProfile" Schema="dbo" Table="CCCustomerProfile" />
+          <EntitySet Name="CustomerPayment" EntityType="Self.CustomerPayment" Schema="dbo" Table="CCCustomerPayment" />
+          <AssociationSet Name="CustomerProfile_CustomerAddress" Association="Self.CustomerProfile_CustomerAddress">
+            <End Role="CustomerProfile" EntitySet="CustomerProfile" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </StorageModels>
+  </Runtime>
+  <Designer>
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <Diagrams />
+  </Designer>
+</Edmx>

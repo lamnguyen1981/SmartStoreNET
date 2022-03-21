@@ -12,5 +12,7 @@ namespace SmartStore.CreditCardPay.Models
         public string ExpireDate { get; set; }
 
         public string CardType { get; set; }
+
+        public string CardMask { get; set; }
     }
 }

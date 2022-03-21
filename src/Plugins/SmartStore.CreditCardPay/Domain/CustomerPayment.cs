@@ -21,5 +21,7 @@ namespace SmartStore.CreditCardPay.Domain
         public string HlCustomerProfileId { get; set; } // CUstomer id saved in Heartland
 
         public DateTime CreateDate { get; set; }
+
+        public string PaymentMethodType { get; set; }
     }
 }

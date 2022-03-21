@@ -260,6 +260,10 @@
     <Compile Include="Migrations\202203180222255_Database_Innitializing.designer.cs">
       <DependentUpon>202203180222255_Database_Innitializing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203210147224_Add_PaymentMethodType_Field.cs" />
+    <Compile Include="Migrations\202203210147224_Add_PaymentMethodType_Field.designer.cs">
+      <DependentUpon>202203210147224_Add_PaymentMethodType_Field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CardHolder.cs" />
     <Compile Include="Models\ConfigurationModel.cs" />
@@ -363,6 +367,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202203180222255_Database_Innitializing.resx">
       <DependentUpon>202203180222255_Database_Innitializing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203210147224_Add_PaymentMethodType_Field.resx">
+      <DependentUpon>202203210147224_Add_PaymentMethodType_Field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

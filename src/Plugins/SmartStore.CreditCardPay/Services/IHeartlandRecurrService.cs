@@ -1,4 +1,5 @@
-﻿using SmartStore.CreditCardPay.Models;
+﻿using GlobalPayments.Api.Entities;
+using SmartStore.CreditCardPay.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,11 @@ namespace SmartStore.CreditCardPay.Services
     {
         string AddCustomer(CardHolder holder);
 
-        IEnumerable<PaymentMethod> GetAllPaymentMethods(string CustomerId);
+        IList<PaymentMethod> GetAllPaymentMethods(string CustomerId);
 
         string AddPaymentMethod(string CustomerId, CreditCard card);
+
+        IList<Customer> FindAll();
 
 
     }

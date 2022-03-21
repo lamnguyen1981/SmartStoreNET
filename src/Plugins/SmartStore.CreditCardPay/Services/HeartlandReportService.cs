@@ -26,9 +26,36 @@ namespace SmartStore.CreditCardPay.Services
 
 
 
-        public IEnumerable<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate)
+        public IList<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate)
         {
-            return null;
+            var result = new List<PaymentTransaction>();
+            var response = ReportingService.FindTransactions()
+                        .Where(SearchCriteria.CustomerId, customerId)
+                        .And(SearchCriteria.StartDate, startDate)
+                        .And(SearchCriteria.EndDate, endDate)
+                        .Execute();
+
+            foreach(var tranSummary in result)
+            {
+                var returnTran = new PaymentTransaction
+                {
+                    CardType = tranSummary.CardType,
+                    AdjustmentCurrency = tranSummary.AdjustmentCurrency,
+                    AdjustmentAmount = tranSummary.AdjustmentAmount,
+                    AdjustmentReason = tranSummary.AdjustmentReason,
+                    Amount = tranSummary.Amount,
+                    OrderId = tranSummary.OrderId,
+                    CardHolderName = tranSummary.CardHolderName,
+                    TransactionDate = tranSummary.TransactionDate,
+                    Currency = tranSummary.Currency,
+                    CustomerId = tranSummary.CustomerId,
+                    CardMask = tranSummary.CardMask                   
+
+                };
+                result.Add(returnTran);
+            }
+
+            return result;
         }
     }
 }

@@ -26,6 +26,8 @@ namespace SmartStore.CreditCardPay.Models
         public decimal WithShippingAmt { get; set; }
 
         public decimal WithSurchargeAmount { get; set; }
-        
+
+        public string PaymentLinkId { get; set; }        
+
     }
 }

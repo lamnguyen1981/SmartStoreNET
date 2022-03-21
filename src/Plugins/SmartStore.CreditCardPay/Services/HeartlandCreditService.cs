@@ -91,13 +91,7 @@ namespace SmartStore.CreditCardPay.Services
         public HlResponse Charge(CreditCardChargeDetail cardChargeInfo)
         {
 
-            var hlCard = new CreditCardData
-            {
-                Number = cardChargeInfo.Card.Number,
-                ExpMonth = cardChargeInfo.Card.ExpMonth,
-                ExpYear = cardChargeInfo.Card.ExpYear,
-                Cvn = cardChargeInfo.Card.Cvv
-            };
+            var hlCard = InitializeCard(cardChargeInfo);
 
             if (String.IsNullOrEmpty(cardChargeInfo.HlCustomerId) && cardChargeInfo.Holder != null)
             {
@@ -105,7 +99,7 @@ namespace SmartStore.CreditCardPay.Services
             }
 
             if (cardChargeInfo.isSaveCard)
-                 _recurrService.AddPaymentMethod(cardChargeInfo.HlCustomerId, cardChargeInfo.Card);
+                cardChargeInfo.PaymentLinkId = _recurrService.AddPaymentMethod(cardChargeInfo.HlCustomerId, cardChargeInfo.Card);
 
             var builder = hlCard.Charge(cardChargeInfo.Amount);
            // builder.WithP
@@ -121,9 +115,10 @@ namespace SmartStore.CreditCardPay.Services
             if (cardChargeInfo.WithSurchargeAmount != 0)
                 builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
 
-            var response =  builder.WithCurrency(cardChargeInfo.Currency)
+            var response = builder.WithCurrency(cardChargeInfo.Currency)
                    .WithAmount(cardChargeInfo.Amount)
                    .WithCustomerId(cardChargeInfo.HlCustomerId)
+                  .WithPaymentLinkId(cardChargeInfo.PaymentLinkId)
                    .Execute();
 
             return MapResponse(response, cardChargeInfo.HlCustomerId);
@@ -183,10 +178,39 @@ namespace SmartStore.CreditCardPay.Services
                 ResponseCode = sac.ResponseCode,
                 ResponseText = sac.ResponseMessage,
                 TransactionId = sac.TransactionId,
-                HlCustomerId = customerId
+                HlCustomerId = customerId,
+                PaymentMethodType = sac.PaymentMethodType.ToString(),
+                CardType = sac.CardType
             };
         }
 
-       
+        private CreditCardData InitializeCard(CreditCardChargeDetail cardChargeInfo)
+        {
+            CreditCardData card = null ;
+
+            if (!String.IsNullOrEmpty(cardChargeInfo.Card.Token))
+            {
+                card = new CreditCardData
+                {
+                    Token = cardChargeInfo.Card.Token
+                };
+            }
+            else
+            {
+                card = new CreditCardData
+                {
+                    Number = cardChargeInfo.Card.Number,
+                    ExpMonth = cardChargeInfo.Card.ExpMonth,
+                    ExpYear = cardChargeInfo.Card.ExpYear,
+                    Cvn = cardChargeInfo.Card.Cvv
+                };
+            }
+
+            cardChargeInfo.Card.Token = card.Tokenize(true, configName:"default", paymentMethodUsageMode: PaymentMethodUsageMode.Multiple);
+           
+            return card;
+        }
+
+
     }
 }
