@@ -8,6 +8,13 @@ namespace SmartStore.CreditCardPay
     {
         public void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapRoute("CC.Plugins.ProductSubscription",
+                 "Plugins/ProductSubscription/{action}",
+                 new { controller = "ProductSubscription", action = "List" },
+                 new[] { "CC.Plugins.ProductSubscription.Controllers" }
+            )
+            .DataTokens["area"] = Plugin.SystemName;
+
             routes.MapRoute("SmartStore.CreditCardPay.ByTotal",
                  "Plugins/ShippingByTotal/{action}",
                  new { controller = "ByTotal", action = "Configure" },

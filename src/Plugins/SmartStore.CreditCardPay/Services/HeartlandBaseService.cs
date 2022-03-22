@@ -9,7 +9,7 @@ namespace SmartStore.CreditCardPay.Services
             ServicesContainer.ConfigureService(new PorticoConfig
             {
                 SecretApiKey = settings.SecretKey
-            }); ;
+            });
         }
         
     }

@@ -1,4 +1,4 @@
-﻿FriendlyName: CreditCardPay
+﻿FriendlyName: CreditCard Pay
 Description: Provides shipping methods for fixed rate shipping and computation based on weight.
 SystemName: SmartStore.CreditCardPay
 Group: Payment

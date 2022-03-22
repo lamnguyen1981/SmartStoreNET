@@ -248,6 +248,7 @@
     <Compile Include="..\..\AssemblyVersionInfo.cs">
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\CreditCardPayController.cs" />
     <Compile Include="Domain\CustomerAddress.cs" />
     <Compile Include="Domain\CustomerProfile.cs" />
     <Compile Include="Domain\CustomerPayment.cs" />
@@ -316,6 +317,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\CreditPay\CardList.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -359,7 +364,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="Providers\" />
     <Folder Include="Views\Home\" />

@@ -11,21 +11,15 @@ namespace SmartStore.CreditCardPay.Services
     public class CreditCardPaymentProcess: ICreditCardPaymentProcess
     {
         private readonly IHeartlandCreditService _cardSubmitService;
-        private readonly IRepository<CustomerPayment> _cusPayRepository;
-      //  private readonly IRepository<CustomerAddress> _addrRepository;
-      //  private readonly IRepository<CustomerProfile> _cusProfilerRepository;
+        private readonly IRepository<CustomerPayment> _cusPayRepository;      
 
         public CreditCardPaymentProcess(
-            IRepository<CustomerPayment> cusPayRepository,
-          //  IRepository<CustomerAddress> addrRepository,
-          //  IRepository<CustomerProfile> cusProfilerRepository,
+            IRepository<CustomerPayment> cusPayRepository,         
             IHeartlandCreditService cardSubmitService
             )
         {
             _cardSubmitService = cardSubmitService;
-            _cusPayRepository = cusPayRepository;
-           // _addrRepository = addrRepository;
-          //  _cusProfilerRepository = cusProfilerRepository;
+            _cusPayRepository = cusPayRepository;           
         }
 
         public int ProcessPayment(CreditCardChargeDetail order, int clientCustomerId)
@@ -33,12 +27,12 @@ namespace SmartStore.CreditCardPay.Services
             try
             {
                 // var hlCustomerId = string.Empty;
-                var customerIds = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == clientCustomerId && x.HlCustomerProfileId != null);
+                var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == clientCustomerId && x.HlCustomerProfileId != null);
                 var existingCustomerId = string.Empty;
 
-                if (customerIds != null)
+                if (customerPayment != null)
                 {
-                    existingCustomerId = customerIds.HlCustomerProfileId;
+                    existingCustomerId = customerPayment.HlCustomerProfileId;
                     order.HlCustomerId = existingCustomerId;
                 }
 
