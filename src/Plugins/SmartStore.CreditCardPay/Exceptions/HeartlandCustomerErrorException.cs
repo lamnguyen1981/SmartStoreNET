@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace SmartStore.CreditCardPay.Exceptions
 {
-    public  class HeartlandCustomErrorException: Exception
+    public  class HeartlandCustomerErrorException: Exception
     {
         public int Code { get; set; }
 

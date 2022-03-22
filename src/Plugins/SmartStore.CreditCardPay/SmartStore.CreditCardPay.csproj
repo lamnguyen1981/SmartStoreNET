@@ -138,6 +138,10 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SecureSubmit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SecureSubmit.2.20.1\lib\net45\SecureSubmit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -249,21 +253,22 @@
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\CreditCardPayController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Domain\CustomerAddress.cs" />
     <Compile Include="Domain\CustomerProfile.cs" />
     <Compile Include="Domain\CustomerPayment.cs" />
     <Compile Include="Exceptions\ErrorCode.cs" />
-    <Compile Include="Exceptions\HeartlandCustomErrorException.cs" />
+    <Compile Include="Exceptions\HeartlandCustomerErrorException.cs" />
     <Compile Include="Mapping\CustomerAddressMapping.cs" />
     <Compile Include="Mapping\CustomerPaymentMapping.cs" />
     <Compile Include="Mapping\CustomerProfileMapping.cs" />
-    <Compile Include="Migrations\202203180222255_Database_Innitializing.cs" />
-    <Compile Include="Migrations\202203180222255_Database_Innitializing.designer.cs">
-      <DependentUpon>202203180222255_Database_Innitializing.cs</DependentUpon>
+    <Compile Include="Migrations\202203150857416_Database_Initializing.cs" />
+    <Compile Include="Migrations\202203150857416_Database_Initializing.designer.cs">
+      <DependentUpon>202203150857416_Database_Initializing.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203210147224_Add_PaymentMethodType_Field.cs" />
-    <Compile Include="Migrations\202203210147224_Add_PaymentMethodType_Field.designer.cs">
-      <DependentUpon>202203210147224_Add_PaymentMethodType_Field.cs</DependentUpon>
+    <Compile Include="Migrations\202203151203495_Changed_Address_FK_CustomerProfile.cs" />
+    <Compile Include="Migrations\202203151203495_Changed_Address_FK_CustomerProfile.designer.cs">
+      <DependentUpon>202203151203495_Changed_Address_FK_CustomerProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CardHolder.cs" />
@@ -317,7 +322,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Site.css" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\CreditCardPay\Configure.cshtml" />
     <Content Include="Views\CreditCardPay\CardList.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
@@ -365,16 +371,14 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Providers\" />
-    <Folder Include="Views\CreditPay\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203180222255_Database_Innitializing.resx">
-      <DependentUpon>202203180222255_Database_Innitializing.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203150857416_Database_Initializing.resx">
+      <DependentUpon>202203150857416_Database_Initializing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203210147224_Add_PaymentMethodType_Field.resx">
-      <DependentUpon>202203210147224_Add_PaymentMethodType_Field.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203151203495_Changed_Address_FK_CustomerProfile.resx">
+      <DependentUpon>202203151203495_Changed_Address_FK_CustomerProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,10 +3,10 @@ using Autofac.Core;
 using SmartStore.Core.Data;
 using SmartStore.Core.Infrastructure;
 using SmartStore.Core.Infrastructure.DependencyManagement;
+using SmartStore.Data;
 using SmartStore.CreditCardPay.Data;
 using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Services;
-using SmartStore.Data;
 
 namespace SmartStore.CreditCardPay
 {
@@ -17,8 +17,7 @@ namespace SmartStore.CreditCardPay
             builder.RegisterType<HeartlandReportService>().As<IHeartlandReportService>().InstancePerRequest();
             builder.RegisterType<CreditCardPaymentProcess>().As<ICreditCardPaymentProcess>().InstancePerRequest();
             builder.RegisterType<CreditCardPaySettings>().As<CreditCardPaySettings>().InstancePerRequest();
-            builder.RegisterType<HeartlandRecurrService>().As<IHeartlandRecurrService>().InstancePerRequest();
-            
+
             //data layer
             //register named context
             builder.Register<IDbContext>(c => new CreditCardPayContext(DataSettings.Current.DataConnectionString))

@@ -58,7 +58,7 @@ namespace SmartStore.CreditCardPay.Services
             }
             catch (BuilderException e)
             {
-                throw new HeartlandCustomErrorException
+                throw new HeartlandCustomerErrorException
                 {
                     Code = ErrorCode.BuilderException,
                     Detail = e.Message
@@ -66,7 +66,7 @@ namespace SmartStore.CreditCardPay.Services
             }
             catch (ConfigurationException e)
             {
-                throw new HeartlandCustomErrorException
+                throw new HeartlandCustomerErrorException
                 {
                     Code = ErrorCode.ConfigurationException,
                     Detail = e.Message
@@ -74,7 +74,7 @@ namespace SmartStore.CreditCardPay.Services
             }
             catch (GatewayException e)
             {
-                throw new HeartlandCustomErrorException
+                throw new HeartlandCustomerErrorException
                 {
                     Code = ErrorCode.GatewayException,
                     Detail = e.Message
@@ -82,7 +82,7 @@ namespace SmartStore.CreditCardPay.Services
             }
             catch (UnsupportedTransactionException e)
             {
-                throw new HeartlandCustomErrorException
+                throw new HeartlandCustomerErrorException
                 {
                     Code = ErrorCode.UnsupportedTransactionException,
                     Detail = e.Message
