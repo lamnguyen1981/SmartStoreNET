@@ -6,12 +6,12 @@ namespace SmartStore.CreditCardPay
     {
         public CreditCardPaySettings()
         {
-           // SecretKey = "skapi_cert_MW7dAQBF1V4AQaSsSwVpMQBOFZLA7ub2oSxnslAFKg";
-            SecretKey = "skapi_cert_MTyMAQBiHVEAewvIzXVFcmUd2UcyBge_eCpaASUp0A";
+            // SecretKey = "skapi_cert_MW7dAQBF1V4AQaSsSwVpMQBOFZLA7ub2oSxnslAFKg";
+            HearlandSecretKey = "skapi_cert_MW7dAQBF1V4AQaSsSwVpMQBOFZLA7ub2oSxnslAFKg";
             
         }
 
-        public string PublicKey { get; set; }
-        public string SecretKey { get; set; }        
+        public string HearlandPublicKey { get; set; }
+        public string HearlandSecretKey { get; set; }        
     }
 }

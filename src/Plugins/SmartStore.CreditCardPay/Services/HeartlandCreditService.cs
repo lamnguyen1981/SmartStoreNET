@@ -85,52 +85,52 @@ namespace SmartStore.CreditCardPay.Services
             return MapResponse(response);
         }
 
-        public HlResponse Charge(CreditCardChargeDetail cardChargeInfo)
-        {
+        //public HlResponse Charge(CreditCardChargeDetail cardChargeInfo)
+        //{
 
-            var hlCard = InitializeCard(cardChargeInfo);
+        //    var hlCard = InitializeCard(cardChargeInfo);
 
-            if (String.IsNullOrEmpty(cardChargeInfo.HlCustomerId) && cardChargeInfo.Holder != null)
-            {
-                cardChargeInfo.HlCustomerId = _recurrService.AddCustomer(cardChargeInfo.Holder);
-            }
+        //    if (String.IsNullOrEmpty(cardChargeInfo.HlCustomerId) && cardChargeInfo.Holder != null)
+        //    {
+        //        cardChargeInfo.HlCustomerId = _recurrService.AddCustomer(cardChargeInfo.Holder);
+        //    }
 
-            if (cardChargeInfo.isSaveCard)
-            {
-                cardChargeInfo.PaymentLinkId = _recurrService.AddPaymentMethod(cardChargeInfo.HlCustomerId, cardChargeInfo.Card);
-            }
+        //    if (cardChargeInfo.isSaveCard)
+        //    {
+        //        cardChargeInfo.PaymentProfileId = _recurrService.AddPaymentMethod(cardChargeInfo.HlCustomerId, cardChargeInfo.Card);
+        //    }
 
-            var builder = hlCard.Charge(cardChargeInfo.Amount);
-           // builder.WithP
-            if (cardChargeInfo.WithConvenienceAmt != 0)
-            {
-                builder.WithConvenienceAmount(cardChargeInfo.WithConvenienceAmt);
-            }
+        //    var builder = hlCard.Charge(cardChargeInfo.Amount);
+        //   // builder.WithP
+        //    if (cardChargeInfo.WithConvenienceAmt != 0)
+        //    {
+        //        builder.WithConvenienceAmount(cardChargeInfo.WithConvenienceAmt);
+        //    }
 
-            if (!String.IsNullOrEmpty(cardChargeInfo.OrderId))
-            {
-                builder.WithOrderId(cardChargeInfo.OrderId);
-            }
+        //    if (!String.IsNullOrEmpty(cardChargeInfo.OrderId))
+        //    {
+        //        builder.WithOrderId(cardChargeInfo.OrderId);
+        //    }
 
-            if (cardChargeInfo.WithShippingAmt != 0)
-            {
-                builder.WithShippingAmt(cardChargeInfo.WithShippingAmt);
-            }
+        //    if (cardChargeInfo.WithShippingAmt != 0)
+        //    {
+        //        builder.WithShippingAmt(cardChargeInfo.WithShippingAmt);
+        //    }
 
-            if (cardChargeInfo.WithSurchargeAmount != 0)
-            {
-                builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
-            }
+        //    if (cardChargeInfo.WithSurchargeAmount != 0)
+        //    {
+        //        builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
+        //    }
 
-            var response = builder.WithCurrency(cardChargeInfo.Currency)
-                   .WithAmount(cardChargeInfo.Amount)
-                   .WithCustomerId(cardChargeInfo.HlCustomerId)
-                  .WithPaymentLinkId(cardChargeInfo.PaymentLinkId)
-                   .Execute();
+        //    var response = builder.WithCurrency(cardChargeInfo.Currency)
+        //           .WithAmount(cardChargeInfo.Amount)
+        //           .WithCustomerId(cardChargeInfo.HlCustomerId)
+        //          .WithPaymentLinkId(cardChargeInfo.PaymentProfileId)
+        //           .Execute();
 
-            return MapResponse(response, cardChargeInfo.HlCustomerId);
+        //    return MapResponse(response, cardChargeInfo.HlCustomerId);
             
-        }
+        //}
         
 
         public HlResponse Refund(string transactionId, decimal amount, string currency)

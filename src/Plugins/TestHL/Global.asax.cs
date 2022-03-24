@@ -19,6 +19,7 @@ using SmartStore.CreditCardPay.Data;
 using SmartStore.CreditCardPay.Domain;
 
 using SmartStore.Data;
+using System.Data.Entity;
 
 namespace TestHL
 {
@@ -27,7 +28,7 @@ namespace TestHL
         private static IContainer container { get; set; }
         protected void Application_Start()
         {
-
+           // Database.SetInitializer<CustomerDBContext>(null);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -44,7 +45,7 @@ namespace TestHL
             //data layer
             //register named context
           
-            var cnnStr  = @" Data Source=localhost\SQLEXPRESS;Initial Catalog=smartstore_newtable1;Integrated Security=True;Persist Security Info=False;Enlist=False;Pooling=True;Min Pool Size=1;Max Pool Size=100;Connect Timeout=15;User Instance=False";
+          //  var cnnStr  = @" Data Source=localhost\SQLEXPRESS;Initial Catalog=smartstore_newtable1;Integrated Security=True;Persist Security Info=False;Enlist=False;Pooling=True;Min Pool Size=1;Max Pool Size=100;Connect Timeout=15;User Instance=False";
             builder.Register<IDbContext>(c => new CreditCardPayContext(DataSettings.Current.DataConnectionString))
                .Named<IDbContext>(CreditCardPayContext.ALIASKEY)
                .InstancePerRequest();
@@ -63,8 +64,8 @@ namespace TestHL
              //    .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
              //    .InstancePerRequest();
 
-             builder.RegisterType<EfRepository<CustomerPayment>>()
-                .As<IRepository<CustomerPayment>>()
+             builder.RegisterType<EfRepository<CustomerPaymentProfile>>()
+                .As<IRepository<CustomerPaymentProfile>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
                 .InstancePerRequest();
             //builder.RegisterInstance(HeartlandReportService)

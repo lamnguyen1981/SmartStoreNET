@@ -16,7 +16,58 @@ namespace SmartStore.CreditCardPay.Services
 
         }
 
-        public string AddCustomer(CardHolder holder)
+        public HlResponse Charge(CreditCardChargeDetail cardChargeInfo)
+        {
+            RecurringPaymentMethod paymentMethod = null;
+
+            if (cardChargeInfo.isSaveCard)
+            {
+                var customer =  AddCustomer(cardChargeInfo.Holder);
+                cardChargeInfo.HlCustomerId = customer.Id;
+
+                paymentMethod = AddPaymentMethod(customer, cardChargeInfo.Card);
+                cardChargeInfo.PaymentProfileId = paymentMethod.Key;
+            }
+            else if (!String.IsNullOrEmpty(cardChargeInfo.PaymentProfileId) )
+            {
+                 paymentMethod = RecurringPaymentMethod.Find(cardChargeInfo.PaymentProfileId);
+            }
+           
+
+            var builder = paymentMethod.Charge(cardChargeInfo.Amount);
+            // builder.WithP
+            if (cardChargeInfo.WithConvenienceAmt != 0)
+            {
+                builder.WithConvenienceAmount(cardChargeInfo.WithConvenienceAmt);
+            }
+
+            if (!String.IsNullOrEmpty(cardChargeInfo.OrderId))
+            {
+                builder.WithOrderId(cardChargeInfo.OrderId);
+            }
+
+            //if (cardChargeInfo.WithShippingAmt != 0)
+            //{
+            //    builder.WithShippingAmt(cardChargeInfo.WithShippingAmt);
+            //}
+
+            if (cardChargeInfo.WithSurchargeAmount != 0)
+            {
+                builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
+            }
+
+            var response = builder.WithCurrency(cardChargeInfo.Currency)
+                   .WithAmount(cardChargeInfo.Amount)
+                   .WithCustomerId(cardChargeInfo.HlCustomerId)
+                  .WithPaymentLinkId(cardChargeInfo.PaymentProfileId)
+                   .Execute();
+
+            return MapResponse(response, cardChargeInfo.HlCustomerId);
+
+        }
+
+        
+        public Customer AddCustomer(CardHolder holder)
         {
             var validCardHolder = new Customer
             {
@@ -30,16 +81,16 @@ namespace SmartStore.CreditCardPay.Services
                     Country = holder.Country,
                     State = holder.State,
                     PostalCode = holder.Zip,
-                     
-                     
+
+
                 },
                 MobilePhone = holder.PhoneNumber ?? string.Empty,
                 Email = holder.Email
-                  
-                 
+
+
             }.Create();
-            
-            return validCardHolder.Id;
+
+            return validCardHolder;
         }
 
         public Customer FindCustomer(string CustomerId)
@@ -52,7 +103,7 @@ namespace SmartStore.CreditCardPay.Services
             return Customer.FindAll();
         }
 
-        public string AddPaymentMethod(string CustomerId, CreditCard card)
+        public string AddPaymentMethod(string customerId, CreditCard card)
         {
             var cus = FindCustomer(CustomerId);
             var paymentMethod = cus.AddPaymentMethod(
@@ -71,12 +122,30 @@ namespace SmartStore.CreditCardPay.Services
             return paymentMethod.Id;
         }
 
+        private RecurringPaymentMethod AddPaymentMethod(Customer customer, CreditCard card)
+        {           
+            var paymentMethod = customer.AddPaymentMethod(
+                                 PaymentId("credit"),
+                                 new CreditCardData
+                                 {
+                                     Number = card.Number,
+                                     ExpMonth = card.ExpMonth,
+                                     ExpYear = card.ExpYear,
+                                     Cvn = card.Cvv,
+                                     // Token = card.Token
+                                 }
+                             )
 
+                .Create();
+            return paymentMethod;
+        }
 
         public IList<PaymentMethod> GetAllPaymentMethods(string customerId)
         {            
             var result = new List<PaymentMethod>();
             var cus = FindCustomer(customerId);
+            if (cus == null) return result;
+
             var paymentMethod = cus.PaymentMethods;           
 
             for (int i =0; i < paymentMethod.Count; i++)
@@ -111,6 +180,20 @@ namespace SmartStore.CreditCardPay.Services
         }
 
         private string CustomerId => string.Format("{0}-GlobalApi-{1}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1, 2000000));
+
+        private HlResponse MapResponse(Transaction sac, string customerId = "")
+        {
+            return new HlResponse
+            {
+                AuthorizationCode = sac.AuthorizationCode,
+                ResponseCode = sac.ResponseCode,
+                ResponseText = sac.ResponseMessage,
+                TransactionId = sac.TransactionId,
+                HlCustomerId = customerId,
+                PaymentMethodType = sac.PaymentMethodType.ToString(),
+                CardType = sac.CardType
+            };
+        }
     }
 
 }

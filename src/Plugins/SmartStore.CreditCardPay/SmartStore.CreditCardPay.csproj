@@ -52,7 +52,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Presentation\SmartStore.Web\Plugins\SmartStore.Shipping\</OutputPath>
+    <OutputPath>..\..\Presentation\SmartStore.Web\Plugins\SmartStore.CreditCardPay\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -253,22 +253,14 @@
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\CreditCardPayController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Domain\CustomerAddress.cs" />
+    <Compile Include="Domain\CustomerPaymentProfile.cs" />
     <Compile Include="Domain\CustomerProfile.cs" />
-    <Compile Include="Domain\CustomerPayment.cs" />
     <Compile Include="Exceptions\ErrorCode.cs" />
     <Compile Include="Exceptions\HeartlandCustomerErrorException.cs" />
-    <Compile Include="Mapping\CustomerAddressMapping.cs" />
     <Compile Include="Mapping\CustomerPaymentMapping.cs" />
-    <Compile Include="Mapping\CustomerProfileMapping.cs" />
-    <Compile Include="Migrations\202203150857416_Database_Initializing.cs" />
-    <Compile Include="Migrations\202203150857416_Database_Initializing.designer.cs">
-      <DependentUpon>202203150857416_Database_Initializing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203151203495_Changed_Address_FK_CustomerProfile.cs" />
-    <Compile Include="Migrations\202203151203495_Changed_Address_FK_CustomerProfile.designer.cs">
-      <DependentUpon>202203151203495_Changed_Address_FK_CustomerProfile.cs</DependentUpon>
+    <Compile Include="Migrations\202203240043163_Database_Initializing.cs" />
+    <Compile Include="Migrations\202203240043163_Database_Initializing.designer.cs">
+      <DependentUpon>202203240043163_Database_Initializing.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CardHolder.cs" />
@@ -276,7 +268,6 @@
     <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\CreditCardChargeDetail.cs" />
     <Compile Include="Models\HlResponse.cs" />
-    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\PaymentMethod.cs" />
     <Compile Include="Models\PaymentTransaction.cs" />
     <Compile Include="Models\Token.cs" />
@@ -285,7 +276,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DependencyRegistrar.cs" />
-    <Compile Include="Domain\ShippingByTotalRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteProvider.cs" />
     <Compile Include="Services\CreditCardPaymentProcess.cs" />
@@ -322,10 +312,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\CreditCardPay\Configure.cshtml" />
-    <Content Include="Views\CreditCardPay\CardList.cshtml" />
+    <Content Include="Views\CreditCardPay\Configure.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\CreditCardPay\CardList.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\CreditCardPay\CardListDetail.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -374,11 +372,8 @@
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203150857416_Database_Initializing.resx">
-      <DependentUpon>202203150857416_Database_Initializing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203151203495_Changed_Address_FK_CustomerProfile.resx">
-      <DependentUpon>202203151203495_Changed_Address_FK_CustomerProfile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203240043163_Database_Initializing.resx">
+      <DependentUpon>202203240043163_Database_Initializing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

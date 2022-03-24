@@ -28,9 +28,8 @@ namespace SmartStore.CreditCardPay.Data
         {
         }
 
-        public DbSet<CustomerProfile> CustomerProfiles { get; set; }
-        public DbSet<CustomerAddress> CustomerAddresss { get; set; }
-        public DbSet<CustomerPayment> CustomerPayments { get; set; }
+       
+       // public DbSet<CustomerPaymentProfile> CustomerPaymentProfiles { get; set; }
 
         public CreditCardPayContext(string nameOrConnectionString)
             : base(nameOrConnectionString, ALIASKEY)
@@ -40,9 +39,9 @@ namespace SmartStore.CreditCardPay.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
           //  modelBuilder.Entity<CustomerAddress>().ToTable("CCCustomerAddress");
-             modelBuilder.Configurations.Add(new CustomerProfileMapping());
+            
              modelBuilder.Configurations.Add(new CustomerPaymentMapping());
-             modelBuilder.Configurations.Add(new CustomerAddressMapping());
+
 
             //var typesToRegister = from t in Assembly.GetExecutingAssembly().GetTypes()
             //                      where t.Namespace.HasValue() &&
@@ -59,7 +58,8 @@ namespace SmartStore.CreditCardPay.Data
             //}
 
             //disable EdmMetadata generation
-            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
+           // modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
+           // Database.SetInitializer<CreditCardPayContext>(null);
             base.OnModelCreating(modelBuilder);
         }
 

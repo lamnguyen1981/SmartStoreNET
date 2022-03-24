@@ -10,7 +10,7 @@ namespace SmartStore.CreditCardPay.Services
 
         HlResponse Charge(CreditCard card, string currency, decimal amount);
 
-        HlResponse Charge(CreditCardChargeDetail cardCharge);
+       // HlResponse Charge(CreditCardChargeDetail cardCharge);
 
         HlResponse Refund(string transactionId, decimal amount, string currency);
 

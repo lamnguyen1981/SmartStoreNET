@@ -17,6 +17,7 @@ namespace SmartStore.CreditCardPay
             builder.RegisterType<HeartlandReportService>().As<IHeartlandReportService>().InstancePerRequest();
             builder.RegisterType<CreditCardPaymentProcess>().As<ICreditCardPaymentProcess>().InstancePerRequest();
             builder.RegisterType<CreditCardPaySettings>().As<CreditCardPaySettings>().InstancePerRequest();
+            builder.RegisterType<HeartlandRecurrService>().As<IHeartlandRecurrService>().InstancePerRequest();
 
             //data layer
             //register named context
@@ -28,18 +29,18 @@ namespace SmartStore.CreditCardPay
                 .InstancePerRequest();
 
             //override required repository with our custom context
-            builder.RegisterType<EfRepository<CustomerAddress>>()
-                .As<IRepository<CustomerAddress>>()
-                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
-                .InstancePerRequest();
+            //builder.RegisterType<EfRepository<CustomerAddress>>()
+            //    .As<IRepository<CustomerAddress>>()
+            //    .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
+            //    .InstancePerRequest();
 
-            builder.RegisterType<EfRepository<CustomerProfile>>()
-                .As<IRepository<CustomerProfile>>()
-                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
-                .InstancePerRequest();
+            //builder.RegisterType<EfRepository<CustomerProfile>>()
+            //    .As<IRepository<CustomerProfile>>()
+            //    .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
+            //    .InstancePerRequest();
 
-            builder.RegisterType<EfRepository<CustomerPayment>>()
-               .As<IRepository<CustomerPayment>>()
+            builder.RegisterType<EfRepository<CustomerPaymentProfile>>()
+               .As<IRepository<CustomerPaymentProfile>>()
                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
                .InstancePerRequest();
         }

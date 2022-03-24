@@ -11,22 +11,25 @@ namespace SmartStore.CreditCardPay.Services
     public class CreditCardPaymentProcess: ICreditCardPaymentProcess
     {
         private readonly IHeartlandCreditService _cardSubmitService;
-        private readonly IRepository<CustomerPayment> _cusPayRepository;      
+        private readonly IHeartlandRecurrService _cardRecurrService;
+        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;      
 
         public CreditCardPaymentProcess(
-            IRepository<CustomerPayment> cusPayRepository,         
-            IHeartlandCreditService cardSubmitService
+            IRepository<CustomerPaymentProfile> cusPayRepository,         
+            IHeartlandCreditService cardSubmitService,
+            IHeartlandRecurrService cardRecurrService
             )
         {
             _cardSubmitService = cardSubmitService;
-            _cusPayRepository = cusPayRepository;           
+            _cusPayRepository = cusPayRepository;
+            _cardRecurrService = cardRecurrService;
         }
 
         public int ProcessPayment(CreditCardChargeDetail order, int clientCustomerId)
         {
             try
             {
-                // var hlCustomerId = string.Empty;
+                var hlCustomerId = string.Empty;
                 var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == clientCustomerId && x.HlCustomerProfileId != null);
                 var existingCustomerId = string.Empty;
 
@@ -36,23 +39,20 @@ namespace SmartStore.CreditCardPay.Services
                     order.HlCustomerId = existingCustomerId;
                 }
 
-                var response = _cardSubmitService.Charge(order);                               
+                var response = _cardRecurrService.Charge(order);                               
 
-                var payment = new CustomerPayment
+                if (order.isSaveCard)
                 {
-                    CreateDate = DateTime.UtcNow,
-                    CustomerProfileId = clientCustomerId,                  
-                    TransactionId = response.TransactionId,
-                    PaymentMethodType = response.PaymentMethodType.ToString()
-
-                 };
-
-                if (String.IsNullOrEmpty(existingCustomerId))
-                {
-                    payment.HlCustomerProfileId = response.HlCustomerId;
-                }
-
-                _cusPayRepository.Insert(payment);
+                    var payment = new CustomerPaymentProfile
+                    {
+                        CreateDate = DateTime.UtcNow,
+                        CustomerProfileId = clientCustomerId,
+                        CustomerPaymentProfileId = response.PaymentLinkId,
+                        HlCustomerProfileId = order.HlCustomerId,
+                        CustomerPaymentProfileAlias = order.Card.CardAlias
+                    };
+                    _cusPayRepository.Insert(payment);
+                }                            
                 return 0;
               
             }

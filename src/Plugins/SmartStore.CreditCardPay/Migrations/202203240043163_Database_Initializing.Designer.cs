@@ -7,13 +7,13 @@ namespace SmartStore.CreditCardPay.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Database_Innitializing : IMigrationMetadata
+    public sealed partial class Database_Initializing : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Database_Innitializing));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Database_Initializing));
         
         string IMigrationMetadata.Id
         {
-            get { return "202203180222255_Database_Innitializing"; }
+            get { return "202203240043163_Database_Initializing"; }
         }
         
         string IMigrationMetadata.Source

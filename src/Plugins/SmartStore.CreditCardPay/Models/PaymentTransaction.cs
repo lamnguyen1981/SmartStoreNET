@@ -13,7 +13,7 @@ namespace SmartStore.CreditCardPay.Models
         /// The originally requested authorization amount.
         /// </summary>
         /// 
-        public decimal? Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public string CardHolderFirstName { get; set; }
 
@@ -33,7 +33,7 @@ namespace SmartStore.CreditCardPay.Models
 
         public string OrderId { get; set; }
 
-        public DateTime? TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; }
 
         public string TransactionId { get; set; }
 

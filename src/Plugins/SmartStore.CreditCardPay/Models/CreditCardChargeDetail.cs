@@ -22,7 +22,7 @@
 
         public decimal WithSurchargeAmount { get; set; }
 
-        public string PaymentLinkId { get; set; }        
+        public string PaymentProfileId { get; set; }        
 
     }
 }

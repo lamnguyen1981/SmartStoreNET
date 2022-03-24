@@ -6,13 +6,15 @@ namespace SmartStore.CreditCardPay.Services
 {
     public interface IHeartlandRecurrService
     {
-        string AddCustomer(CardHolder holder);
+        Customer AddCustomer(CardHolder holder);
 
         IList<PaymentMethod> GetAllPaymentMethods(string CustomerId);
 
         string AddPaymentMethod(string CustomerId, CreditCard card);
 
         IList<Customer> FindAll();
+
+        HlResponse Charge(CreditCardChargeDetail cardCharge);
 
 
     }

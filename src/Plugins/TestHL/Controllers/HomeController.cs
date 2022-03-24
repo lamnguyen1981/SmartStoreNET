@@ -21,6 +21,15 @@ namespace TestHL.Controllers
 
         public ActionResult Index()
         {
+
+             TestWithNewPayment();
+           // _recurrService.GetAllPaymentMethods(1);
+            return View();
+        }
+
+
+        private void TestWithNewPayment()
+        {
             var charge = new CreditCardChargeDetail
             {
                 Card = new CreditCard
@@ -33,27 +42,26 @@ namespace TestHL.Controllers
                 },
                 Holder = new CardHolder
                 {
-                     Address= "6860 Dallas Pkwy",
-                      City="HCM",
-                       Email="haisa@gmail.com",
-                        FirstName="Tony",
-                         LastName="Pham",
-                           PhoneNumber = "9876543210",
-                             Zip = "750241234",
-                              Country = "USA"
-                             
+                    Address = "6860 Dallas Pkwy",
+                    City = "HCM",
+                    Email = "haisa@gmail.com",
+                    FirstName = "Tony",
+                    LastName = "Pham",
+                    PhoneNumber = "9876543210",
+                    Zip = "750241234",
+                    Country = "USA"
+
 
                 },
-                 Amount=34,
-                  Currency="USD",
-                   isSaveCard = true,
-                    OrderId = "2323",
-                     WithShippingAmt =2
+                Amount = 34,
+                Currency = "USD",
+                isSaveCard = true,
+                OrderId = "2323",
+                WithShippingAmt = 2
             };
-         //   _service.ProcessPayment(charge, 3);
-            _recurrService.GetAllPaymentMethods("202203214656-GlobalApi-1780274");
-            return View();
+               _service.ProcessPayment(charge, 1);
         }
+
 
         public ActionResult About()
         {

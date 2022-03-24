@@ -1,4 +1,5 @@
 ﻿using SmartStore.ComponentModel;
+using SmartStore.Core;
 using SmartStore.Core.Data;
 using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Models;
@@ -17,14 +18,17 @@ namespace SmartStore.CreditCardPay.Controllers
     public class CreditCardPayController : PluginControllerBase
     {
         private readonly IHeartlandRecurrService _cardService;
-        private readonly IRepository<CustomerPayment> _cusPayRepository;
+        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;
+        private readonly IWorkContext _workContext;
 
         public CreditCardPayController(IHeartlandRecurrService cardService,
-                                   IRepository<CustomerPayment> cusPayRepository)
+                                    IWorkContext workContext,
+                                   IRepository<CustomerPaymentProfile> cusPayRepository)
 
         {
             _cardService = cardService;
             _cusPayRepository = cusPayRepository;
+            _workContext = workContext;
         }
         // GET: CreditPay
         public ActionResult Index()
@@ -58,19 +62,42 @@ namespace SmartStore.CreditCardPay.Controllers
             return RedirectToConfiguration("SmartStore.CreditCardPay");
         }
 
-        public ActionResult CardList(int customerId)
+        public ActionResult CardList()
+        {
+            ViewBag.PageTitle = "Credit Card List";                     
+
+             return View();
+            
+        }
+
+        public ActionResult CardListDetail()
         {
             ViewBag.PageTitle = "Credit Card List";
 
-            /* var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == customerId && x.HlCustomerProfileId != null);
+            int customerid = _workContext.CurrentCustomer.Id;
+            var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == customerid && x.HlCustomerProfileId != null);
 
-             if (customerPayment == null) 
-                 return View();
+            if (customerPayment == null)
+                return View();
 
-             var cardList = _cardService.GetAllPaymentMethods(customerPayment.HlCustomerProfileId);           
+            // var cardList = _cardService.GetAllPaymentMethods(customerPayment.HlCustomerProfileId);
+            var TestData = new List<PaymentMethod>();
 
-             return View(cardList);*/
-            return View();
+            TestData.Add(new PaymentMethod
+            {
+                CardMask = "4546********3434",
+                CardType = "Visa",
+                ExpireDate = "1225"
+            });
+
+            TestData.Add(new PaymentMethod
+            {
+                CardMask = "45126********3489",
+                CardType = "Visa",
+                ExpireDate = "1229"
+            });
+            return View(TestData);
+
         }
     }
 }
