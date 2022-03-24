@@ -1,7 +1,7 @@
 ﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
 
   <LocaleResource Name="Plugins.FriendlyName.SmartStore.CreditCardPay" AppendRootKey="false">
-    <Value>Credit Card Pay</Value>
+    <Value>Credit Card Pay Lam</Value>
   </LocaleResource>
   <LocaleResource Name="Plugins.Description.SmartStore.CreditCardPay" AppendRootKey="false">
     <Value>Online payment by using Credit Card</Value>

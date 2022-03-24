@@ -26,7 +26,7 @@ namespace SmartStore.CreditCardPay.Services
                 cardChargeInfo.HlCustomerId = customer.Id;
 
                 paymentMethod = AddPaymentMethod(customer, cardChargeInfo.Card);
-                cardChargeInfo.PaymentProfileId = paymentMethod.Key;
+                cardChargeInfo.PaymentProfileId = paymentMethod.Id;
             }
             else if (!String.IsNullOrEmpty(cardChargeInfo.PaymentProfileId) )
             {
@@ -62,7 +62,7 @@ namespace SmartStore.CreditCardPay.Services
                   .WithPaymentLinkId(cardChargeInfo.PaymentProfileId)
                    .Execute();
 
-            return MapResponse(response, cardChargeInfo.HlCustomerId);
+            return MapResponse(response, cardChargeInfo.HlCustomerId, paymentMethod.Id);
 
         }
 
@@ -181,7 +181,7 @@ namespace SmartStore.CreditCardPay.Services
 
         private string CustomerId => string.Format("{0}-GlobalApi-{1}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1, 2000000));
 
-        private HlResponse MapResponse(Transaction sac, string customerId = "")
+        private HlResponse MapResponse(Transaction sac, string customerId , string paymentId)
         {
             return new HlResponse
             {
@@ -191,7 +191,8 @@ namespace SmartStore.CreditCardPay.Services
                 TransactionId = sac.TransactionId,
                 HlCustomerId = customerId,
                 PaymentMethodType = sac.PaymentMethodType.ToString(),
-                CardType = sac.CardType
+                CardType = sac.CardType,
+                PaymentLinkId = paymentId
             };
         }
     }

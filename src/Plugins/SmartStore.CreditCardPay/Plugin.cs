@@ -44,7 +44,7 @@ namespace SmartStore.CreditCardPay
         {
 
             //if widgetZone = "myaccount_menu_after"
-            actionName = "CardList";
+            actionName = "CardMenuItem";
             controllerName = "CreditCardPay";
             routeValues = new RouteValueDictionary
                 {

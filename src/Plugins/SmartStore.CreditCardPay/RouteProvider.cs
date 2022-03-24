@@ -9,14 +9,14 @@ namespace SmartStore.CreditCardPay
         public void RegisterRoutes(RouteCollection routes)
         {
             routes.MapRoute("SmartStore.CreditCardPay.CardList",
-                 "Plugin/SmartStore.CreditCardPay/{action}",
+                 "Plugin/CreditCardPay/{action}",
                  new { controller = "CreditCardPay", action = "CardList" },
                  new[] { "SmartStore.CreditCardPay.Controllers" }
             )
             .DataTokens["area"] = Plugin.SystemName;
 
             routes.MapRoute("SmartStore.CreditCardPay.Configure",
-                "Plugin/SmartStore.CreditCardPay/{action}",
+                "Plugin/CreditCardPay/{action}",
                 new { controller = "CreditCardPay", action = "Configure" },
                 new[] { "SmartStore.CreditCardPay.Controllers" }
            )
@@ -28,6 +28,15 @@ namespace SmartStore.CreditCardPay
                new[] { "SmartStore.CreditCardPay.Controllers" }
           )
           .DataTokens["area"] = Plugin.SystemName;
+
+            routes.MapRoute("SmartStore.CreditCardPay.CardMenuItem",
+               "Plugin/CreditCardPay/{action}",
+               new { controller = "CreditCardPay", action = "CardMenuItem" },
+               new[] { "SmartStore.CreditCardPay.Controllers" }
+          )
+          .DataTokens["area"] = Plugin.SystemName;
+
+            
         }
 
 

@@ -19,16 +19,19 @@ namespace SmartStore.CreditCardPay.Controllers
     {
         private readonly IHeartlandRecurrService _cardService;
         private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;
+      //  private readonly CreditCardPaySettings _settings;
         private readonly IWorkContext _workContext;
 
         public CreditCardPayController(IHeartlandRecurrService cardService,
                                     IWorkContext workContext,
+                                //    CreditCardPaySettings settings,
                                    IRepository<CustomerPaymentProfile> cusPayRepository)
 
         {
             _cardService = cardService;
             _cusPayRepository = cusPayRepository;
             _workContext = workContext;
+          //  _settings = settings;
         }
         // GET: CreditPay
         public ActionResult Index()
@@ -57,20 +60,25 @@ namespace SmartStore.CreditCardPay.Controllers
             {
                 return Configure(settings);
             }
-
+            //var storeDependingSettingHelper = new StoreDependingSettingHelper(ViewData);
+            //var storeScope = this.GetActiveStoreScopeConfiguration(Services.StoreService, Services.WorkContext);
+            //var setting = Services.Settings.LoadSetting<CreditCardPaySettings>(storeScope);
+            //using (Services.Settings.BeginScope())
+            //{
+            //    storeDependingSettingHelper.UpdateSettings(settings, form, storeScope, Services.Settings);
+            //}
             MiniMapper.Map(model, settings);
             return RedirectToConfiguration("SmartStore.CreditCardPay");
         }
+        
 
-        public ActionResult CardList()
+        public ActionResult CardMenuItem()
         {
-            ViewBag.PageTitle = "Credit Card List";                     
-
-             return View();
-            
+            return PartialView();
         }
 
-        public ActionResult CardListDetail()
+        [LoadSetting]
+        public ActionResult CardListDetail(CreditCardPaySettings settings)
         {
             ViewBag.PageTitle = "Credit Card List";
 
@@ -79,24 +87,10 @@ namespace SmartStore.CreditCardPay.Controllers
 
             if (customerPayment == null)
                 return View();
-
-            // var cardList = _cardService.GetAllPaymentMethods(customerPayment.HlCustomerProfileId);
-            var TestData = new List<PaymentMethod>();
-
-            TestData.Add(new PaymentMethod
-            {
-                CardMask = "4546********3434",
-                CardType = "Visa",
-                ExpireDate = "1225"
-            });
-
-            TestData.Add(new PaymentMethod
-            {
-                CardMask = "45126********3489",
-                CardType = "Visa",
-                ExpireDate = "1229"
-            });
-            return View(TestData);
+           // _cardService.ba
+            var cardList = _cardService.GetAllPaymentMethods(customerPayment.HlCustomerProfileId);
+           
+            return View(cardList);
 
         }
     }

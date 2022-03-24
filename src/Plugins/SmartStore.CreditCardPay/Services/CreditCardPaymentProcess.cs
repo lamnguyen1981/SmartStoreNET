@@ -1,4 +1,5 @@
 ﻿using GlobalPayments.Api.Entities;
+using SmartStore.Core;
 using SmartStore.Core.Data;
 using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Exceptions;
@@ -12,17 +13,20 @@ namespace SmartStore.CreditCardPay.Services
     {
         private readonly IHeartlandCreditService _cardSubmitService;
         private readonly IHeartlandRecurrService _cardRecurrService;
-        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;      
+        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository; 
+       // private readonly IWorkContext _workContext;
 
         public CreditCardPaymentProcess(
             IRepository<CustomerPaymentProfile> cusPayRepository,         
             IHeartlandCreditService cardSubmitService,
             IHeartlandRecurrService cardRecurrService
+         //   IWorkContext workContext
             )
         {
             _cardSubmitService = cardSubmitService;
             _cusPayRepository = cusPayRepository;
             _cardRecurrService = cardRecurrService;
+           // _workContext = workContext;
         }
 
         public int ProcessPayment(CreditCardChargeDetail order, int clientCustomerId)
@@ -50,6 +54,7 @@ namespace SmartStore.CreditCardPay.Services
                         CustomerPaymentProfileId = response.PaymentLinkId,
                         HlCustomerProfileId = order.HlCustomerId,
                         CustomerPaymentProfileAlias = order.Card.CardAlias
+                       // CreateByUser = _workContext.CurrentCustomer.Id
                     };
                     _cusPayRepository.Insert(payment);
                 }                            

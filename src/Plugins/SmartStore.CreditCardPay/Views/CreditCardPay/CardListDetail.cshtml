@@ -1,4 +1,4 @@
-﻿@model SmartStore.CreditCardPay.Models.PaymentMethod
+﻿@model IList<SmartStore.CreditCardPay.Models.PaymentMethod>
 @{
     ViewBag.Title = "CardList1";
 }
@@ -35,7 +35,7 @@
     }
 
         .credit-card-last4:before {
-            content: "**** **** **** ";
+          
             color: #4f4d4d;
             font-size: 20px;
         }
@@ -48,7 +48,7 @@
 
     .credit-card.diners-club .credit-card-last4:before,
     .credit-card.diners .credit-card-last4:before {
-        content: "**** ****** ";
+       
     }
 
     .credit-card-expiry {
@@ -192,20 +192,22 @@
     <!-- Cards -->
     <!-- Visa - selectable -->
 
-
-    @for (int i = 0; i < Model.Count; i++)
+    @if (Model != null)
     {
-        var card = Model[i];
-        <div class="credit-card visa selectable">
-            <div class="credit-card-last4">
-                @card.CardMask
+        foreach (var item in Model)
+        {
+            <div class="credit-card visa selectable">
+                <div class="credit-card-last4">
+                    @item.CardMask
+                </div>
+                <div class="credit-card-expiry">
+                    @item.ExpireDate
+                </div>
             </div>
-            <div class="credit-card-expiry">
-                @@card.ExpireDate
-            </div>
-        </div>
 
+        }
     }
+
 
 </div>
 

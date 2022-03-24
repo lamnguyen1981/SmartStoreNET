@@ -3,7 +3,7 @@
   <Runtime>
     <ConceptualModels>
       <Schema Namespace="SmartStore.CreditCardPay.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CustomerPaymentProfile" customannotation:ClrType="SmartStore.CreditCardPay.Domain.CustomerPaymentProfile, SmartStore.CreditCardPay, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
+        <EntityType Name="CustomerPaymentProfile" customannotation:ClrType="SmartStore.CreditCardPay.Domain.CustomerPaymentProfile, SmartStore.CreditCardPay, Version=4.3.0.0, Culture=neutral, PublicKeyToken=null">
           <Key>
             <PropertyRef Name="Id" />
           </Key>

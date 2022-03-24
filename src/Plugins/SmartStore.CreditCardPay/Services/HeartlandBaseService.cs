@@ -11,6 +11,12 @@ namespace SmartStore.CreditCardPay.Services
                 SecretApiKey = settings.HearlandSecretKey
             });
         }
+
+
+        public virtual void SetupConfiguration(CreditCardPaySettings settings)
+        {
+
+        }
         
     }
 }
