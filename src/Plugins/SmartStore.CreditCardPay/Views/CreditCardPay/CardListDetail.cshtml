@@ -1,6 +1,9 @@
 ﻿@model IList<SmartStore.CreditCardPay.Models.PaymentMethod>
 @{
-    ViewBag.Title = "CardList1";
+   // Html.AddTitleParts(T("PageTitle.Account").Text)​
+	Layout = "_MyAccount";
+  //  ViewBag.PageClassToken = "addresses";
+   // ViewBag.PageTitle = T("Account.CustomerAddresses").Text;
 }
 
 <link href="~/Content/Site.css" rel="stylesheet" />
@@ -32,6 +35,7 @@
     .credit-card-last4 {
         font-family: "PT Mono", Helvetica, sans-serif;
         font-size: 24px;
+        margin-bottom:20px;
     }
 
         .credit-card-last4:before {
@@ -184,7 +188,7 @@
 <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
 
 <div style='margin: auto; width: 400px; max-width: 95vw; font-family: "Helvetica Neue", Helvetica, sans-serif; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); padding: 10px; margin-top: 50px; margin-bottom: 50px; border-radius: 15px; background: #f9fcff;'>
-    <h1 style="font-weight: 500; text-align: center; ">Saved Cards</h1>
+   
 
     <!--
     INFO: The selectable class adds a pointer and shadow animations on hover.
