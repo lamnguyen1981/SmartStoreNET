@@ -12,6 +12,10 @@ namespace SmartStore.CreditCardPay.Services
 
         string AddPaymentMethod(string CustomerId, CreditCard card);
 
+        string DeletePaymentMethod(string paymentProfileId);
+
+        string AddPaymentMethod(CardHolder customer, CreditCard card);
+
         IList<Customer> FindAll();
 
         HlResponse Charge(CreditCardChargeDetail cardCharge);

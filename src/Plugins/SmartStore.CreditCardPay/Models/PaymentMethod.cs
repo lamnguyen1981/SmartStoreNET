@@ -15,5 +15,7 @@
         public string CardType { get; set; }
 
         public string CardMask { get; set; }
+
+        public string PaymentProfileId { get; set; }
     }
 }

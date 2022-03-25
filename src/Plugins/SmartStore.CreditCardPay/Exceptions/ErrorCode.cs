@@ -11,5 +11,7 @@
         public const int UnsupportedTransactionException = 18502;
 
         public const int Unknow = 18503;
+
+        public const int InvalidCardData = 18504;
     }
 }

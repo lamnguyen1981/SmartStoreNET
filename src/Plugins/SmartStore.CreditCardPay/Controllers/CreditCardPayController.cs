@@ -93,5 +93,86 @@ namespace SmartStore.CreditCardPay.Controllers
             return View(cardList);
 
         }
+
+        [LoadSetting]
+        public ActionResult AddCard(CreditCardPaySettings settings)
+        {
+
+            return View();
+
+        }
+
+        
+        [LoadSetting]
+        public ActionResult DeleteCard(CreditCardPaySettings settings, string paymentProfileId)
+        {
+            if (!String.IsNullOrEmpty(paymentProfileId))
+            {
+                int clientCustomerid = _workContext.CurrentCustomer.Id;
+                _cardService.DeletePaymentMethod(paymentProfileId);
+
+                var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerPaymentProfileId == paymentProfileId);
+                if (customerPayment != null)
+                {
+                    _cusPayRepository.Delete(customerPayment);
+                }
+            }
+
+            return RedirectToAction("CardListDetail");
+
+        }
+
+        [LoadSetting]
+       
+        public ActionResult SaveCard(CreditCardPaySettings settings, string Token_value)
+        {
+            int clientCustomerid = _workContext.CurrentCustomer.Id;           
+            string hlCustomerId = String.Empty;
+            var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == clientCustomerid && x.HlCustomerProfileId != null);
+            if (customerPayment != null)
+            {
+                hlCustomerId = customerPayment.HlCustomerProfileId;                
+            }
+            else
+            {
+                var cardHolder = new CardHolder
+                {
+                    FirstName = _workContext.CurrentCustomer.FirstName,
+                    LastName = _workContext.CurrentCustomer.LastName,
+                    Email = _workContext.CurrentCustomer.Email,
+                    Address = _workContext.CurrentCustomer.BillingAddress.Address1,
+                    City = _workContext.CurrentCustomer.BillingAddress.City,
+                    Country = _workContext.CurrentCustomer.BillingAddress.Country.ThreeLetterIsoCode,
+                    PhoneNumber = _workContext.CurrentCustomer.BillingAddress.PhoneNumber,                   
+                    Zip = _workContext.CurrentCustomer.BillingAddress.ZipPostalCode
+                };
+                hlCustomerId = _cardService.AddCustomer(cardHolder).Id;
+            }
+
+            var card = new CreditCard { Token = Token_value };
+
+            if (!String.IsNullOrEmpty(hlCustomerId))
+            {
+                var result =  _cardService.AddPaymentMethod(hlCustomerId, card);
+
+                if (!String.IsNullOrEmpty(result))
+                {
+                    var payment = new CustomerPaymentProfile
+                    {
+                        CreateDate = DateTime.UtcNow,
+                        CustomerProfileId = clientCustomerid,
+                        CustomerPaymentProfileId = result,                  
+                      
+                        CreateByUser = _workContext.CurrentCustomer.Id
+                    };
+
+                    if (customerPayment == null) payment.HlCustomerProfileId = hlCustomerId;
+                    _cusPayRepository.Insert(payment);
+                }
+            }
+
+            return RedirectToAction("CardListDetail");
+
+        }
     }
 }

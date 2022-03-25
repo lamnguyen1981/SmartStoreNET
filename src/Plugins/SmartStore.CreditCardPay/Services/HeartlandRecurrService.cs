@@ -1,6 +1,7 @@
 ﻿using GlobalPayments.Api.Entities;
 using GlobalPayments.Api.PaymentMethods;
 using GlobalPayments.Api.Services;
+using SmartStore.CreditCardPay.Exceptions;
 using SmartStore.CreditCardPay.Models;
 using System;
 using System.Collections.Generic;
@@ -78,8 +79,7 @@ namespace SmartStore.CreditCardPay.Services
                 {
                     StreetAddress1 = holder.Address,
                     City = holder.City,
-                    Country = holder.Country,
-                    State = holder.State,
+                    Country = holder.Country,                   
                     PostalCode = holder.Zip,
 
 
@@ -103,7 +103,7 @@ namespace SmartStore.CreditCardPay.Services
             return Customer.FindAll();
         }
 
-        public string AddPaymentMethod(string customerId, CreditCard card)
+        public string AddPaymentMethod(CardHolder customer, CreditCard card)
         {
             var cus = FindCustomer(CustomerId);
             var paymentMethod = cus.AddPaymentMethod(
@@ -114,8 +114,53 @@ namespace SmartStore.CreditCardPay.Services
                                      ExpMonth = card.ExpMonth,
                                      ExpYear = card.ExpYear,
                                      Cvn = card.Cvv,
-                                    // Token = card.Token
+                                     // Token = card.Token
                                  }
+                             )
+
+                .Create();
+            return paymentMethod.Id;
+        }
+
+        public string AddPaymentMethod(string customerId, CreditCard card)
+        {
+            CreditCardData cardData = null;
+
+            if (card.Token != null)
+            {
+                cardData = new CreditCardData { Token = card.Token };
+            }
+            else
+
+            {
+                cardData = new CreditCardData
+                {
+                    Number = card.Number,
+                    ExpMonth = card.ExpMonth,
+                    ExpYear = card.ExpYear,
+                    Cvn = card.Cvv,
+                    // Token = card.Token
+                };
+            };
+
+           /* var validCard = cardData.Verify()
+                             .WithCurrency("USD")
+                             .WithCustomerId(customerId)
+                             .Execute();
+
+            if (validCard.ResponseCode != "00")
+            {
+                throw new HeartlandCustomerErrorException
+                {
+                    Code = ErrorCode.InvalidCardData,
+                    Detail = "Card Data is invalid"
+                };
+            }*/
+
+            var cus = FindCustomer(customerId);
+            var paymentMethod = cus.AddPaymentMethod(
+                                 PaymentId("credit"),
+                                 cardData
                              )
                
                 .Create();
@@ -140,6 +185,13 @@ namespace SmartStore.CreditCardPay.Services
             return paymentMethod;
         }
 
+        public string DeletePaymentMethod(string paymentProfileId)
+        {
+            var paymentMethod = RecurringPaymentMethod.Find(paymentProfileId);
+            paymentMethod.Delete();
+            return "00";
+        }
+
         public IList<PaymentMethod> GetAllPaymentMethods(string customerId)
         {            
             var result = new List<PaymentMethod>();
@@ -155,7 +207,8 @@ namespace SmartStore.CreditCardPay.Services
                 {
                     CardHolderName = paymentMethod[i].NameOnAccount,
                     CardType = paymentMethod[i].PaymentType,
-                    ExpireDate = paymentMethod[i].ExpirationDate
+                    ExpireDate = paymentMethod[i].ExpirationDate,
+                    PaymentProfileId = paymentMethod[i].Id
                 };
 
                 var tran = ReportingService.FindTransactions()
