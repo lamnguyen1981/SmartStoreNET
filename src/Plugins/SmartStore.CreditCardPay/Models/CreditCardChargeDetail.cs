@@ -10,7 +10,7 @@
 
         public string HlCustomerId { get; set; }
 
-        public bool isSaveCard { get; set; }
+        public bool IsSaveCard { get; set; }
 
         public decimal Amount { get; set; }
 

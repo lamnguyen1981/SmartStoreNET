@@ -95,7 +95,7 @@ namespace SmartStore.CreditCardPay.Services
         //        cardChargeInfo.HlCustomerId = _recurrService.AddCustomer(cardChargeInfo.Holder);
         //    }
 
-        //    if (cardChargeInfo.isSaveCard)
+        //    if (cardChargeInfo.IsSaveCard)
         //    {
         //        cardChargeInfo.PaymentProfileId = _recurrService.AddPaymentMethod(cardChargeInfo.HlCustomerId, cardChargeInfo.Card);
         //    }

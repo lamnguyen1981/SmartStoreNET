@@ -21,7 +21,7 @@ namespace SmartStore.CreditCardPay.Services
         {
             RecurringPaymentMethod paymentMethod = null;
 
-            if (cardChargeInfo.isSaveCard)
+            if (cardChargeInfo.IsSaveCard)
             {
                 var customer =  AddCustomer(cardChargeInfo.Holder);
                 cardChargeInfo.HlCustomerId = customer.Id;

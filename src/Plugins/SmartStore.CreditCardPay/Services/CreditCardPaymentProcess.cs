@@ -45,7 +45,7 @@ namespace SmartStore.CreditCardPay.Services
 
                 var response = _cardRecurrService.Charge(order);                               
 
-                if (order.isSaveCard)
+                if (order.IsSaveCard)
                 {
                     var payment = new CustomerPaymentProfile
                     {
