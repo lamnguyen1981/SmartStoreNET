@@ -8,7 +8,7 @@
 }
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://api2.heartlandportico.com/SecureSubmit.v1/token/2.1/securesubmit.js"></script>
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
 
 @*@using (Html.BeginForm())
     {
@@ -27,71 +27,74 @@
          padding-top:55px;
     }
 </style>
+
 <form id="payment_form" action="@Url.Action("SaveCard")">
     <div class="form-horizontal">
-        @*<div class="form-group row">
+        <fieldset>
+            @*<div class="form-group row">
             <label class="col-lg-3 col-form-label">Card Holder Name</label>
             <div class="col-lg-9">
-               
+
                 <input type="text" name="CardHolderName" class="form-control" id="heartland-field"/>
 
             </div>
         </div>*@
-        <div class="form-group row">
-            <label class="col-lg-3 col-form-label">Card Alias</label>
-            <div class="col-lg-9">
-                
-                <input type="text" name="CardAlias" class="form-control" id="heartland-field"/>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Card Alias</label>
+                <div class="col-lg-9">
 
+                    <input type="text" name="CardAlias" class="form-control" id="heartland-field" />
+
+                </div>
             </div>
-        </div>
-        <div><hr /></div>
-        <div class="form-group row">
-            <div class="col-lg-3  lablebottom required">
-                <label for="iframesCardNumber">Card Number:</label>
+            <div><hr /></div>
+            <div class="form-group row">
+                <div class="col-lg-3  lablebottom required">
+                    <label for="iframesCardNumber">Card Number:</label>
 
+                </div>
+                <div class="col-lg-9">
+
+                    <div id="iframesCardNumber"></div>
+                </div>
             </div>
-            <div class="col-lg-9">
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label required" for="iframesCardExpiration">Card Expiration:</label>
+                <div class="col-lg-9">
 
-                <div id="iframesCardNumber"></div>
+                    <div id="iframesCardExpiration"></div>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-lg-3 col-form-label required" for="iframesCardExpiration">Card Expiration:</label>
-            <div class="col-lg-9">
+            <div class="form-group row">
+                <label for="iframesCardCvv" class="col-lg-3 col-form-label required">Card CVV:</label>
+                <div class="col-lg-9">
 
-                <div id="iframesCardExpiration"></div>
+                    <div id="iframesCardCvv"></div>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="iframesCardCvv" class="col-lg-3 col-form-label required">Card CVV:</label>
-            <div class="col-lg-9">
-
-                <div id="iframesCardCvv"></div>
+            <div class="form-group row">
+                <div class="iframeholder" id="iframestoken"></div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="iframeholder" id="iframestoken"></div>
-        </div>
-        <div class="form-group row">
+            <div class="form-group row">
 
-            <div class="col">
-                <div class="row" style="margin-top: 30px;">
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-3 ">
-                        <div id="iframesSubmit"></div>
+                <div class="col">
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3 ">
+                            <div id="iframesSubmit"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </fieldset>
     </div>
+
    
-    
 
-  
 
-    
+
+
 </form>
 
 <script type="text/javascript">
