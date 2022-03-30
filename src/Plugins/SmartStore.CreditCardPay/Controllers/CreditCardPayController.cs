@@ -69,8 +69,8 @@ namespace SmartStore.CreditCardPay.Controllers
             return PartialView();
         }
 
-        [LoadSetting]
-        public ActionResult CardListDetail(CreditCardPaySettings settings)
+       
+        public ActionResult CardListDetail()
         {
             ViewBag.PageTitle = "Credit Card List";           
 
@@ -88,8 +88,8 @@ namespace SmartStore.CreditCardPay.Controllers
         }
 
         
-        [LoadSetting]
-        public ActionResult DeleteCard(CreditCardPaySettings settings, string paymentProfileId)
+       
+        public ActionResult DeleteCard(string paymentProfileId)
         {
             if (!String.IsNullOrEmpty(paymentProfileId))
             {
