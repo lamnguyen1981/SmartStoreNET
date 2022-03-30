@@ -18,16 +18,15 @@ namespace SmartStore.CreditCardPay.Controllers
     public class CreditCardPayController : PluginControllerBase
     {      
         private readonly ICreditCardManagementService _cardService;
-        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;     
+          
         private readonly IWorkContext _workContext;
 
         public CreditCardPayController(ICreditCardManagementService cardService,
-                                    IWorkContext workContext,                              
-                                   IRepository<CustomerPaymentProfile> cusPayRepository)
+                                    IWorkContext workContext)                          
+                                   
 
         {
-            _cardService = cardService;
-            _cusPayRepository = cusPayRepository;
+            _cardService = cardService;       
             _workContext = workContext;
            
         }

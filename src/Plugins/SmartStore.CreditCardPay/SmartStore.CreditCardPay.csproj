@@ -273,8 +273,6 @@
     <Compile Include="Controllers\CreditCardPayController.cs" />
     <Compile Include="Domain\CCCustomerPaymentProfile.cs" />
     <Compile Include="Domain\CCCustomerProfile.cs" />
-    <Compile Include="Domain\CustomerPaymentProfile.cs" />
-    <Compile Include="Domain\CustomerProfile.cs" />
     <Compile Include="Exceptions\ErrorCode.cs" />
     <Compile Include="Exceptions\HeartlandCustomerErrorException.cs" />
     <Compile Include="Mapping\CCCustomerPaymentProfileMapping.cs" />
