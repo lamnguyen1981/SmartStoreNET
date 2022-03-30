@@ -3,6 +3,7 @@ using GlobalPayments.Api.PaymentMethods;
 using GlobalPayments.Api.Services;
 using SmartStore.CreditCardPay.Exceptions;
 using SmartStore.CreditCardPay.Models;
+using SmartStore.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,64 +12,65 @@ namespace SmartStore.CreditCardPay.Services
 {
     public class HeartlandRecurrService : HeartlandBaseService, IHeartlandRecurrService
     {
-        public HeartlandRecurrService(CreditCardPaySettings settings)
-            : base(settings)
+        public HeartlandRecurrService(ICommonServices _services)
+            : base(_services)
         {
 
         }
 
-        public HlResponse Charge(CreditCardChargeDetail cardChargeInfo)
+        public HlServiceResponse Charge(CreditCardChargeDetailRequest cardChargeInfo)
         {
-            RecurringPaymentMethod paymentMethod = null;
+            /* RecurringPaymentMethod paymentMethod = null;
 
-            if (cardChargeInfo.IsSaveCard)
-            {
-                var customer =  AddCustomer(cardChargeInfo.Holder);
-                cardChargeInfo.HlCustomerId = customer.Id;
+             if (cardChargeInfo.IsSaveCard)
+             {
+                 var customer =  AddCustomer(cardChargeInfo.Holder);
+                 cardChargeInfo.HlCustomerId = customer.Id;
 
-                paymentMethod = AddPaymentMethod(customer, cardChargeInfo.Card);
-                cardChargeInfo.PaymentProfileId = paymentMethod.Id;
-            }
-            else if (!String.IsNullOrEmpty(cardChargeInfo.PaymentProfileId) )
-            {
-                 paymentMethod = RecurringPaymentMethod.Find(cardChargeInfo.PaymentProfileId);
-            }
-           
+                 paymentMethod = AddPaymentMethod(customer, cardChargeInfo.Card);
+                 cardChargeInfo.PaymentProfileId = paymentMethod.Id;
+             }
+             else if (!String.IsNullOrEmpty(cardChargeInfo.PaymentProfileId) )
+             {
+                  paymentMethod = RecurringPaymentMethod.Find(cardChargeInfo.PaymentProfileId);
+             }
 
-            var builder = paymentMethod.Charge(cardChargeInfo.Amount);
-            // builder.WithP
-            if (cardChargeInfo.WithConvenienceAmt != 0)
-            {
-                builder.WithConvenienceAmount(cardChargeInfo.WithConvenienceAmt);
-            }
 
-            if (!String.IsNullOrEmpty(cardChargeInfo.OrderId))
-            {
-                builder.WithOrderId(cardChargeInfo.OrderId);
-            }
+             var builder = paymentMethod.Charge(cardChargeInfo.Amount);
+             // builder.WithP
+             if (cardChargeInfo.WithConvenienceAmt != 0)
+             {
+                 builder.WithConvenienceAmount(cardChargeInfo.WithConvenienceAmt);
+             }
 
-            //if (cardChargeInfo.WithShippingAmt != 0)
-            //{
-            //    builder.WithShippingAmt(cardChargeInfo.WithShippingAmt);
-            //}
+             if (!String.IsNullOrEmpty(cardChargeInfo.OrderId))
+             {
+                 builder.WithOrderId(cardChargeInfo.OrderId);
+             }
 
-            if (cardChargeInfo.WithSurchargeAmount != 0)
-            {
-                builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
-            }
+             //if (cardChargeInfo.WithShippingAmt != 0)
+             //{
+             //    builder.WithShippingAmt(cardChargeInfo.WithShippingAmt);
+             //}
 
-            var response = builder.WithCurrency(cardChargeInfo.Currency)
-                   .WithAmount(cardChargeInfo.Amount)
-                   .WithCustomerId(cardChargeInfo.HlCustomerId)
-                  .WithPaymentLinkId(cardChargeInfo.PaymentProfileId)
-                   .Execute();
+             if (cardChargeInfo.WithSurchargeAmount != 0)
+             {
+                 builder.WithSurchargeAmount(cardChargeInfo.WithSurchargeAmount);
+             }
 
-            return MapResponse(response, cardChargeInfo.HlCustomerId, paymentMethod.Id);
+             var response = builder.WithCurrency(cardChargeInfo.Currency)
+                    .WithAmount(cardChargeInfo.Amount)
+                    .WithCustomerId(cardChargeInfo.HlCustomerId)
+                   .WithPaymentLinkId(cardChargeInfo.PaymentProfileId)
+                    .Execute();
+
+             return MapResponse(response, cardChargeInfo.HlCustomerId, paymentMethod.Id);*/
+            return null;
 
         }
 
         
-        public Customer AddCustomer(CardHolder holder)
+        public Customer AddCustomer(CustomerInfo holder)
         {
             var validCardHolder = new Customer
             {
@@ -77,15 +79,17 @@ namespace SmartStore.CreditCardPay.Services
                 LastName = holder.LastName,
                 Address = new Address
                 {
-                    StreetAddress1 = holder.Address,
-                    City = holder.City,
-                    Country = holder.Country,                   
-                    PostalCode = holder.Zip,
+                    // StreetAddress1 = holder.Address,
+                    // City = holder.City,
+                    Country = holder.Country,
+                    // PostalCode = holder.Zip,
 
 
                 },
-                MobilePhone = holder.PhoneNumber ?? string.Empty,
-                Email = holder.Email
+                // MobilePhone = holder.PhoneNumber ?? string.Empty,
+                Email = holder.Email,
+                Company = ""
+                 
 
 
             }.Create();
@@ -103,7 +107,7 @@ namespace SmartStore.CreditCardPay.Services
             return Customer.FindAll();
         }
 
-        public string AddPaymentMethod(CardHolder customer, CreditCard card)
+        public string AddPaymentMethod(CustomerInfo customer, PaymentMethodInfo card)
         {
             var cus = FindCustomer(CustomerId);
             var paymentMethod = cus.AddPaymentMethod(
@@ -114,6 +118,7 @@ namespace SmartStore.CreditCardPay.Services
                                      ExpMonth = card.ExpMonth,
                                      ExpYear = card.ExpYear,
                                      Cvn = card.Cvv,
+                                     CardHolderName = card.CardHolderName
                                      // Token = card.Token
                                  }
                              )
@@ -122,7 +127,7 @@ namespace SmartStore.CreditCardPay.Services
             return paymentMethod.Id;
         }
 
-        public string AddPaymentMethod(string customerId, CreditCard card)
+        public string AddPaymentMethod(string customerId, PaymentMethodInfo card)
         {
             CreditCardData cardData = null;
 
@@ -138,24 +143,10 @@ namespace SmartStore.CreditCardPay.Services
                     Number = card.Number,
                     ExpMonth = card.ExpMonth,
                     ExpYear = card.ExpYear,
-                    Cvn = card.Cvv,
-                    // Token = card.Token
+                    Cvn = card.Cvv,                   
                 };
             };
-
-           /* var validCard = cardData.Verify()
-                             .WithCurrency("USD")
-                             .WithCustomerId(customerId)
-                             .Execute();
-
-            if (validCard.ResponseCode != "00")
-            {
-                throw new HeartlandCustomerErrorException
-                {
-                    Code = ErrorCode.InvalidCardData,
-                    Detail = "Card Data is invalid"
-                };
-            }*/
+            cardData.CardHolderName = card.CardHolderName;
 
             var cus = FindCustomer(customerId);
             var paymentMethod = cus.AddPaymentMethod(
@@ -167,23 +158,7 @@ namespace SmartStore.CreditCardPay.Services
             return paymentMethod.Id;
         }
 
-        private RecurringPaymentMethod AddPaymentMethod(Customer customer, CreditCard card)
-        {           
-            var paymentMethod = customer.AddPaymentMethod(
-                                 PaymentId("credit"),
-                                 new CreditCardData
-                                 {
-                                     Number = card.Number,
-                                     ExpMonth = card.ExpMonth,
-                                     ExpYear = card.ExpYear,
-                                     Cvn = card.Cvv,
-                                     // Token = card.Token
-                                 }
-                             )
-
-                .Create();
-            return paymentMethod;
-        }
+        
 
         public string DeletePaymentMethod(string paymentProfileId)
         {
@@ -192,9 +167,14 @@ namespace SmartStore.CreditCardPay.Services
             return "00";
         }
 
-        public IList<PaymentMethod> GetAllPaymentMethods(string customerId)
+        public string EditPaymentMethod(PaymentMethodInfo payment)
         {            
-            var result = new List<PaymentMethod>();
+            return "00";
+        }
+
+        public IList<PaymentMethodResponse> GetAllPaymentMethods(string customerId)
+        {            
+            var result = new List<PaymentMethodResponse>();
             var cus = FindCustomer(customerId);
             if (cus == null) return result;
 
@@ -203,7 +183,7 @@ namespace SmartStore.CreditCardPay.Services
             for (int i =0; i < paymentMethod.Count; i++)
             {
                 
-                var payment = new PaymentMethod
+                var payment = new PaymentMethodResponse
                 {
                     CardHolderName = paymentMethod[i].NameOnAccount,
                     CardType = paymentMethod[i].PaymentType,
@@ -227,6 +207,24 @@ namespace SmartStore.CreditCardPay.Services
             return result;
         }
 
+        private RecurringPaymentMethod AddPaymentMethod(Customer customer, PaymentMethodInfo card)
+        {
+            var paymentMethod = customer.AddPaymentMethod(
+                                 PaymentId("credit"),
+                                 new CreditCardData
+                                 {
+                                     Number = card.Number,
+                                     ExpMonth = card.ExpMonth,
+                                     ExpYear = card.ExpYear,
+                                     Cvn = card.Cvv,
+                                     // Token = card.Token
+                                 }
+                             )
+
+                .Create();
+            return paymentMethod;
+        }
+
         private string PaymentId(string type)
         {
             return string.Format("{0}-GlobalApi-{1}-{2}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1, 2000000), type);
@@ -234,9 +232,9 @@ namespace SmartStore.CreditCardPay.Services
 
         private string CustomerId => string.Format("{0}-GlobalApi-{1}", DateTime.Now.ToString("yyyyMMddmmss"), new Random().Next(1, 2000000));
 
-        private HlResponse MapResponse(Transaction sac, string customerId , string paymentId)
+        private HlServiceResponse MapResponse(Transaction sac, string customerId , string paymentId)
         {
-            return new HlResponse
+            return new HlServiceResponse
             {
                 AuthorizationCode = sac.AuthorizationCode,
                 ResponseCode = sac.ResponseCode,

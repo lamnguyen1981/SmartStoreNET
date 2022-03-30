@@ -23,9 +23,9 @@ namespace SmartStore.CreditCardPay.Services
 
 
 
-        public IList<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate)
+        public IList<PaymentTransactionResponse> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate)
         {
-            var result = new List<PaymentTransaction>();
+            var result = new List<PaymentTransactionResponse>();
             var response = ReportingService.FindTransactions()
                         .Where(SearchCriteria.CustomerId, customerId)
                         .And(SearchCriteria.StartDate, startDate)
@@ -34,7 +34,7 @@ namespace SmartStore.CreditCardPay.Services
 
             foreach(var tranSummary in result)
             {
-                var returnTran = new PaymentTransaction
+                var returnTran = new PaymentTransactionResponse
                 {
                     CardType = tranSummary.CardType,
                     AdjustmentCurrency = tranSummary.AdjustmentCurrency,

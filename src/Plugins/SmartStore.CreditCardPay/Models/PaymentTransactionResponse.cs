@@ -2,7 +2,7 @@
 
 namespace SmartStore.CreditCardPay.Models
 {
-    public class PaymentTransaction
+    public class PaymentTransactionResponse
     {
         public decimal? AdjustmentAmount { get; set; }
 

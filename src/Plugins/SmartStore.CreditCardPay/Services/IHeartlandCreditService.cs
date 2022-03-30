@@ -4,21 +4,21 @@ namespace SmartStore.CreditCardPay.Services
 {
     public interface IHeartlandCreditService
     {
-        HlResponse VerifyCard(CreditCard card);
+        HlServiceResponse VerifyCard(PaymentMethodInfo card);
 
-        HlResponse VerifyCard(CreditCard card, CardHolder cardHolder);
+        HlServiceResponse VerifyCard(PaymentMethodInfo card, CustomerInfo cardHolder);
 
-        HlResponse Charge(CreditCard card, string currency, decimal amount);
+        HlServiceResponse Charge(PaymentMethodInfo card, string currency, decimal amount);
 
-       // HlResponse Charge(CreditCardChargeDetail cardCharge);
+       // HlServiceResponse Charge(CreditCardChargeDetailRequest cardCharge);
 
-        HlResponse Refund(string transactionId, decimal amount, string currency);
+        HlServiceResponse Refund(string transactionId, decimal amount, string currency);
 
-        HlResponse ReverseTransaction(string transactionId, decimal amount, string currency);
+        HlServiceResponse ReverseTransaction(string transactionId, decimal amount, string currency);
 
-        HlResponse VoildTransaction(string transactionId);
+        HlServiceResponse VoildTransaction(string transactionId);
 
-        HlResponse EditTransaction(string transactionId, decimal newAmount, string currency);
+        HlServiceResponse EditTransaction(string transactionId, decimal newAmount, string currency);
 
     }
 }

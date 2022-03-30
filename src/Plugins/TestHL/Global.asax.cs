@@ -35,7 +35,7 @@ namespace TestHL
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             // var engine = EngineContext.Initialize(false);
             var builder = new ContainerBuilder();
-            builder.RegisterType<CreditCardPaymentProcess>().As<ICreditCardPaymentProcess>().InstancePerRequest();
+            builder.RegisterType<CreditCardManagementService>().As<ICreditCardManagementService>().InstancePerRequest();
             builder.RegisterType<HeartlandReportService>().As<IHeartlandReportService>().InstancePerRequest();
             builder.RegisterType<CreditCardPaySettings>().As<CreditCardPaySettings>().InstancePerRequest();
             builder.RegisterType<HeartlandRecurrService>().As<IHeartlandRecurrService>().InstancePerRequest();

@@ -1,6 +1,6 @@
 ﻿namespace SmartStore.CreditCardPay.Models
 {
-    public class PaymentMethod
+    public class PaymentMethodResponse
     {
         private string _expireDate;
 

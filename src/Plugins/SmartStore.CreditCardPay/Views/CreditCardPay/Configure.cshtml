@@ -19,16 +19,38 @@
 
 @using (Html.BeginForm())
 {
-    <div class="adminContent">
+<div class="adminContent">
 
-        <div class="adminRow">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.HearlandSecretKey)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.HearlandSecretKey)
+            @Html.ValidationMessageFor(model => model.HearlandSecretKey)
+        </div>
+
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.HearlandPublicKey)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.HearlandPublicKey)
+            @Html.ValidationMessageFor(model => model.HearlandPublicKey)
+        </div>
+
+    </div>
+    @*<div class="adminRow">
             <div class="adminTitle">
-                @Html.SmartLabelFor(model => model.HearlandSecretKey)
+                @Html.SmartLabelFor(model => model.HearlandPublicKey)
             </div>
             <div class="adminData">
-                @Html.SettingEditorFor(model => model.HearlandSecretKey)
-                @Html.ValidationMessageFor(model => model.HearlandSecretKey)
+                @Html.SettingEditorFor(model => model.HearlandPublicKey)
+                @Html.ValidationMessageFor(model => model.HearlandPublicKey)
             </div>
-        </div>
-    </div>
+
+        </div>*@
+
+</div>
 }

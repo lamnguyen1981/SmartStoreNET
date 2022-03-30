@@ -16,22 +16,20 @@ using System.Web.Mvc;
 namespace SmartStore.CreditCardPay.Controllers
 {
     public class CreditCardPayController : PluginControllerBase
-    {
-        private readonly IHeartlandRecurrService _cardService;
-        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;
-      //  private readonly CreditCardPaySettings _settings;
+    {      
+        private readonly ICreditCardManagementService _cardService;
+        private readonly IRepository<CustomerPaymentProfile> _cusPayRepository;     
         private readonly IWorkContext _workContext;
 
-        public CreditCardPayController(IHeartlandRecurrService cardService,
-                                    IWorkContext workContext,
-                                //    CreditCardPaySettings settings,
+        public CreditCardPayController(ICreditCardManagementService cardService,
+                                    IWorkContext workContext,                              
                                    IRepository<CustomerPaymentProfile> cusPayRepository)
 
         {
             _cardService = cardService;
             _cusPayRepository = cusPayRepository;
             _workContext = workContext;
-          //  _settings = settings;
+           
         }
         // GET: CreditPay
         public ActionResult Index()
@@ -59,15 +57,10 @@ namespace SmartStore.CreditCardPay.Controllers
             if (!ModelState.IsValid)
             {
                 return Configure(settings);
-            }
-            //var storeDependingSettingHelper = new StoreDependingSettingHelper(ViewData);
-            //var storeScope = this.GetActiveStoreScopeConfiguration(Services.StoreService, Services.WorkContext);
-            //var setting = Services.Settings.LoadSetting<CreditCardPaySettings>(storeScope);
-            //using (Services.Settings.BeginScope())
-            //{
-            //    storeDependingSettingHelper.UpdateSettings(settings, form, storeScope, Services.Settings);
-            //}
+            }            
             MiniMapper.Map(model, settings);
+            NotifySuccess(T("Admin.Common.DataSuccessfullySaved"));
+
             return RedirectToConfiguration("SmartStore.CreditCardPay");
         }
         
@@ -80,26 +73,19 @@ namespace SmartStore.CreditCardPay.Controllers
         [LoadSetting]
         public ActionResult CardListDetail(CreditCardPaySettings settings)
         {
-            ViewBag.PageTitle = "Credit Card List";
+            ViewBag.PageTitle = "Credit Card List";           
 
-            int customerid = _workContext.CurrentCustomer.Id;
-            var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == customerid && x.HlCustomerProfileId != null);
+             var model = _cardService.GetAllPaymentMethods(_workContext.CurrentCustomer.Id);
 
-            if (customerPayment == null)
-                return View();
-           // _cardService.ba
-            var cardList = _cardService.GetAllPaymentMethods(customerPayment.HlCustomerProfileId);
-           
-            return View(cardList);
+            return View(model);
 
         }
 
         [LoadSetting]
         public ActionResult AddCard(CreditCardPaySettings settings)
         {
-
+            ViewBag.PublicKey = settings.HearlandPublicKey;
             return View();
-
         }
 
         
@@ -108,68 +94,37 @@ namespace SmartStore.CreditCardPay.Controllers
         {
             if (!String.IsNullOrEmpty(paymentProfileId))
             {
-                int clientCustomerid = _workContext.CurrentCustomer.Id;
-                _cardService.DeletePaymentMethod(paymentProfileId);
-
-                var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerPaymentProfileId == paymentProfileId);
-                if (customerPayment != null)
-                {
-                    _cusPayRepository.Delete(customerPayment);
-                }
+                _cardService.DeletePaymentMethod(paymentProfileId);                
             }
 
             return RedirectToAction("CardListDetail");
 
         }
 
-        [LoadSetting]
-       
-        public ActionResult SaveCard(CreditCardPaySettings settings, string Token_value)
+        
+        public ActionResult SaveCard(string cardHolderName, string cardAlias, string Token_value)
         {
-            int clientCustomerid = _workContext.CurrentCustomer.Id;           
-            string hlCustomerId = String.Empty;
-            var customerPayment = _cusPayRepository.Table.FirstOrDefault(x => x.CustomerProfileId == clientCustomerid && x.HlCustomerProfileId != null);
-            if (customerPayment != null)
+            var request = new HeartlandRequestBase
             {
-                hlCustomerId = customerPayment.HlCustomerProfileId;                
-            }
-            else
-            {
-                var cardHolder = new CardHolder
+                customerId = _workContext.CurrentCustomer.Id,
+                IsSaveCard = true,
+                Card = new PaymentMethodInfo
                 {
+                    CardAlias = cardAlias,
+                    CardHolderName = cardHolderName,
+                    Token = Token_value
+                },
+
+                CardHolder = new CustomerInfo
+                {
+                    Email = _workContext.CurrentCustomer.Email,
+                    Country = "USA",
                     FirstName = _workContext.CurrentCustomer.FirstName,
                     LastName = _workContext.CurrentCustomer.LastName,
-                    Email = _workContext.CurrentCustomer.Email,
-                    Address = _workContext.CurrentCustomer.BillingAddress.Address1,
-                    City = _workContext.CurrentCustomer.BillingAddress.City,
-                    Country = _workContext.CurrentCustomer.BillingAddress.Country.ThreeLetterIsoCode,
-                    PhoneNumber = _workContext.CurrentCustomer.BillingAddress.PhoneNumber,                   
-                    Zip = _workContext.CurrentCustomer.BillingAddress.ZipPostalCode
-                };
-                hlCustomerId = _cardService.AddCustomer(cardHolder).Id;
-            }
-
-            var card = new CreditCard { Token = Token_value };
-
-            if (!String.IsNullOrEmpty(hlCustomerId))
-            {
-                var result =  _cardService.AddPaymentMethod(hlCustomerId, card);
-
-                if (!String.IsNullOrEmpty(result))
-                {
-                    var payment = new CustomerPaymentProfile
-                    {
-                        CreateDate = DateTime.UtcNow,
-                        CustomerProfileId = clientCustomerid,
-                        CustomerPaymentProfileId = result,                  
-                      
-                        CreateByUser = _workContext.CurrentCustomer.Id
-                    };
-
-                    if (customerPayment == null) payment.HlCustomerProfileId = hlCustomerId;
-                    _cusPayRepository.Insert(payment);
                 }
-            }
+
+            };
+            _cardService.AddPaymentMethod(request);            
 
             return RedirectToAction("CardListDetail");
 

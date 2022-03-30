@@ -1,6 +1,6 @@
 ﻿namespace SmartStore.CreditCardPay.Models
 {
-    public class HlResponse
+    public class HlServiceResponse
     {
         public string AuthorizationCode { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using GlobalPayments.Api.Entities;
 using GlobalPayments.Api.PaymentMethods;
 using SmartStore.CreditCardPay.Models;
+using SmartStore.Services;
 using System;
 
 namespace SmartStore.CreditCardPay.Services
@@ -9,13 +10,15 @@ namespace SmartStore.CreditCardPay.Services
     {
         private readonly IHeartlandRecurrService _recurrService;
 
-        public HeartlandCreditService(CreditCardPaySettings settings, IHeartlandRecurrService recurrService)
-            : base(settings)
+        public HeartlandCreditService(IHeartlandRecurrService recurrService,
+                                      ICommonServices _services
+                                      ) : base(_services)
+
         {
             _recurrService = recurrService;
         }
 
-        public HlResponse VerifyCard(CreditCard card)
+        public HlServiceResponse VerifyCard(PaymentMethodInfo card)
         {
            
             var hlCard = new CreditCardData
@@ -33,7 +36,7 @@ namespace SmartStore.CreditCardPay.Services
             return MapResponse(response);
         }
 
-        public HlResponse VerifyCard(CreditCard card, CardHolder cardHolder)
+        public HlServiceResponse VerifyCard(PaymentMethodInfo card, CustomerInfo cardHolder)
         {
 
             var hlCard = new CreditCardData
@@ -68,7 +71,7 @@ namespace SmartStore.CreditCardPay.Services
 
         }
 
-        public HlResponse Charge(CreditCard card, string currency, decimal amount)
+        public HlServiceResponse Charge(PaymentMethodInfo card, string currency, decimal amount)
         {
             var hlCard = new CreditCardData
             {
@@ -85,7 +88,7 @@ namespace SmartStore.CreditCardPay.Services
             return MapResponse(response);
         }
 
-        //public HlResponse Charge(CreditCardChargeDetail cardChargeInfo)
+        //public HlServiceResponse Charge(CreditCardChargeDetailRequest cardChargeInfo)
         //{
 
         //    var hlCard = InitializeCard(cardChargeInfo);
@@ -133,7 +136,7 @@ namespace SmartStore.CreditCardPay.Services
         //}
         
 
-        public HlResponse Refund(string transactionId, decimal amount, string currency)
+        public HlServiceResponse Refund(string transactionId, decimal amount, string currency)
         {
             var trans = Transaction.FromId(transactionId)
                 .Refund(amount)
@@ -145,7 +148,7 @@ namespace SmartStore.CreditCardPay.Services
         }
 
 
-        public HlResponse ReverseTransaction(string transactionId, decimal amount, string currency)
+        public HlServiceResponse ReverseTransaction(string transactionId, decimal amount, string currency)
         {
             var trans = Transaction.FromId(transactionId)
                 .Reverse(amount)
@@ -156,7 +159,7 @@ namespace SmartStore.CreditCardPay.Services
             return MapResponse(trans);
         }
 
-        public HlResponse VoildTransaction(string transactionId)
+        public HlServiceResponse VoildTransaction(string transactionId)
         {
             var trans = Transaction.FromId(transactionId)
                 .Void()               
@@ -165,7 +168,7 @@ namespace SmartStore.CreditCardPay.Services
             return MapResponse(trans);
         }
 
-        public HlResponse EditTransaction(string transactionId, decimal newAmount, string currency)
+        public HlServiceResponse EditTransaction(string transactionId, decimal newAmount, string currency)
         {
             var trans = Transaction.FromId(transactionId)
                                 .Edit()
@@ -177,9 +180,9 @@ namespace SmartStore.CreditCardPay.Services
         }
 
 
-        private HlResponse MapResponse(Transaction sac, string customerId = "")
+        private HlServiceResponse MapResponse(Transaction sac, string customerId = "")
         {
-            return new HlResponse
+            return new HlServiceResponse
             {
                 AuthorizationCode = sac.AuthorizationCode,
                 ResponseCode = sac.ResponseCode,
@@ -191,7 +194,7 @@ namespace SmartStore.CreditCardPay.Services
             };
         }
 
-        private CreditCardData InitializeCard(CreditCardChargeDetail cardChargeInfo)
+        private CreditCardData InitializeCard(CreditCardChargeDetailRequest cardChargeInfo)
         {
             CreditCardData card = null ;
 

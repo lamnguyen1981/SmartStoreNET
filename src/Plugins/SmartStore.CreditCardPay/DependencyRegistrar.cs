@@ -7,6 +7,7 @@ using SmartStore.Data;
 using SmartStore.CreditCardPay.Data;
 using SmartStore.CreditCardPay.Domain;
 using SmartStore.CreditCardPay.Services;
+using SmartStore.Services;
 
 namespace SmartStore.CreditCardPay
 {
@@ -15,9 +16,10 @@ namespace SmartStore.CreditCardPay
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, bool isActiveModule)
         {
             builder.RegisterType<HeartlandReportService>().As<IHeartlandReportService>().InstancePerRequest();
-            builder.RegisterType<CreditCardPaymentProcess>().As<ICreditCardPaymentProcess>().InstancePerRequest();
+            builder.RegisterType<CreditCardManagementService>().As<ICreditCardManagementService>().InstancePerRequest();
             builder.RegisterType<CreditCardPaySettings>().As<CreditCardPaySettings>().InstancePerRequest();
             builder.RegisterType<HeartlandRecurrService>().As<IHeartlandRecurrService>().InstancePerRequest();
+            builder.RegisterType<CommonServices>().As<ICommonServices>().InstancePerRequest();
 
             //data layer
             //register named context
@@ -39,8 +41,13 @@ namespace SmartStore.CreditCardPay
             //    .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
             //    .InstancePerRequest();
 
-            builder.RegisterType<EfRepository<CustomerPaymentProfile>>()
-               .As<IRepository<CustomerPaymentProfile>>()
+            builder.RegisterType<EfRepository<CCCustomerPaymentProfile>>()
+               .As<IRepository<CCCustomerPaymentProfile>>()
+               .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
+               .InstancePerRequest();
+
+            builder.RegisterType<EfRepository<CCCustomerProfile>>()
+               .As<IRepository<CCCustomerProfile>>()
                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
                .InstancePerRequest();
         }

@@ -6,8 +6,7 @@ namespace SmartStore.CreditCardPay
     {
         public CreditCardPaySettings()
         {
-            // SecretKey = "skapi_cert_MW7dAQBF1V4AQaSsSwVpMQBOFZLA7ub2oSxnslAFKg";
-            HearlandSecretKey = "skapi_cert_MW7dAQBF1V4AQaSsSwVpMQBOFZLA7ub2oSxnslAFKg";
+           
             
         }
 

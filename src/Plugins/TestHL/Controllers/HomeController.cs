@@ -10,10 +10,10 @@ namespace TestHL.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICreditCardPaymentProcess _service;
+        private readonly ICreditCardManagementService _service;
         private readonly IHeartlandRecurrService _recurrService;
 
-        public HomeController(ICreditCardPaymentProcess service, IHeartlandRecurrService recurrService)
+        public HomeController(ICreditCardManagementService service, IHeartlandRecurrService recurrService)
         {
             this._service = service;
            this._recurrService = recurrService;
@@ -30,9 +30,9 @@ namespace TestHL.Controllers
 
         private void TestWithNewPayment()
         {
-            var charge = new CreditCardChargeDetail
+            var charge = new CreditCardChargeDetailRequest
             {
-                Card = new CreditCard
+                Card = new PaymentMethodInfo
                 {
                     Number = "4012002000060016",
                     Cvv = "123",
@@ -40,7 +40,7 @@ namespace TestHL.Controllers
                     ExpYear = 2025
 
                 },
-                Holder = new CardHolder
+                CardHolder = new CustomerInfo
                 {
                     Address = "6860 Dallas Pkwy",
                     City = "HCM",
@@ -59,7 +59,7 @@ namespace TestHL.Controllers
                 OrderId = "2323",
                 WithShippingAmt = 2
             };
-               _service.ProcessPayment(charge, 1);
+             //  _service.ProcessPayment(charge, 1);
         }
 
 

@@ -1,6 +1,6 @@
 ﻿namespace SmartStore.CreditCardPay.Models
 {
-    public class CardHolder
+    public class CustomerInfo
     {
         public string FirstName { get; set; }
 
@@ -21,6 +21,8 @@
         public string Zip { get; set; }
 
         public string Country { get; set; }
+
+        public string HlCustomerId { get; set; }
 
     }
 }

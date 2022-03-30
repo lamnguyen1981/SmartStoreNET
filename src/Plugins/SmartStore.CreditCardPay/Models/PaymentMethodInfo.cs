@@ -1,6 +1,6 @@
 ﻿namespace SmartStore.CreditCardPay.Models
 {
-    public class CreditCard
+    public class PaymentMethodInfo
     {
         public string Cvv { get; set; }
 
@@ -13,5 +13,9 @@
         public string Token { get; set; }
 
         public string CardAlias { get; set; }
+
+        public string CardHolderName { get; set; }
+
+        public string PaymentProfileId { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace SmartStore.CreditCardPay.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202203240043163_Database_Initializing"; }
+            get { return "202203290840361_Database_Initializing"; }
         }
         
         string IMigrationMetadata.Source

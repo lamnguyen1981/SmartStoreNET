@@ -40,7 +40,9 @@ namespace SmartStore.CreditCardPay.Data
         {
           //  modelBuilder.Entity<CustomerAddress>().ToTable("CCCustomerAddress");
             
-             modelBuilder.Configurations.Add(new CustomerPaymentMapping());
+           //  modelBuilder.Configurations.Add(new CustomerPaymentMapping());
+            modelBuilder.Configurations.Add(new CCCustomerPaymentMapping());
+            modelBuilder.Configurations.Add(new CCCustomerProfileMapping());
 
 
             //var typesToRegister = from t in Assembly.GetExecutingAssembly().GetTypes()
@@ -58,8 +60,8 @@ namespace SmartStore.CreditCardPay.Data
             //}
 
             //disable EdmMetadata generation
-           // modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
-           // Database.SetInitializer<CreditCardPayContext>(null);
+            // modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
+            // Database.SetInitializer<CreditCardPayContext>(null);
             base.OnModelCreating(modelBuilder);
         }
 

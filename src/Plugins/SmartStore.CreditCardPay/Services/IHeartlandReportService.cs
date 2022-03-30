@@ -6,8 +6,8 @@ namespace SmartStore.CreditCardPay.Services
 {
     public interface IHeartlandReportService
     {
-        // HlResponse VerifyCard(CreditCard card);       
+        // HlServiceResponse VerifyCard(PaymentMethodInfo card);       
 
-        IList<PaymentTransaction> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate);
+        IList<PaymentTransactionResponse> GetAllTransactions(string customerId, DateTime startDate, DateTime endDate);
     }
 }
