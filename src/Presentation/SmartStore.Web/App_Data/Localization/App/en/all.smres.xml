@@ -8895,7 +8895,14 @@
 	<LocaleResource Name="Admin.Customers.Customers">
 		<Value>Customers</Value>
 	</LocaleResource>
-	<LocaleResource Name="Admin.Customers.Customers.ActivityLog">
+  <LocaleResource Name="Admin.Customers.CreditCards">
+    <Value>Credit Cards</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Common.Charge">
+    <Value>Charge</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="Admin.Customers.Customers.ActivityLog">
 		<Value>Activity Log</Value>
 	</LocaleResource>
 	<LocaleResource Name="Admin.Customers.Customers.ActivityLog.ActivityLogType">

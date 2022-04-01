@@ -1,0 +1,60 @@
+﻿@model SmartStore.CreditCardPay.Models.CreditCardChargeDetailRequest
+@{
+    //ViewBag.Title = T("Admin.Rules.AddRule").Text;
+    ViewBag.Title = "Credit Card Charge";
+    Layout = "_AdminLayout";
+}
+
+@using (Html.BeginForm("Charge", "CustomerCreditCard", FormMethod.Post))
+{
+    <div class="section-header">
+        <div class="title">
+            @ViewBag.Title @Html.ActionLink("(" + @T("Admin.Common.BackToList") + ")", "LoadCustomers")
+        </div>
+        <div class="options">
+            <button type="submit" name="save" value="save" class="btn btn-primary">
+                <i class="fa fa-check"></i>
+                <span>@T("Admin.Common.Save")</span>
+            </button>
+            >
+        </div>
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    @Html.HiddenFor(model => model.Card.PaymentProfileId)
+    
+
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Amount)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Currency)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => Model.Currency, ViewBag.CurrencyList as List<SelectListItem>)
+            @Html.ValidationMessageFor(model => model.Currency)
+
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.OrderId)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.OrderId)
+            @Html.ValidationMessageFor(model => model.OrderId)
+        </div>
+    </div>
+    
+
+</div>
+}

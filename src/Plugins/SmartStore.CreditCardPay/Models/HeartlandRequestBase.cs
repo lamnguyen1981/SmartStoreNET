@@ -7,6 +7,11 @@ namespace SmartStore.CreditCardPay.Models
 {
     public class HeartlandRequestBase
     {
+        public HeartlandRequestBase()
+        {
+            CardHolder = new CustomerInfo();
+            Card = new PaymentMethodInfo();
+        }
         public int customerId { get; set; }
 
         public CustomerInfo CardHolder { get; set; }

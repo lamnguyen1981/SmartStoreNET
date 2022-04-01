@@ -36,7 +36,29 @@ namespace SmartStore.CreditCardPay
           )
           .DataTokens["area"] = Plugin.SystemName;
 
-            
+
+            routes.MapRoute("SmartStore.CustomerCreditCard.Indix",
+                 "Plugin/CustomerCreditCard/{action}",
+                 new { controller = "CustomerCreditCard", action = "LoadCustomers" },
+                 new[] { "SmartStore.CreditCardPay.Controllers" }
+            )
+            .DataTokens["area"] = Plugin.SystemName;
+
+            routes.MapRoute("SmartStore.CustomerCreditCard.Charge",
+                "Plugin/CustomerCreditCard/{action}/{id}",
+                new { controller = "CustomerCreditCard", action = "Charge" },
+                new[] { "SmartStore.CreditCardPay.Controllers" }
+           )
+           .DataTokens["area"] = Plugin.SystemName;
+
+           
+
+            routes.MapRoute("SmartStore.CustomerCreditCard.DeleteCardid",
+               "Plugin/CustomerCreditCard/{action}/{id}",
+               new { controller = "CustomerCreditCard", action = "DeleteCard" },
+               new[] { "SmartStore.CreditCardPay.Controllers" }
+          )
+          .DataTokens["area"] = Plugin.SystemName;
         }
 
 

@@ -20,23 +20,23 @@ namespace SmartStore.CreditCardPay.Services
 
         public HlServiceResponse Charge(CreditCardChargeDetailRequest cardChargeInfo)
         {
-            /* RecurringPaymentMethod paymentMethod = null;
+           //  RecurringPaymentMethod paymentMethod = null;
 
-             if (cardChargeInfo.IsSaveCard)
-             {
-                 var customer =  AddCustomer(cardChargeInfo.Holder);
-                 cardChargeInfo.HlCustomerId = customer.Id;
+            //if (cardChargeInfo.IsSaveCard)
+            //{
+            //    var customer =  AddCustomer(cardChargeInfo.CardHolder);
+            //    cardChargeInfo.CardHolder.HlCustomerId = customer.Id;
 
-                 paymentMethod = AddPaymentMethod(customer, cardChargeInfo.Card);
-                 cardChargeInfo.PaymentProfileId = paymentMethod.Id;
-             }
-             else if (!String.IsNullOrEmpty(cardChargeInfo.PaymentProfileId) )
-             {
-                  paymentMethod = RecurringPaymentMethod.Find(cardChargeInfo.PaymentProfileId);
-             }
+            //    paymentMethod = AddPaymentMethod(customer, cardChargeInfo.Card);
+            //    cardChargeInfo.Card.PaymentProfileId = paymentMethod.Id;
+            //}
+            //else if (!String.IsNullOrEmpty(cardChargeInfo.Card.PaymentProfileId) )
+            //{
+            //     paymentMethod = RecurringPaymentMethod.Find(cardChargeInfo.Card.PaymentProfileId);
+            //}
 
-
-             var builder = paymentMethod.Charge(cardChargeInfo.Amount);
+            var paymentMethod = RecurringPaymentMethod.Find(cardChargeInfo.Card.PaymentProfileId);
+            var builder = paymentMethod.Charge(cardChargeInfo.Amount);
              // builder.WithP
              if (cardChargeInfo.WithConvenienceAmt != 0)
              {
@@ -60,12 +60,12 @@ namespace SmartStore.CreditCardPay.Services
 
              var response = builder.WithCurrency(cardChargeInfo.Currency)
                     .WithAmount(cardChargeInfo.Amount)
-                    .WithCustomerId(cardChargeInfo.HlCustomerId)
-                   .WithPaymentLinkId(cardChargeInfo.PaymentProfileId)
+                    .WithCustomerId(cardChargeInfo.CardHolder.HlCustomerId)
+                   .WithPaymentLinkId(cardChargeInfo.Card.PaymentProfileId)
                     .Execute();
 
-             return MapResponse(response, cardChargeInfo.HlCustomerId, paymentMethod.Id);*/
-            return null;
+             return MapResponse(response, cardChargeInfo.CardHolder.HlCustomerId, paymentMethod.Id);
+           
 
         }
 
@@ -188,7 +188,10 @@ namespace SmartStore.CreditCardPay.Services
                     CardHolderName = paymentMethod[i].NameOnAccount,
                     CardType = paymentMethod[i].PaymentType,
                     ExpireDate = paymentMethod[i].ExpirationDate,
-                    PaymentProfileId = paymentMethod[i].Id
+                    PaymentProfileId = paymentMethod[i].Id,
+                    Email = cus.Email,
+                    FirstName = cus.FirstName,
+                    LastName = cus.FirstName
                 };
 
                 var tran = ReportingService.FindTransactions()

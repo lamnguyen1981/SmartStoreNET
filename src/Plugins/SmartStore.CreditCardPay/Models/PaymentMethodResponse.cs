@@ -2,6 +2,14 @@
 {
     public class PaymentMethodResponse
     {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
+
+        public string CardAlias { get; set; }
+
         private string _expireDate;
 
         public string CardHolderName { get; set; }        
