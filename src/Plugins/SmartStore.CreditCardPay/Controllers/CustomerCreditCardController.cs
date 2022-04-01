@@ -119,6 +119,7 @@ namespace SmartStore.CreditCardPay.Controllers
         [HttpPost]
         public ActionResult Charge(CreditCardChargeDetailRequest model)
         {
+            if (!ModelState.IsValid) return View(model);
           //  model.Card.PaymentProfileId = paymentProfileId;
             _cardService.Charge(model);
             NotifySuccess("Charge action was successful");
