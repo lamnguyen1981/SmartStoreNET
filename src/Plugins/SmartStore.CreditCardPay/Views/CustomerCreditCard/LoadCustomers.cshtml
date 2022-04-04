@@ -4,7 +4,7 @@
 @using System.Globalization;
 @{
     Layout = "_AdminLayout";
-    ViewBag.Title = T("Admin.Customers.CreditCards").Text;
+    ViewBag.Title = T("Plugins.FriendlyName.SmartStore.CreditCardPay").Text;
 }
 @using (Html.BeginForm())
 {
@@ -121,7 +121,7 @@
 
             columns.Bound(x => x.PaymentProfileId)
                 .Centered()
-                .ClientTemplate("<a href=\"customercreditcard/Charge/<#= PaymentProfileId #>\" class=\"t-button\">" + T("Admin.Common.Charge").Text + "</a>")
+                .ClientTemplate("<a href=\"customercreditcard/Charge/<#= PaymentProfileId #>\" class=\"t-button\">" + T("Plugins.CreditCard.Charge").Text + "</a>")
                 .Title(String.Empty)
                 .HtmlAttributes(new { align = "right", @class = "omega" });
         })

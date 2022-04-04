@@ -11,6 +11,18 @@
     <Value>Shipping by total</Value>
   </LocaleResource>
 
+  <LocaleResource Name="Plugins.CreditCard.DeleteSucess" AppendRootKey="false">
+    <Value>Your card has been deleted successfully</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Plugins.CreditCard.ChargeSucess" AppendRootKey="false">
+    <Value>Your card has been charged successfully</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Plugins.CreditCard.Charge" AppendRootKey="false">
+    <Value>Charge</Value>
+  </LocaleResource>
+
   <LocaleResource Name="Plugins.Shipping.ByTotal" AppendRootKey="false">
     <Children>
       <LocaleResource Name="AddNewRecordTitle">

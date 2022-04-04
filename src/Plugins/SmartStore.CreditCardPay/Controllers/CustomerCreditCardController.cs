@@ -6,6 +6,8 @@ using SmartStore.CreditCardPay.Services;
 using SmartStore.Services.Directory;
 using SmartStore.Services.Localization;
 using SmartStore.Web.Framework.Controllers;
+using SmartStore.Web.Framework.Security;
+using SmartStore.Web.Framework.Theming;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,11 +39,15 @@ namespace SmartStore.CreditCardPay.Controllers
             _currencyService = currencyService;
         }
         // GET: CustomerCreditCard
+        [AdminAuthorize]
+        [AdminThemed]
         public ActionResult Index()
         {
             return View();
         }
 
+        [AdminAuthorize]
+        [AdminThemed]
         public ActionResult LoadCustomers()
         {
             var filter = new PaymentMethodSearchCondition
@@ -52,7 +58,8 @@ namespace SmartStore.CreditCardPay.Controllers
            
             return View(filter);
         }
-
+        [AdminAuthorize]
+        [AdminThemed]
         [HttpPost, GridAction(EnableCustomBinding = true)]
         [Permission(Permissions.Customer.Read)]
         public ActionResult LoadCustomers(GridCommand command, PaymentMethodSearchCondition model)
@@ -91,11 +98,14 @@ namespace SmartStore.CreditCardPay.Controllers
                 _cardService.DeletePaymentMethod(id);
             }
 
-            NotifySuccess("Your card has been deleted");
+            // NotifySuccess("Your card has been deleted successfully");
+            NotifySuccess(T("Plugins.CreditCard.DeleteSucess"));
             return RedirectToAction("LoadCustomers");
 
         }
 
+        [AdminAuthorize]
+        [AdminThemed]
         [Permission(Permissions.Customer.Create)]
         public ActionResult Charge(string id)
         {
@@ -122,8 +132,7 @@ namespace SmartStore.CreditCardPay.Controllers
             if (!ModelState.IsValid) return View(model);
           //  model.Card.PaymentProfileId = paymentProfileId;
             _cardService.Charge(model);
-            NotifySuccess("Charge action was successful");
-
+            NotifySuccess(T("Plugins.CreditCard.ChargeSucess"));            
             return RedirectToAction("LoadCustomers");
 
         }
