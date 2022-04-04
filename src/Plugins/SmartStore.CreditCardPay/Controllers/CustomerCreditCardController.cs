@@ -129,7 +129,17 @@ namespace SmartStore.CreditCardPay.Controllers
         [HttpPost]
         public ActionResult Charge(CreditCardChargeDetailRequest model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CurrencyList = _currencyService.GetAllCurrencies(false)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.GetLocalized(y => y.Name),
+                    Value = x.CurrencyCode
+                })
+                .ToList();
+                return View(model);
+            }
           //  model.Card.PaymentProfileId = paymentProfileId;
             _cardService.Charge(model);
             NotifySuccess(T("Plugins.CreditCard.ChargeSucess"));            
