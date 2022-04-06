@@ -89,7 +89,7 @@ namespace SmartStore.CreditCardPay
         {
             return new List<string>
             {
-                "myaccount_menu_after" //, "admin_content_before"//,"productdetail_action_links_after", 
+               // "myaccount_menu_after" //, "admin_content_before"//,"productdetail_action_links_after", 
             };
         }
 

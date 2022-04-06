@@ -22,15 +22,19 @@ namespace CC.Plugins.Subscription
         /// <param name="logger">Logger</param>
         /// /// <param name="settingService">Settings service</param>
         /// /// <param name="settingService">Localization service</param>
-        public Plugin(ILogger logger,
-            ISettingService settingService,
-            ILocalizationService localizationService,
-            SubscriptionContext objectContext)
+        //public Plugin(ILogger logger,
+        //    ISettingService settingService,
+        //    ILocalizationService localizationService,
+        //    SubscriptionContext objectContext)
+        //{
+        //    this._logger = logger;
+        //    this._settingService = settingService;
+        //    this._localizationService = localizationService;
+        //    this._objectContext = objectContext;
+        //}
+        public Plugin()
         {
-            this._logger = logger;
-            this._settingService = settingService;
-            this._localizationService = localizationService;
-            this._objectContext = objectContext;
+
         }
 
         public void GetConfigurationRoute(out string actionName, out string controllerName, out RouteValueDictionary routeValues)
@@ -44,11 +48,11 @@ namespace CC.Plugins.Subscription
         {
 
             //if widgetZone = "myaccount_menu_after"
-            actionName = "CardMenuItem";
+            actionName = "Index";
             controllerName = "Subscription";
             routeValues = new RouteValueDictionary
                 {
-                    {"Namespaces", "CC.Plugins.SubscriptionControllers"},
+                    {"Namespaces", "CC.Plugins.Subscription.Controllers"},
                     {"area", "CC.Plugins.Subscription"},
                     {"widgetZone", widgetZone}
                     //{"additionalData", routeValues }
@@ -110,7 +114,7 @@ namespace CC.Plugins.Subscription
 
             base.Install();
 
-            _logger.Info(string.Format("Plugin installed: SystemName: {0}, Version: {1}, Description: '{2}'", PluginDescriptor.SystemName, PluginDescriptor.Version, PluginDescriptor.FriendlyName));
+            //_logger.Info(string.Format("Plugin installed: SystemName: {0}, Version: {1}, Description: '{2}'", PluginDescriptor.SystemName, PluginDescriptor.Version, PluginDescriptor.FriendlyName));
         }
 
         /// <summary>
@@ -125,7 +129,7 @@ namespace CC.Plugins.Subscription
           //  var migrator = new DbMigrator(new Configuration());
           //  migrator.Update(DbMigrator.InitialDatabase);
 
-            _localizationService.DeleteLocaleStringResources("Plugins.FriendlyName.Shipping.FixedRateShipping", false);
+          //  _localizationService.DeleteLocaleStringResources("Plugins.FriendlyName.Shipping.FixedRateShipping", false);
 
             base.Uninstall();
         }

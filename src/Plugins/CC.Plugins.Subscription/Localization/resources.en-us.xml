@@ -1,10 +1,10 @@
 ﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
 
   <LocaleResource Name="Plugins.FriendlyName.CC.Plugins.Subscription" AppendRootKey="false">
-    <Value>Credit Cards</Value>
+    <Value>Subscription</Value>
   </LocaleResource>
   <LocaleResource Name="Plugins.Description.CC.Plugins.Subscription" AppendRootKey="false">
-    <Value>Online payment by using Credit Card</Value>
+    <Value>Subscription</Value>
   </LocaleResource>
 
   <LocaleResource Name="Plugins.FriendlyName.Shipping.ByTotal" AppendRootKey="false">
