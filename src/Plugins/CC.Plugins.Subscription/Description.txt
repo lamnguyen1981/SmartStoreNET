@@ -1,0 +1,9 @@
+﻿FriendlyName: Subscription Pay
+Description: Provides shipping methods for fixed rate shipping and computation based on weight.
+SystemName: CC.Plugins.Subscription
+Group: Payment
+Version: 4.2.0
+MinAppVersion: 4.2.0
+DisplayOrder: 1
+FileName: CC.Plugins.Subscriptiondll
+ResourceRootKey: Plugins.CC.Plugins.Subscription

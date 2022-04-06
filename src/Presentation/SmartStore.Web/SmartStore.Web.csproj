@@ -1602,6 +1602,7 @@
     <Content Include="Scripts\public.common.js" />
     <Content Include="Scripts\smartstore.jquery.utils.js" />
     <Content Include="Scripts\smartstore.system.js" />
+    <Content Include="Themes\GreatClips\preview.png" />
     <Content Include="Views\Shared\ConfigureTheme.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1928,6 +1929,10 @@
     <Content Include="Views\News\Partials\NewsSummaryHeading.cshtml" />
     <Content Include="Views\News\Partials\NewsSummaryList.cshtml" />
     <Content Include="Views\Common\Partials\MetaProperties.cshtml" />
+    <Content Include="Themes\GreatClips\Content\_custom.scss" />
+    <Content Include="Themes\GreatClips\Content\_user.scss" />
+    <Content Include="Themes\GreatClips\theme.config" />
+    <Content Include="Themes\GreatClips\Views\Web.config" />
     <None Include="Web.EFMigrations.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

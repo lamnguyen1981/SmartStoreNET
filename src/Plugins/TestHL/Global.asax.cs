@@ -64,10 +64,10 @@ namespace TestHL
              //    .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
              //    .InstancePerRequest();
 
-             builder.RegisterType<EfRepository<CustomerPaymentProfile>>()
-                .As<IRepository<CustomerPaymentProfile>>()
-                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
-                .InstancePerRequest();
+             //builder.RegisterType<EfRepository<CustomerPaymentProfile>>()
+             //   .As<IRepository<CustomerPaymentProfile>>()
+             //   .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CreditCardPayContext.ALIASKEY))
+             //   .InstancePerRequest();
             //builder.RegisterInstance(HeartlandReportService)
             //    .As<IHeartlandReportService>()
             //    .SingleInstance();
