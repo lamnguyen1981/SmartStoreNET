@@ -194,7 +194,7 @@ namespace SmartStore.CreditCardPay.Services
             cusList = null; result = null;
 
             if (!String.IsNullOrEmpty(request.LastName))               
-                filter = result.Where(x => x.LastName.Contains(request.LastName));
+                filter = filter.Where(x => x.LastName.Contains(request.LastName));
 
             if (!String.IsNullOrEmpty(request.FirstName))              
                 filter = filter.Where(x => x.FirstName.Contains(request.FirstName));
