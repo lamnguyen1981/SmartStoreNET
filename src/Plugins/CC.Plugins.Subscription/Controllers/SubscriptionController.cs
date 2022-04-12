@@ -86,7 +86,7 @@ namespace CC.Plugins.Subscription.Controllers
 
         public ActionResult ListDetail(int salonId)
         {
-            string sqlQuery = @"select p.Id, s.Id as Salon, s.SalonCode, s.SalonName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ss.Level,0) as Level, ss.MaxVolume 
+            string sqlQuery = @"select p.Id, s.Id as SalonId, s.SalonCode, s.SalonName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ss.Level,0) as Level, ss.MaxVolume 
                                     from [greatclips_api_dev].dbo.Salon s
                                     cross join [greatclips_api_dev].dbo.Program p
                                     left join [greatclips_api_dev].dbo.SalonSubscription ss on s.ID = ss.fk_SalonID and ss.fk_programid = p.id
