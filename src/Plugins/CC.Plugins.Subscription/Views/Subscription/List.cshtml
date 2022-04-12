@@ -1,0 +1,173 @@
+﻿@model IList<CC.Plugins.Subscription.Models.MarketResponse>
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Market Subscription";
+    Layout = "_Layout";
+}
+
+@*<link rel="stylesheet" href="~/Themes/GreatClips/Content/style.css" />*@
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.min.css" />
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.mobile.all.min.css" />
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.common.min.css" />
+<script src="~/Themes/GreatClips/Content/kendo/js/kendo.all.min.js"></script>
+
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-4"><div class="gc-grid" id="market-grid"></div></div>
+        <div class="col-sm-8"><div class="gc-grid" id="salon-subscription-grid"></div></div>
+    </div>
+
+   
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        debugger;
+        renderMarketGrid();
+        renderSalonSubscriptionGrid();
+
+        $.post("@Url.Action("MarketList", "Subscription")")
+            .done(function (result) {
+                if (result != null) {
+
+                    var marketListDatasource = new kendo.data.DataSource({
+                        data: result,
+                        sort: [{ field: "MarketName", dir: "asc" }]
+                    });
+
+                    $('#market-grid').data("kendoGrid").setDataSource(marketListDatasource);
+
+                }
+
+
+        });
+    });
+
+    function renderSalonSubscriptionGrid() {
+
+        $('#salon-subscription-grid').kendoGrid({
+            dataSource: [],
+            noRecords: {
+                template: "No data available."
+            },
+            sortable: true,
+            pageable: false,
+            height: "500",
+            columns: [{
+                field: "SalonCode",
+                title: "Location #",
+                width: 80
+            },
+            {
+                field: "SalonName",
+                title: "Location Name",
+                width: 250
+            },
+            {
+                field: "Email",
+                title: "Owner Email",
+                width: 250
+                },
+            {
+                field: "P2N",
+                title: "P2N",
+                width: 70
+            },
+            {
+                field: "N2B",
+                title: "N2B",
+                width: 70
+            },
+            {
+                field: "B2G",
+                title: "B2G",
+                width: 70
+            },
+            {
+                title: "Action",
+                width: 100,
+                template: "<a href='/Plugin/Subscription/ListDetail?salonId=#=Id#' target='_blank' class='btn btn-primary'>Edit</a>"
+            }
+            ]
+        });
+
+    }
+
+    function renderMarketGrid() {
+
+        $('#market-grid').kendoGrid({
+            dataSource: [],
+            noRecords: {
+                template: "No data available."
+            },
+            sortable: true,
+            pageable: false,
+            height: "500",
+            columns: [{
+                field: "MarketCode",
+                title: "Market Code",
+                width: 80
+            },
+            {
+                field: "MarketName",
+                title: "Market Name",
+                width: 250
+            },
+            {
+                title: "Salon Subscription",
+                width: 100,
+                template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #)'>Show</span>"
+            }
+            ]
+        });
+
+    }
+
+    function getSalonSubscriptionData(marketId) {
+        @*$.post("@Url.Action("SalonSubscriptionList", "Subscription")", {marketId : marketId})
+            .done(function (result) {
+                if (result != null) {
+
+                    var salonSubscriptionDatasource = new kendo.data.DataSource({
+                        data: result,
+                        sort: [{ field: "SalonCode", dir: "asc" }]
+                    });
+
+                    $('#salon-subscription-grid').data("kendoGrid").setDataSource(salonSubscriptionDatasource);
+
+                }
+
+
+    });*@
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SalonSubscriptionList", "Subscription")',
+            data: JSON.stringify({marketId: marketId}),           
+            contentType: 'application/json',
+            success: function (result) {
+
+                if (result != null) {
+
+                    var salonSubscriptionDatasource = new kendo.data.DataSource({
+                        data: result,
+                        sort: [{ field: "SalonCode", dir: "asc" }]
+                    });
+
+                    $('#salon-subscription-grid').data("kendoGrid").setDataSource(salonSubscriptionDatasource);
+
+                }
+
+            },
+        });
+    }
+
+</script>          
