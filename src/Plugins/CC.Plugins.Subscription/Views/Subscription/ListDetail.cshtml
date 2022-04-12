@@ -7,9 +7,8 @@
 
 @*<link rel="stylesheet" href="~/Themes/GreatClips/Content/style.css" />*@
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.min.css" />
-<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.mobile.min.css" />
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.mobile.all.min.css" />
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.common.min.css" />
-<script src="~/Themes/GreatClips/Content/kendo/js/jquery.min.js"></script>
 <script src="~/Themes/GreatClips/Content/js/readmore.js"></script>
 <script src="~/Themes/GreatClips/Content/kendo/js/kendo.all.min.js"></script>
 
@@ -71,26 +70,12 @@
                                 Print: $.46
                             </div>
                             <div class="col-5 ">
-                                <input name="slider" class="balSlider slider" value="0" title="slider"  id="@(item.Id + "slider")"/>
+                                <input name="slider" class="balSlider" value="0" title="slider"  id="@(item.Id + "slider")"/>
 
                                
                             </div>
                             <div class="col-3"></div>
-                        </div>
-
-                        <div class="row ">
-                            <div class="col-3">
-                                App
-                            </div>
-                            <div class="col-5 ">
-                                <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                            </div>
-                            <div class="col-3"></div>
-                        </div>
-
-
+                        </div>                    
 
                     </div>
                 </div>
@@ -98,7 +83,7 @@
             </div>
             <div class="col-2 p2nitem">
                 <div class="p2ncard-estimated">
-                    <span>Estimated <br /> $@item.Volume / week</span>
+                    <span >Estimated <br /> $<span id="@(item.Id + "estimated")">@item.Volume</span> / week</span>
                 </div>
             </div>
         </div>
@@ -106,13 +91,14 @@
 
             $(document).ready(function () {
                 // $('p2nparagrap-text').readmore();
-                var slider = $("@(item.Id + "slider")").kendoSlider({
+                var slider = $("#@(item.Id + "slider")").kendoSlider({
 
-                    min: 1,
+                    min: 0,
                     max: @item.NumberOfLevels,
                     smallStep: 1,
                     largeStep: 1,
                     showButtons: false,
+                   value: @item.Level,
                     tickPlacement: "none",
                     dragHandleTitle: "",
                     slide: function (e) {
@@ -121,6 +107,12 @@
                         var element = slide.element;
                         $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
 
+                        var volume = (e.value/@item.NumberOfLevels)*100;
+                        $("#@(item.Id + "estimated")").text(volume);
+                    },
+                    change: function (e) {
+
+
                     },
                     tooltip: {
                         enabled: false
@@ -128,9 +120,11 @@
 
                 }).data("kendoSlider");
 
-                
+
+                $("#@(item.Id + "slider")").parent(".k-slider-wrap").find(".k-draghandle").text('@item.Level');
 
             });
+
         </script>
 
             }
@@ -139,29 +133,7 @@
 
                 <script>
                    
-                    $(document).ready(function () {
-                // $('p2nparagrap-text').readmore();
-                var slider = $(".slider").kendoSlider({
-
-                    min: 1,
-                    max: 10,
-                    smallStep: 1,
-                    largeStep: 1,
-                    showButtons: false,
-                    tickPlacement: "none",
-                    slide: function (e) {
-
-                        var slide = this;
-                        var element = slide.element;
-                        $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
-
-                    }
-
-                }).data("kendoSlider");
-
-                        $(".k-draghandle").text('1')
-
-            });
+                    
             function myFunction(seemore, more, ) {
 
 
@@ -179,7 +151,7 @@
                         btnText.innerHTML = "Read more";
                     moreText.style.display = "none";
                 }
-                e.preventDefault();
+              
                 return false;
             }
         </script>
