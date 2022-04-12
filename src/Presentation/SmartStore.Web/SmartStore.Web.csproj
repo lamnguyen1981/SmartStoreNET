@@ -1650,6 +1650,7 @@
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Measures.png" />
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Promotion Control.png" />
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Promotion Delivery.png" />
+    <Content Include="Themes\GreatClips\Content\js\readmore.js" />
     <Content Include="Themes\GreatClips\Content\kendo\css\bootstrap.min.css" />
     <Content Include="Themes\GreatClips\Content\kendo\css\Default\animated-overlay.gif" />
     <Content Include="Themes\GreatClips\Content\kendo\css\Default\editor.png" />

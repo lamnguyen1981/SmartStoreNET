@@ -1,303 +1,186 @@
-﻿
+﻿@model IList<CC.Plugins.Subscription.Models.MarketSubscriptionResponse>
+@using Telerik.Web.Mvc.UI;
 @{
     ViewBag.Title = "ListDetail";
     Layout = "_MyAccount";
 }
 
-<link rel="stylesheet" href="~/Themes/GreatClips/Content/style.css" />
+@*<link rel="stylesheet" href="~/Themes/GreatClips/Content/style.css" />*@
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.min.css" />
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.mobile.min.css" />
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.common.min.css" />
 <script src="~/Themes/GreatClips/Content/kendo/js/jquery.min.js"></script>
-
-
+<script src="~/Themes/GreatClips/Content/js/readmore.js"></script>
 <script src="~/Themes/GreatClips/Content/kendo/js/kendo.all.min.js"></script>
+
+@if (Model == null || Model.Count == 0)
+{
+    return;
+}
+
 <div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row p2ncard-item">
+            <div class="col-7" style="padding-right:0px;">
 
-    <div class="row p2ncard-item">
-        <div class="col-7" style="padding-right:0px;">
-
-            <div class="p2ncard ">
-
-
-
-                <div class="row ">
-                    <div class="col-lg-3  col-sm-12 col-md-4">
-                        <img src="~/Themes/GreatClips/Content/Images/121_hexagon_icons-07.png" class="p2n-image" alt="p2n">
-                    </div>
-                    <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
-                        <h6>Your next great customer</h6>
-                    </div>
-                </div>
-
-                <div class="row p2nbigimage">
-                    <div class="col-12 p2nitem">
-                        <img src="~/Themes/GreatClips/Content/Images/P2N_line_blue.png" class="p2n-image " alt="Cinque Terre">
-                    </div>
-                </div>
+                <div class="p2ncard ">
 
 
-                <div class="row p2nparagrap-text ">
-                    <div class="col-lg-8  col-sm-12 col-md-12">
-                        <p>
-                            Lorem egestas vitae scel<span id="dots1">...</span><span id="more1">erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span>
-                            <a href="javascript:void(0);" id="seemore1" onclick="return  myFunction('dots1','more1','seemore1' )">See more...</a>
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-
-                <div class="">
-                    <div class="row ">
-                        <div class="col-3">
-                            Print: $.46
-                        </div>
-                        <div class="col-5 ">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3"></div>
-                    </div>
 
                     <div class="row ">
-                        <div class="col-3">
-                            App
+                        <div class="col-lg-3  col-sm-12 col-md-4">
+                            <img src="~/Themes/GreatClips/Content/Images/@item.IconPath" class="p2n-image" alt="p2n">
                         </div>
-                        <div class="col-5 ">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
+                        <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
+                            <h6>Your next great customer</h6>
                         </div>
-                        <div class="col-3"></div>
                     </div>
 
-
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-2 p2nitem">
-            <div class="p2ncard-estimated">
-                <span>Estimated 12.34/ week</span>
-            </div>
-        </div>
-    </div>
-    <div class="row p2ncard-item">
-        <div class="col-7" style="padding-right:0px;">
-
-            <div class="p2ncard ">
-
-
-
-                <div class="row ">
-                    <div class="col-lg-3  col-sm-12 col-md-4">
-                        <img src="~/Themes/GreatClips/Content/Images/121_hexagon_icons-08.png" class="p2n-image" alt="p2n">
-                    </div>
-                    <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
-                        <h6>From rookie to regular</h6>
-                    </div>
-                </div>
-
-                <div class="row p2nbigimage">
-                    <div class="col-12 p2nitem">
-                        <img src="~/Themes/GreatClips/Content/Images/N2B_line_green.png" class="p2n-image " alt="Cinque Terre">
-                    </div>
-                </div>
-
-
-                <div class="row p2nparagrap-text ">
-                    <div class="col-lg-8  col-sm-12 col-md-12">
-                        <p>
-                            Lorem egestas vitae scel<span id="dots2">...</span><span id="more2">erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span>
-                            <a href="javascript:void(0);" id="seemore2" onclick="return myFunction('dots2','more2','seemore2' )">See more...</a>
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-
-                <div class="">
-                    <div class="row ">
-                        <div class="col-3">
-                            Print: $.46
+                    <div class="row p2nbigimage">
+                        <div class="col-12 p2nitem">
+                            <img src="~/Themes/GreatClips/Content/Images/@item.PictureDecorationPath" class="p2n-image " alt="Cinque Terre">
                         </div>
-                        <div class="col-5">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3 "></div>
-                    </div>
-
-                    <div class="row ">
-                        <div class="col-3">
-                            App
-                        </div>
-                        <div class="col-5">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3"></div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-3">
-                            Email
-                        </div>
-                        <div class="col-5">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3"></div>
                     </div>
 
 
-                </div>
-            </div>
-
-        </div>
-        <div class="col-2 p2nitem">
-            <div class="p2ncard-estimated">
-                <span>Estimated 12.34/ week</span>
-            </div>
-        </div>
-    </div>
-    <div class="row p2ncard-item">
-        <div class="col-7" style="padding-right:0px;">
-
-            <div class="p2ncard ">
-
-
-
-                <div class="row ">
-                    <div class="col-lg-3  col-sm-12 col-md-4">
-                        <img src="~/Themes/GreatClips/Content/Images/121_hexagon_icons-09.png" class="p2n-image" alt="p2n">
-                    </div>
-                    <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
-                        <h6>Undiscounted Loyalty</h6>
-                    </div>
-                </div>
-
-                <div class="row p2nbigimage">
-                    <div class="col-12 p2nitem">
-                        <img src="~/Themes/GreatClips/Content/Images/B2G_line_orange.png" class="p2n-image " alt="Cinque Terre">
-                    </div>
-                </div>
-
-
-                <div class="row p2nparagrap-text ">
-                    <div class="col-lg-8  col-sm-12 col-md-12">
-                        <p>
-                            Lorem egestas vitae scel<span id="dots3">...</span><span id="more3">erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span>
-                            <a href="javascript:void(0);" id="seemore3" onclick="return  myFunction('dots3','more3','seemore3' )">See more...</a>
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-
-                <div class="">
-                    <div class="row ">
-                        <div class="col-3">
-                            Print: $.46
-                        </div>
-                        <div class="col-5">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3"></div>
-                    </div>
-
-                    <div class="row ">
-                        <div class="col-3">
-                            App
-                        </div>
-                        <div class="col-5">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3"></div>
-                    </div>
-
-                    <div class="row ">
-                        <div class="col-3">
-                            Email
-                        </div>
-                        <div class="col-5">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3"></div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-2 p2nitem">
-            <div class="p2ncard-estimated">
-                <span>Estimated 12.34/ week</span>
-            </div>
-        </div>
-    </div>
-
+                    <div class="row p2nparagrap-text ">
+                        <div class="col-lg-8  col-sm-12 col-md-12">
+                            <article>
+                                <span id="@item.Id+'ShortDescription'">
+                                    @item.ShortDescription ...
+                                      <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription')")">Read more...</a>
+                                </span>
+                               <br />
+                                <span id="@(item.Id + "longdescription")" class="long_description">
+                                    @item.LongDescription
+                                </span>
+                                </article>
 
 
 </div>
 
-<script>
-    $(document).ready(function () {
-        // $('p2nparagrap-text').readmore();
-        var slider = $(".slider").kendoSlider({
-
-            min: 1,
-            max: 100,
-            smallStep: 2,
-            largeStep: 1,
-            showButtons: false,
-            tickPlacement: "none"
-
-        }).data("kendoSlider");
+                    </div>
 
 
-    });
-    function myFunction(dots, more, seemore) {
 
 
-        var dots = document.getElementById(dots);
-        var moreText = document.getElementById(more);
-        var btnText = document.getElementById(seemore);
+                    <div class="">
+                        <div class="row ">
+                            <div class="col-3">
+                                Print: $.46
+                            </div>
+                            <div class="col-5 ">
+                                <input name="slider" class="balSlider slider" value="0" title="slider"  id="@(item.Id + "slider")"/>
 
-        if (dots.style.display === "none") {
-            dots.style.display = "inline";
-            btnText.innerHTML = "Read more";
-            moreText.style.display = "none";
-        } else {
-            dots.style.display = "none";
-            btnText.innerHTML = "Read less";
-            moreText.style.display = "inline";
-        }
-        e.preventDefault();
-        return false;
-    }
-</script>
+                               
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-3">
+                                App
+                            </div>
+                            <div class="col-5 ">
+                                <input name="slider" class="balSlider slider" value="0" title="slider" />
+
+
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-2 p2nitem">
+                <div class="p2ncard-estimated">
+                    <span>Estimated <br /> @item.Volume / week</span>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            $(document).ready(function () {
+                // $('p2nparagrap-text').readmore();
+                var slider = $("@(item.Id + "slider")").kendoSlider({
+
+                    min: 1,
+                    max: @item.NumberOfLevels,
+                    smallStep: 1,
+                    largeStep: 1,
+                    showButtons: false,
+                    tickPlacement: "none",
+                    dragHandleTitle: "",
+                    slide: function (e) {
+
+                        var slide = this;
+                        var element = slide.element;
+                        $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
+
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+
+                }).data("kendoSlider");
+
+                
+
+            });
+        </script>
+
+            }
+
+</div >
+
+                <script>
+                   
+                    $(document).ready(function () {
+                // $('p2nparagrap-text').readmore();
+                var slider = $(".slider").kendoSlider({
+
+                    min: 1,
+                    max: 10,
+                    smallStep: 1,
+                    largeStep: 1,
+                    showButtons: false,
+                    tickPlacement: "none",
+                    slide: function (e) {
+
+                        var slide = this;
+                        var element = slide.element;
+                        $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
+
+                    }
+
+                }).data("kendoSlider");
+
+                        $(".k-draghandle").text('1')
+
+            });
+            function myFunction(seemore, more, ) {
+
+
+
+                var moreText = document.getElementById(more);
+                var btnText = document.getElementById(seemore);
+
+                if (moreText.style.display === "none" || moreText.style.display === "") {
+
+                        btnText.innerHTML = "Read less";
+                    moreText.style.display = "inline";
+                    moreText.removeAttribute("class");
+                } else {
+
+                        btnText.innerHTML = "Read more";
+                    moreText.style.display = "none";
+                }
+                e.preventDefault();
+                return false;
+            }
+        </script>
 
