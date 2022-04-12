@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-sm-5">
             <span>Market:</span>
-            <input type="text" class="form-control" placeholder="Enter market name to search" />
+            <input type="text" class="form-control" id="txtMarketFilter" placeholder="Enter market name to search" />
         </div>
        
     </div>
@@ -55,7 +55,27 @@
                 }
 
 
+            });
+
+        $('#txtMarketFilter').keyup(function(e) {
+
+            var searchterm = $('#txtMarketFilter').val();
+
+            if (searchterm == null || searchterm.length == 0) {
+                $('#market-grid').data("kendoGrid").dataSource.filter({});
+            }
+            else {
+
+                var marketFilter = { logic: "or", filters: [] };
+
+                marketFilter.filters.push({ field: "MarketCode", operator: "contains", value: searchterm });
+                marketFilter.filters.push({ field: "MarketName", operator: "contains", value: searchterm });
+
+                $('#market-grid').data("kendoGrid").dataSource.filter(marketFilter);
+            }
+
         });
+
     });
 
     function renderSalonSubscriptionGrid() {
