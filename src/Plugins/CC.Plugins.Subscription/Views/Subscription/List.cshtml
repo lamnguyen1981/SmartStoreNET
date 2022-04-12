@@ -17,11 +17,18 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-sm-4"><div class="gc-grid" id="market-grid"></div></div>
-        <div class="col-sm-8"><div class="gc-grid" id="salon-subscription-grid"></div></div>
+        <div class="col-sm-5">
+            <span>Market:</span>
+            <input type="text" class="form-control" placeholder="Enter market name to search" />
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-sm-5"><div class="gc-grid" id="market-grid"></div></div>
+        <div class="col-sm-7"><div class="gc-grid" id="salon-subscription-grid"></div></div>
     </div>
 
-   
+
 
 </div>
 
@@ -63,18 +70,18 @@
             height: "500",
             columns: [{
                 field: "SalonCode",
-                title: "Location #",
-                width: 80
+                title: "Location<br/>#",
+                width: 70
             },
             {
                 field: "SalonName",
-                title: "Location Name",
-                width: 250
+                title: "Location<br/>Name",
+                width: 120
             },
             {
                 field: "Email",
                 title: "Owner Email",
-                width: 250
+                width: 200
                 },
             {
                 field: "P2N",
@@ -113,17 +120,17 @@
             height: "500",
             columns: [{
                 field: "MarketCode",
-                title: "Market Code",
-                width: 80
+                title: "Market<br/>Code",
+                width: 50
             },
             {
                 field: "MarketName",
                 title: "Market Name",
-                width: 250
+                width: 150
             },
             {
-                title: "Salon Subscription",
-                width: 100,
+                title: "Action",
+                width: 70,
                 template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #)'>Show</span>"
             }
             ]

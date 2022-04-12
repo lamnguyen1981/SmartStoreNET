@@ -84,14 +84,14 @@ namespace CC.Plugins.Subscription.Controllers
             };
         }
 
-        public ActionResult ListDetail(int marketId)
+        public ActionResult ListDetail(int salonId)
         {
-            string sqlQuery = @"select m.Id, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
-                                    from[greatclips_api_dev].dbo.Market m
-                                    cross join[greatclips_api_dev].dbo.Program p
-                                    left join[greatclips_api_dev].dbo.MarketSubscription ms on m.ID = ms.fk_MarketID and ms.fk_programid = p.id
-                                    where m.id = {0} and year = 2021 and p.ProgramType = 'Journey'";
-            var response = _services.DbContext.SqlQuery<MarketSubscriptionResponse>(sqlQuery, marketId).ToList();
+            string sqlQuery = @"select s.Id, s.SalonCode, s.SalonName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ss.Level,0) as Level, ss.MaxVolume 
+                                    from [greatclips_api_dev].dbo.Salon s
+                                    cross join [greatclips_api_dev].dbo.Program p
+                                    left join [greatclips_api_dev].dbo.SalonSubscription ss on s.ID = ss.fk_SalonID and ss.fk_programid = p.id
+                                    where s.id = {0} and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
+            var response = _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, salonId).ToList();
             return View(response);
         }
         

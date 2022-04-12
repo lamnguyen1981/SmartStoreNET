@@ -280,6 +280,7 @@
     </Compile>
     <Compile Include="Controllers\SubscriptionController.cs" />
     <Compile Include="Models\MarketResponse.cs" />
+    <Compile Include="Models\SalonSubscriptionDetailResponse.cs" />
     <Compile Include="Models\MarketSubscriptionResponse.cs" />
     <Compile Include="Models\SalonSubscriptionResponse.cs" />
     <Compile Include="Plugin.cs" />
