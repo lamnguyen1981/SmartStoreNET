@@ -35,9 +35,9 @@ namespace CC.Plugins.Subscription.Models
             get { return string.Format("{0}_Icon.png", ProgramCode); }
         }
 
-        public double Volume
+        public decimal Volume
         {
-            get { return ((double)Level / (double)NumberOfLevels) * 100; }
+            get { return ((decimal)Level / (decimal)NumberOfLevels) * 100; }
         }
 
         public string PictureDecorationPath

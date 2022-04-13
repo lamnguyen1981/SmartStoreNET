@@ -64,7 +64,7 @@
 
 
 
-                    <div class="">
+                   
                         <div class="row ">
                             <div class="col-3">
                                 Print: $.46
@@ -74,10 +74,25 @@
 
                                
                             </div>
-                            <div class="col-3"></div>
+                            <div class="col-3">
+                                
+                               
+                            </div>
                         </div>                    
-
-                    </div>
+                      @if (item.ProgramCode == "N2B")
+                      {
+                        <div class="row">
+                            <div class="col-9">
+                            </div>
+                            <div class="col-3">
+                                @*<button class="btn btn-info p2ncard-btn" onclick="@UrlAction()">Offers</button>*@
+                                <a class="btn btn-info p2ncard-btn" href="@Url.Action("OfferList", "Subscription")" rel="nofollow">
+                                    
+                                    <span>Offers</span>
+                                </a>
+                            </div>
+                        </div>
+                      }
                 </div>
 
             </div>
