@@ -21,7 +21,7 @@
     @foreach (var item in Model)
     {
         <div class="row p2ncard-item">
-            <div class="col-7" style="padding-right:0px;">
+            <div class="col-8" style="padding-right:0px;">
 
                 <div class="p2ncard ">
 
@@ -48,51 +48,126 @@
                             <article>
                                 <span id="@item.Id+'ShortDescription'">
                                     @item.ShortDescription ...
-                                      <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription')")">Read more...</a>
+                                    <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription')")">Read more...</a>
                                 </span>
-                               <br />
+                                <br />
                                 <span id="@(item.Id + "longdescription")" class="long_description">
                                     @item.LongDescription
                                 </span>
-                                </article>
+                            </article>
 
 
-</div>
+                        </div>
 
                     </div>
 
 
 
 
-                   
-                        <div class="row ">
-                            <div class="col-3">
-                                Print: $.46
-                            </div>
-                            <div class="col-5 ">
-                                <input name="slider" class="balSlider" value="0" title="slider"  id="@(item.Id + "slider")"/>
 
-                               
-                            </div>
-                            <div class="col-3">
-                                
-                               
-                            </div>
-                        </div>                    
-                      @if (item.ProgramCode == "N2B")
-                      {
+                    <div class="row ">
+                        <div class="col-3">
+                            Print: $.46
+                        </div>
+                        <div class="col-5 ">
+                            <input name="slider" class="balSlider" value="0" title="slider" id="@(item.Id + "slider")" />
+
+
+                        </div>
+                        <div class="col-3">
+
+
+                        </div>
+                    </div>
+                    @if (item.ProgramCode == "N2B")
+                    {
                         <div class="row">
                             <div class="col-lg-9 col-sm-6 col-md-6">
                             </div>
-                            <div class="col-lg-9 col-sm-6 col-md-6">
-                                @*<button class="btn btn-info p2ncard-btn" onclick="@UrlAction()">Offers</button>*@
-                                <a class="btn btn-info p2ncard-btn" href="@Url.Action("OfferList", "Subscription")" rel="nofollow">
-                                    
-                                    <span>Offers</span>
-                                </a>
+                            <div class="col-lg-3 col-sm-6 col-md-6">
+                                <button id ='@(item.Id + "offer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('@(item.Id + "offer-grid-row")','@(item.Id + "offer-grid-btn")')">View<br /> Offers</button>
+                                
                             </div>
                         </div>
-                      }
+
+                        <div class="row" style="display:none" id="@(item.Id + "offer-grid-row")">
+                            <div class="col-sm-12"><div class="gc-grid" id="@(item.Id + "offer-grid")"></div></div>
+                        </div>
+
+                        <script type="text/javascript">
+
+
+                        $(function () {
+
+
+                            renderOfferGrid();
+
+
+                            $.post("@Url.Action("GetOfferList", "Subscription")")
+                                .done(function (result) {
+                                    if (result != null) {
+                                        debugger;
+                                        var offerListDatasource = new kendo.data.DataSource({
+                                            data: result,
+                                            sort: [{ field: "Vehicle", dir: "asc" }]
+                                        });
+
+                                        $("#@(item.Id + "offer-grid")").data("kendoGrid").setDataSource(offerListDatasource);
+
+                                    }
+
+
+                            });
+                        });
+
+                        function renderOfferGrid() {
+
+                            $("#@(item.Id + "offer-grid")").kendoGrid({
+                                dataSource: [],
+                                noRecords: {
+                                    template: "No data available."
+                                },
+                                sortable: true,
+                                pageable: false,
+
+                                columns: [{
+                                    field: "Vehicle",
+                                    title: "Vehicle",
+                                    width: 25
+                                },
+                                {
+                                    field: "OfferCode",
+                                    title: "Offer Code",
+                                    width: 30
+                                },
+                                {
+                                    field: "OfferDescription",
+                                    title: "Offer <br/> Description",
+                                    width: 40
+                                 },
+                                {
+                                    field: "MarketRecommendation",
+                                    title: "Market <br/> Recommendation($)",
+                                    width: 40
+                                },
+                                {
+                                    field: "SalonOverride",
+                                    title: "Salon <br/> Override($)",
+                                    width: 30
+                                }
+
+                                ]
+                            });
+
+                        }
+
+
+
+
+
+                        </script>
+
+                    }
                 </div>
 
             </div>
@@ -147,7 +222,22 @@
 </div >
 
                 <script>
-                   
+
+                    function ShowHideOfferGrid(gridId, btnId) {
+                        var grid = document.getElementById(gridId);
+                        var btn = document.getElementById(btnId);
+
+                        if (grid.style.display === "none" ) {
+
+                            btn.innerHTML = "Hide <br/> Offers";
+                            grid.style.display = "";
+                           
+                        } else {
+
+                            btn.innerHTML = "Show <br/> Offers";
+                            grid.style.display = "none";
+                        }
+                    }
                     
             function myFunction(seemore, more, ) {
 
