@@ -50,25 +50,61 @@ namespace CC.Plugins.Subscription.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult GetOfferList()
         {
-            var model = new List<OffersResponse>();
+            var model = new List<MarketOffersResponse>();
 
-            model.Add(new OffersResponse
+            model.Add(new MarketOffersResponse
             {
-                MarketRecommendation = 12,
-                OfferCode = "HJHJ09",
-                OfferDescription = "3434",
-                SalonOverride = 109,
-                Vehicle = "Email"
+                Vehicle = "Print",
+                OfferCode = "N2BSPW2",
+                OfferDescription = "2nd Skipped Personal Week",
+                DefaultAmount = "$6.99",
+                MarketRecommendation = ""
             });
 
-            model.Add(new OffersResponse
+            model.Add(new MarketOffersResponse
             {
-                MarketRecommendation = 118,
-                OfferCode = "HJHJ09",
-                OfferDescription = "3434",
-                SalonOverride = 109,
-                Vehicle = "App"
+                Vehicle = "Email",
+                OfferCode = "N2BSPW2",
+                OfferDescription = "2nd Skipped Personal Week",
+                DefaultAmount = "$6.99",
+                MarketRecommendation = "$7.99"
             });
+            model.Add(new MarketOffersResponse
+            {
+                Vehicle = "App",
+                OfferCode = "N2BSPW2",
+                OfferDescription = "2nd Skipped Personal Week",
+                DefaultAmount = "$6.99",
+                MarketRecommendation = ""
+            });
+
+            model.Add(new MarketOffersResponse
+            {
+                Vehicle = "Print",
+                OfferCode = "N2B2Step",
+                OfferDescription = "2nd Visit",
+                DefaultAmount = "$5 Off",
+                MarketRecommendation = ""
+            });
+
+            model.Add(new MarketOffersResponse
+            {
+                Vehicle = "Email",
+                OfferCode = "N2B2Step",
+                OfferDescription = "2nd Visit",
+                DefaultAmount = "$5 Off",
+                MarketRecommendation = ""
+            });
+
+            model.Add(new MarketOffersResponse
+            {
+                Vehicle = "App",
+                OfferCode = "N2B2Step",
+                OfferDescription = "2nd Visit",
+                DefaultAmount = "$5 Off",
+                MarketRecommendation = ""
+            });
+
 
             return new JsonResult()
             {
@@ -78,7 +114,7 @@ namespace CC.Plugins.Subscription.Controllers
 
         public ActionResult MarketList()
         {
-            string sqlQuery = @"select Id, MarketCode, MarketName from [greatclips_api_dev].dbo.market
+            string sqlQuery = @"select Id, REPLACE(STR(MarketCode, 3), SPACE(1), '0') as MarketCode, MarketName from [greatclips_api_dev].dbo.market
                                order by MarketName";
             var response = _services.DbContext.SqlQuery<MarketResponse>(sqlQuery);
 
@@ -119,15 +155,19 @@ namespace CC.Plugins.Subscription.Controllers
             };
         }
 
-        public ActionResult ListDetail(int salonId)
+        public ActionResult MarketSubscriptionList(int marketId)
         {
-            string sqlQuery = @"select p.Id, s.Id as SalonId, s.SalonCode, s.SalonName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ss.Level,0) as Level, ss.MaxVolume 
-                                    from [greatclips_api_dev].dbo.Salon s
+            string sqlQuery = @"select p.Id, m.Id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
+                                    from [greatclips_api_dev].dbo.Market m
                                     cross join [greatclips_api_dev].dbo.Program p
-                                    left join [greatclips_api_dev].dbo.SalonSubscription ss on s.ID = ss.fk_SalonID and ss.fk_programid = p.id
-                                    where s.id = {0} and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
-            var response = _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, salonId).ToList();
-            return View(response);
+                                    left join [greatclips_api_dev].dbo.MarketSubscription ms on m.ID = ms.fk_MarketId and ms.fk_programid = p.id
+                                    where m.id = {0} and ms.Year = 2021 and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
+            var response = _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, marketId);
+
+            return new JsonResult()
+            {
+                Data = response,
+            };
         }
         
     }

@@ -27,12 +27,45 @@
 
 
 
-.k-grid .k-grid-header .k-header {
+/*.k-grid .k-grid-header .k-header {
     background-color: #{$darkblue};
 }
 
 .k-grid .k-grid-header .k-header a {
     color: white;
+}*/
+.gc-grid .k-header,
+.gc-grid .k-grid-content td {
+    text-align: center !important;
+}
+
+.gc-grid .k-grid-header th>.k-link>.k-icon {
+    vertical-align: text-bottom;
+}
+
+.gc-grid .k-header,
+.gc-grid .k-grid-header {
+    background-image: none,-webkit-gradient(linear,left top,left bottom,from(rgb(0,40,85)),to(rgb(0,40,85)));
+    background-image: none,-webkit-linear-gradient(top,rgb(0,40,85) 0,rgb(0,40,85) 100%);
+    background-image: none,linear-gradient(to bottom,rgb(0,40,85) 0,rgb(0,40,85) 100%);
+    background-position: 50% 50%;
+    background-color: #002855
+}
+
+.gc-grid .k-header,
+.gc-grid .k-grid-header th.k-header>.k-link {
+    font-weight: bold !important;
+    color: white;
+}
+
+.gc-grid.gc-grid-calendar .k-grid-content > table > tbody > tr > td:first-child {
+    background-image: none,-webkit-gradient(linear,left top,left bottom,from(rgb(0,40,85)),to(rgb(0,40,85)));
+    background-image: none,-webkit-linear-gradient(top,rgb(0,40,85) 0,rgb(0,40,85) 100%);
+    background-image: none,linear-gradient(to bottom,rgb(0,40,85) 0,rgb(0,40,85) 100%);
+    background-position: 50% 50%;
+    background-color: rgb(0,40,85);
+    color: white;
+    border-bottom: 1px solid #c5c5c5;
 }
 
 

@@ -17,15 +17,15 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <span>Market:</span>
             <input type="text" class="form-control" id="txtMarketFilter" placeholder="Enter market name to search" />
         </div>
        
     </div>
     <div class="row">
-        <div class="col-sm-5"><div class="gc-grid" id="market-grid"></div></div>
-        <div class="col-sm-7"><div class="gc-grid" id="salon-subscription-grid"></div></div>
+        <div class="col-sm-4"><div class="gc-grid" id="market-grid"></div></div>
+        <div class="col-sm-8"><div class="gc-grid" id="salon-subscription-grid"></div></div>
     </div>
 
 
@@ -139,18 +139,15 @@
             pageable: false,
             height: "500",
             columns: [{
-                field: "MarketCode",
-                title: "Market<br/>Code",
-                width: 50
-            },
-            {
-                field: "MarketName",
-                title: "Market Name",
+                field: "Id",
+                title: "Market",
+                template: "#= MarketCode # - #=MarketName #",
+                attributes: { style: "text-align:left !important" },
                 width: 150
-            },
+            },           
             {
                 title: "Action",
-                width: 70,
+                width: 60,
                 template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #)'>Show</span>"
             }
             ]
