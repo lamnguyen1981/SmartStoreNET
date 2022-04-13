@@ -41,6 +41,41 @@ namespace CC.Plugins.Subscription.Controllers
             return View();
         }
 
+        public ActionResult OfferList()
+        {            
+
+            return View();
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult GetOfferList()
+        {
+            var model = new List<OffersResponse>();
+
+            model.Add(new OffersResponse
+            {
+                MarketRecommendation = 12,
+                OfferCode = "HJHJ09",
+                OfferDescription = "3434",
+                SalonOverride = 109,
+                Vehicle = "Email"
+            });
+
+            model.Add(new OffersResponse
+            {
+                MarketRecommendation = 118,
+                OfferCode = "HJHJ09",
+                OfferDescription = "3434",
+                SalonOverride = 109,
+                Vehicle = "App"
+            });
+
+            return new JsonResult()
+            {
+                Data = model,
+            };
+        }
+
         public ActionResult MarketList()
         {
             string sqlQuery = @"select Id, MarketCode, MarketName from [greatclips_api_dev].dbo.market

@@ -1,0 +1,106 @@
+﻿@model IList<CC.Plugins.Subscription.Models.OffersResponse>
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Market Subscription";
+    Layout = "_Layout";
+}
+
+
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.min.css" />
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.mobile.all.min.css" />
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.common.min.css" />
+<script src="~/Themes/GreatClips/Content/kendo/js/kendo.all.min.js"></script>
+
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-5">
+            <span>Offers for Salon 1128: </span>
+          
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12"><div class="gc-grid" id="offer-grid"></div></div>
+        
+    </div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+       
+        renderOfferGrid();
+        
+
+        $.post("@Url.Action("GetOfferList", "Subscription")")
+            .done(function (result) {
+                if (result != null) {
+                    debugger;
+                    var offerListDatasource = new kendo.data.DataSource({
+                        data: result,
+                        sort: [{ field: "Vehicle", dir: "asc" }]
+                    });
+
+                    $('#offer-grid').data("kendoGrid").setDataSource(offerListDatasource);
+
+                }
+
+
+        });
+    });
+
+    function renderOfferGrid() {
+
+        $('#offer-grid').kendoGrid({
+            dataSource: [],
+            noRecords: {
+                template: "No data available."
+            },
+            sortable: true,
+            pageable: false,
+            height: "300",
+            columns: [{
+                field: "Vehicle",
+                title: "Vehicle",
+                width: 70
+            },
+            {
+                field: "OfferCode",
+                title: "Offer Code",
+                width: 70
+            },
+            {
+                field: "OfferDescription",
+                title: "Offer Description",
+                width: 150
+             },
+            {
+                field: "MarketRecommendation",
+                title: "Market Recommendation($)",
+                width: 100
+            },
+            {
+                field: "SalonOverride",
+                title: "Salon Override($)",
+                width: 70
+            }
+            
+            ]
+        });
+
+    }
+
+   
+
+  
+
+</script>          
