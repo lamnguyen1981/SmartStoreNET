@@ -47,7 +47,7 @@
                             <article>
                                 <span id="@item.Id+'ShortDescription'">
                                     @item.ShortDescription ...
-                                    <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription')")">Read more...</a>
+                                    <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription")')">Read more...</a>
                                 </span>
                                 <br />
                                 <span id="@(item.Id + "longdescription")" class="long_description">
@@ -78,6 +78,37 @@
 
                         </div>
                     </div>
+                    @if (item.ProgramCode == "N2B" || item.ProgramCode == "B2G")
+                    {
+                        <div class="row ">
+                            <div class="col-3">
+                                App
+                            </div>
+                            <div class="col-5 ">
+                                <input name="slider" class="balSlider slider" value="0" title="slider" />
+
+
+                            </div>
+                            <div class="col-3">
+
+
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-3">
+                                Email
+                            </div>
+                            <div class="col-5 ">
+                                <input name="slider" class="balSlider slider" value="0" title="slider" />
+
+
+                            </div>
+                            <div class="col-3">
+
+
+                            </div>
+                        </div>
+                    }
                     @if (item.ProgramCode == "N2B")
                     {
                         <div class="row">
@@ -221,6 +252,40 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+                // $('p2nparagrap-text').readmore();
+                var slider = $(".slider").kendoSlider({
+
+                    min: 0,
+                    max: 10,
+                    smallStep: 1,
+                    largeStep: 1,
+                    showButtons: false,
+                   value: 0,
+                    tickPlacement: "none",
+                    dragHandleTitle: "",
+                    slide: function (e) {
+
+                        var slide = this;
+                        var element = slide.element;
+                        $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
+
+
+                    },
+                    change: function (e) {
+
+
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+
+                }).data("kendoSlider");
+
+
+               $(".slider").parent(".k-slider-wrap").find(".k-draghandle").text('0');
+
+            });
 
                     function ShowHideOfferGrid(gridId, btnId) {
                         var grid = document.getElementById(gridId);
@@ -257,7 +322,9 @@
                 }
 
                 return false;
-            }
+    }
+
+
 </script>
 
 
