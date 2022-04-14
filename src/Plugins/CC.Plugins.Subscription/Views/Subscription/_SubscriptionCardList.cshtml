@@ -11,18 +11,27 @@
     @foreach (var item in Model)
     {
         <div class="row p2ncard-item">
-            <div class="col-8" style="padding-right:0px;">
+            <div class="col-10" style="padding-right:0px;">
 
                 <div class="p2ncard ">
-
-
 
                     <div class="row ">
                         <div class="col-lg-3  col-sm-12 col-md-4">
                             <img src="~/Themes/GreatClips/Content/Images/@item.IconPath" class="p2n-image" alt="p2n">
                         </div>
                         <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
-                            <h6>Your next great customer</h6>
+                            @if (item.ProgramCode == "P2N")
+                            {
+                                <h6>Your next great customer</h6>
+                            }
+                            else if (item.ProgramCode == "N2B")
+                            {
+                                <h6>From rookie to regular</h6>
+                            }
+                            else
+                            {
+                                <h6>Undiscounted Loyalty</h6>
+                            }
                         </div>
                     </div>
 

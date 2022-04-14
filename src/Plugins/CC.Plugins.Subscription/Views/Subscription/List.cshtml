@@ -21,6 +21,10 @@
             <span>Market:</span>
             <input type="text" class="form-control" id="txtMarketFilter" placeholder="Enter market name to search" />
         </div>
+        <div class="col-sm-6 align-self-center">
+            <h4 style="text-align:center;" id="market-caption"></h4>
+
+        </div>
 
     </div>
     <div class="row">
@@ -137,7 +141,7 @@
             },
             sortable: true,
             pageable: false,
-            height: "500",
+            height: 500,
             columns: [{
                 field: "Id",
                 title: "Market",
@@ -148,29 +152,15 @@
             {
                 title: "Action",
                 width: 60,
-                template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #)'>Show</span>"
+                template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #, \"#= MarketName #\")'>Show</span>"
             }
             ]
         });
 
     }
 
-    function getSalonSubscriptionData(marketId) {
-        @*$.post("@Url.Action("SalonSubscriptionList", "Subscription")", {marketId : marketId})
-            .done(function (result) {
-                if (result != null) {
-
-                    var salonSubscriptionDatasource = new kendo.data.DataSource({
-                        data: result,
-                        sort: [{ field: "SalonCode", dir: "asc" }]
-                    });
-
-                    $('#salon-subscription-grid').data("kendoGrid").setDataSource(salonSubscriptionDatasource);
-
-                }
-
-
-    });*@
+    function getSalonSubscriptionData(marketId, marketName) {
+        $("#market-caption").text(marketName);      
 
         $.ajax({
             type: "POST",
