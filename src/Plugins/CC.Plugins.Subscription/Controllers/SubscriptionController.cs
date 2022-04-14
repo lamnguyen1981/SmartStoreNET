@@ -41,6 +41,12 @@ namespace CC.Plugins.Subscription.Controllers
             return View();
         }
 
+        public PartialViewResult MarketSubscriptionList(int marketId)
+        {
+            var model = GetMarketSubscriptionList(marketId);
+            return PartialView("_SubscriptionCardList", model);
+        }
+
         public ActionResult OfferList()
         {            
 
@@ -155,19 +161,16 @@ namespace CC.Plugins.Subscription.Controllers
             };
         }
 
-        public ActionResult MarketSubscriptionList(int marketId)
+        private IEnumerable<SalonSubscriptionDetailResponse> GetMarketSubscriptionList(int marketId)
         {
             string sqlQuery = @"select p.Id, m.Id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
                                     from [greatclips_api_dev].dbo.Market m
                                     cross join [greatclips_api_dev].dbo.Program p
                                     left join [greatclips_api_dev].dbo.MarketSubscription ms on m.ID = ms.fk_MarketId and ms.fk_programid = p.id
                                     where m.id = {0} and ms.Year = 2021 and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
-            var response = _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, marketId);
+            return  _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, marketId).ToList();
 
-            return new JsonResult()
-            {
-                Data = response,
-            };
+           
         }
         
     }

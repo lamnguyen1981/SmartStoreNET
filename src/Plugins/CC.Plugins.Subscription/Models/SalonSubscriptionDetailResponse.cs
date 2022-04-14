@@ -30,6 +30,8 @@ namespace CC.Plugins.Subscription.Models
 
         public int MaxVolume { get; set; }
 
+        public IList<MarketOffersResponse> MarketOffers { get; set; }
+
         public string IconPath
         {
             get { return string.Format("{0}_Icon.png", ProgramCode); }
