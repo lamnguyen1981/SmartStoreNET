@@ -129,20 +129,16 @@
                     <div class="col-lg-3 col-sm-6 col-md-6">
                     </div>
                     <div class="col-lg-3 col-sm-6 col-md-6">
-                        <button id='@(Model.Id + "offer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('orderGrid','@(Model.Id + "offer-grid-btn" )')">Subscriptions</button>
+                        <button id='@(Model.Id + "order-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('orderGrid','@(Model.Id + "order-grid-btn" )')">Subscriptions</button>
 
                     </div>
                     <div class="col-lg-3 col-sm-6 col-md-6">
-                        <button id='@(Model.Id + "subscription-detail-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('orderGrid','@(Model.Id + "subscription-detail-btn" )')">@Model.ProgramCode Detail</button>
+                        <button id='@(Model.Id + "order-history-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('orderGrid','@(Model.Id + "order-history-grid-btn" )')">@Model.ProgramCode History</button>
 
                     </div>
                     <div class="col-lg-3 col-sm-6 col-md-6">
                     </div>
                 </div>
-
-               
-
-
 
 
             </div>
@@ -150,7 +146,7 @@
         </div>
         <div class="col-2 p2nitem">
             <div class="p2ncard-estimated">
-                <span>Estimated <br /> $<span id="@(Model.Id + "estimated")">@Model.Volume</span> / week</span>
+                <span>Price <br /> $<span id="@(Model.Id + "estimated")">@Model.Volume</span> / week</span>
             </div>
         </div>
         <div class="col-2 ">
@@ -165,27 +161,10 @@
             <div class="p2ncard " id='@(Model.Id + "cardOrder")'>
 
                 <div class="row"  id="@(Model.Id + "offer-grid-row")">
-                    <div class="col-sm-12" style="margin-top: 15px;"><div class="gc-grid" id="@(Model.Id + "offer-grid")"></div></div>
+                    <div class="col-sm-12" style="margin-top: 15px;"><div class="gc-grid" id="@(Model.Id + "order-grid")"></div></div>
                 </div>
 
                 
-
-
-               
-
-
-
-
-
-                
-                
-
-               
-
-                
-
-
-
 
             </div>
 
@@ -232,8 +211,7 @@
 
             $("#@(Model.Id + "slider")").parent(".k-slider-wrap").find(".k-draghandle").text('@Model.Level');
 
-            renderOfferGrid('@(Model.Id + "offer-grid")');
-            LoadOfferGridDataSource('@(Model.Id + "offer-grid")');
+            renderOfferGrid('@(Model.Id + "order-grid")');
             ChangeColorButton('@(Model.Id + "card")', '@Model.ProgramCode');
                     });
 
@@ -299,6 +277,14 @@
         var grid = document.getElementById(gridId);
         var btn = document.getElementById(btnId);
 
+        if (btnId == '@(Model.Id + "order-grid-btn")') {
+
+            LoadOrderGridDataSource('@(Model.Id + "order-grid")');
+        }
+        else {
+            LoadOrderHistoryGridDataSource('@(Model.Id + "order-grid")');
+        }
+
         if (grid.style.display === "none") {
 
           //  btn.innerHTML = "Hide Offers";
@@ -348,40 +334,41 @@
                 pageable: false,
 
                 columns: [{
-                    field: "Date",
-                    title: "Date",
+                    field: "Number",
+                    title: "Invoice #",
                     width: 45
                 },
                 {
-                    field: "Level",
-                    title: "Level",
+                    field: "Date",
+                    title: "Invoice Date",
+                    template: "#= kendo.toString(kendo.parseDate(Date, 'yyyy-MM-dd'), 'MM/dd/yyyy') #",                    
+                    width: 60
+                },
+                {
+                    field: "Status",
+                    title: "Invoice Status",
                     width: 40
                 },
                 {
-                    field: "Price",
-                    title: "Price",
+                    field: "TotalAmount",
+                    title: "Total Amount",
                     width: 40
                 },
-                {
-                    field: "Offer",
-                    title: "Offer",
-                    width: 40
-                },
-                
+
 
                 ]
             });
 
         }
 
-        function LoadOfferGridDataSource(gridId) {
-            $.post("@Url.Action("GetOrderList", "Subscription")")
+        function LoadOrderHistoryGridDataSource(gridId) {
+            $.post("@Url.Action("GetOrderHistoryList", "Subscription")")
                 .done(function (result) {
                     if (result != null) {
 
                         var offerListDatasource = new kendo.data.DataSource({
                             data: result,
-                            sort: [{ field: "Vehicle", dir: "asc" }]
+                            sort: [{ field: "Number", dir: "desc" }]
                         });
 
                         $("#" + gridId).data("kendoGrid").setDataSource(offerListDatasource);
@@ -393,7 +380,23 @@
         }
 
 
+        function LoadOrderGridDataSource(gridId) {
+                $.post("@Url.Action("GetOrderPendingList", "Subscription")")
+                    .done(function (result) {
+                        if (result != null) {
 
+                            var offerListDatasource = new kendo.data.DataSource({
+                                data: result,
+                                sort: [{ field: "Number", dir: "desc" }]
+                            });
+
+                            $("#" + gridId).data("kendoGrid").setDataSource(offerListDatasource);
+
+                        }
+
+
+                    });
+            }
 
 
 

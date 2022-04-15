@@ -8,8 +8,8 @@ namespace CC.Plugins.Subscription.Models
     public class Order
     {
         public DateTime Date { get; set; }
-        public int Level { get; set; }
-        public decimal Price { get; set; }
-        public string Offer  { get; set; }
+        public string Number { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string Status  { get; set; }
     }
 }
