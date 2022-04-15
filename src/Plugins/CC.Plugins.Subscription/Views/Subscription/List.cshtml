@@ -152,15 +152,15 @@
             {
                 title: "Action",
                 width: 60,
-                template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #, \"#= MarketName #\")'>Show</span>"
+                template: "<span class='btn btn-info' onclick='getSalonSubscriptionData(#= Id #, \"#= MarketCode #\", \"#= MarketName #\")'>Show</span>"
             }
             ]
         });
 
     }
 
-    function getSalonSubscriptionData(marketId, marketName) {
-        $("#market-caption").text(marketName);      
+    function getSalonSubscriptionData(marketId, marketCode, marketName) {
+        $("#market-caption").text(marketCode + ' - ' + marketName);
 
         $.ajax({
             type: "POST",
