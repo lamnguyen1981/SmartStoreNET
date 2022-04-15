@@ -41,6 +41,12 @@ namespace CC.Plugins.Subscription.Controllers
             return View();
         }
 
+        public ActionResult SubscriptionDetail(int programId)
+        {
+            var model = GetMarketSubscriptionDetail(programId);
+            return View(model);
+        }
+
         public PartialViewResult MarketSubscriptionList(int marketId)
         {
             var model = GetMarketSubscriptionList(marketId);
@@ -118,6 +124,62 @@ namespace CC.Plugins.Subscription.Controllers
             };
         }
 
+        [System.Web.Mvc.HttpPost]
+        public ActionResult GetOrderList()
+        {
+            var model = new List<Order>();
+
+            model.Add(new Order
+            {
+                
+            });
+
+            model.Add(new Order
+            {
+                Date = DateTime.Now,
+                Level = 9,
+                Offer = "abc",
+                Price = 90
+            });
+            model.Add(new Order
+            {
+                Date = DateTime.Now,
+                Level = 9,
+                Offer = "abc",
+                Price = 90
+            });
+
+            model.Add(new Order
+            {
+                Date = DateTime.Now,
+                Level = 9,
+                Offer = "abc",
+                Price = 90
+            });
+
+            model.Add(new Order
+            {
+                Date = DateTime.Now,
+                Level = 9,
+                Offer = "abc",
+                Price = 90
+            });
+
+            model.Add(new Order
+            {
+                Date = DateTime.Now,
+                Level = 9,
+                Offer = "abc",
+                Price = 90
+            });
+
+
+            return new JsonResult()
+            {
+                Data = model,
+            };
+        }
+
         public ActionResult MarketList()
         {
             string sqlQuery = @"select Id, REPLACE(STR(MarketCode, 3), SPACE(1), '0') as MarketCode, MarketName from [greatclips_api_dev].dbo.market
@@ -161,7 +223,7 @@ namespace CC.Plugins.Subscription.Controllers
             };
         }
 
-        private IEnumerable<SalonSubscriptionDetailResponse> GetMarketSubscriptionList(int marketId)
+        private IEnumerable<SalonSubscriptionDetailResponse> GetMarketSubscriptionList(int marketId )
         {
             string sqlQuery = @"select p.Id, m.Id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
                                     from [greatclips_api_dev].dbo.Market m
@@ -172,6 +234,18 @@ namespace CC.Plugins.Subscription.Controllers
 
            
         }
-        
+
+        private SalonSubscriptionDetailResponse GetMarketSubscriptionDetail(int programId)
+        {
+            string sqlQuery = @"select p.Id, m.Id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
+                                    from [greatclips_api_dev].dbo.Market m
+                                    cross join [greatclips_api_dev].dbo.Program p
+                                    left join [greatclips_api_dev].dbo.MarketSubscription ms on m.ID = ms.fk_MarketId and ms.fk_programid = p.id
+                                    where p.Id = {0} and ms.Year = 2021 and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
+            return _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, programId).FirstOrDefault();
+
+
+        }
+
     }
 }
