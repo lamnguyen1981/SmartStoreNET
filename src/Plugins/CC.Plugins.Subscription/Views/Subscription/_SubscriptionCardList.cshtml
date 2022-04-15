@@ -1,19 +1,19 @@
 ﻿@model IList<CC.Plugins.Subscription.Models.SalonSubscriptionDetailResponse>
-@using Telerik.Web.Mvc.UI;
+    @using Telerik.Web.Mvc.UI;
 
 
-@if (Model == null || Model.Count == 0)
-{
-    return;
-}
-
-<div class="container">
-    @foreach (var item in Model)
+    @if (Model == null || Model.Count == 0)
     {
+    return;
+    }
+
+    <div class="container">
+        @foreach (var item in Model)
+        {
         <div class="row p2ncard-item">
             <div class="col-10" style="padding-right:0px;">
 
-                <div class="p2ncard ">
+                <div class="p2ncard " id='@(item.Id + "card")'>
 
                     <div class="row ">
                         <div class="col-lg-3  col-sm-12 col-md-4">
@@ -22,15 +22,15 @@
                         <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
                             @if (item.ProgramCode == "P2N")
                             {
-                                <h6>Your next great customer</h6>
+                            <h6>Your next great customer</h6>
                             }
                             else if (item.ProgramCode == "N2B")
                             {
-                                <h6>From rookie to regular</h6>
+                            <h6>From rookie to regular</h6>
                             }
                             else
                             {
-                                <h6>Undiscounted Loyalty</h6>
+                            <h6>Undiscounted Loyalty</h6>
                             }
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <article>
                                 <span id="@item.Id+'ShortDescription'">
                                     @item.ShortDescription ...
-                                    <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription")')">Read more...</a>
+                                    <a href="javascript:void(0);" id="@(item.Id + "seemore")" onclick="return myFunction('@(item.Id + "seemore")','@(item.Id + "longdescription" )')">Read more...</a>
                                 </span>
                                 <br />
                                 <span id="@(item.Id + "longdescription")" class="long_description">
@@ -80,124 +80,58 @@
                     </div>
                     @if (item.ProgramCode == "N2B" || item.ProgramCode == "B2G")
                     {
-                        <div class="row ">
-                            <div class="col-3">
-                                App
-                            </div>
-                            <div class="col-5 ">
-                                <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                            </div>
-                            <div class="col-3">
-
-
-                            </div>
+                    <div class="row ">
+                        <div class="col-3">
+                            App
                         </div>
-                        <div class="row ">
-                            <div class="col-3">
-                                Email
-                            </div>
-                            <div class="col-5 ">
-                                <input name="slider" class="balSlider slider" value="0" title="slider" />
+                        <div class="col-5 ">
+                            <input name="slider" class="balSlider slider" value="0" title="slider" />
 
 
-                            </div>
-                            <div class="col-3">
-
-
-                            </div>
                         </div>
+                        <div class="col-3">
+
+
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-3">
+                            Email
+                        </div>
+                        <div class="col-5 ">
+                            <input name="slider" class="balSlider slider" value="0" title="slider" />
+
+
+                        </div>
+                        <div class="col-3">
+
+
+                        </div>
+                    </div>
                     }
-                    @if (item.ProgramCode == "N2B")
-                    {
-                        <div class="row">
-                            <div class="col-lg-9 col-sm-6 col-md-6">
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-md-6">
-                                <button id='@(item.Id + "offer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('@(item.Id + "offer-grid-row")','@(item.Id + "offer-grid-btn")')">View<br /> Offers</button>
 
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 col-md-6">
                         </div>
+                        <div class="col-lg-3 col-sm-6 col-md-6">
+                            <button id='@(item.Id + "offer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('@(item.Id + "offer-grid-row")','@(item.Id + "offer-grid-btn" )')">View Offers</button>
 
-                        <div class="row" style="display:none" id="@(item.Id + "offer-grid-row")">
-                            <div class="col-sm-12"><div class="gc-grid" id="@(item.Id + "offer-grid")"></div></div>
                         </div>
+                        <div class="col-lg-3 col-sm-6 col-md-6" style="padding-left:0px;">
+                            <button id='@(item.Id + "subscription-detail-btn")' class="btn btn-info p2ncard-btn" onclick="location.href='SubscriptionDetail?programId=@item.Id'">Subscription Detail</button>
 
-                        <script type="text/javascript">
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-md-6">
+                        </div>
+                    </div>
 
-
-                        $(function () {
-
-
-                            renderOfferGrid();
-
-
-                            $.post("@Url.Action("GetOfferList", "Subscription")")
-                                .done(function (result) {
-                                    if (result != null) {
-                                        debugger;
-                                        var offerListDatasource = new kendo.data.DataSource({
-                                            data: result,
-                                            sort: [{ field: "Vehicle", dir: "asc" }]
-                                        });
-
-                                        $("#@(item.Id + "offer-grid")").data("kendoGrid").setDataSource(offerListDatasource);
-
-                                    }
-
-
-                            });
-                        });
-
-                        function renderOfferGrid() {
-
-                            $("#@(item.Id + "offer-grid")").kendoGrid({
-                                dataSource: [],
-                                noRecords: {
-                                    template: "No data available."
-                                },
-                                sortable: true,
-                                pageable: false,
-
-                                columns: [{
-                                    field: "Vehicle",
-                                    title: "Vehicle",
-                                    width: 25
-                                },
-                                {
-                                    field: "OfferCode",
-                                    title: "Offer Code",
-                                    width: 30
-                                },
-                                {
-                                    field: "OfferDescription",
-                                    title: "Offer <br/> Description",
-                                    width: 40
-                                 },
-                                {
-                                    field: "MarketRecommendation",
-                                    title: "Market <br/> Recommendation($)",
-                                    width: 40
-                                },
-                                {
-                                    field: "SalonOverride",
-                                    title: "Salon <br/> Override($)",
-                                    width: 30
-                                }
-
-                                ]
-                            });
-
-                        }
+                    <div class="row" style="display:none" id="@(item.Id + "offer-grid-row")">
+                        <div class="col-sm-12"><div class="gc-grid" id="@(item.Id + "offer-grid")"></div></div>
+                    </div>
 
 
 
 
-
-                        </script>
-
-                    }
                 </div>
 
             </div>
@@ -215,116 +149,216 @@
 
                     min: 0,
                     max: @item.NumberOfLevels,
-                    smallStep: 1,
+                smallStep: 1,
                     largeStep: 1,
-                    showButtons: false,
-                   value: @item.Level,
-                    tickPlacement: "none",
+                        showButtons: false,
+                            value: @item.Level,
+                tickPlacement: "none",
                     dragHandleTitle: "",
-                    slide: function (e) {
+                        slide: function (e) {
 
-                        var slide = this;
-                        var element = slide.element;
-                        $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
+                            var slide = this;
+                            var element = slide.element;
+                            $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
 
-                        var volume = (e.value/@item.NumberOfLevels)*100;
-                        $("#@(item.Id + "estimated")").text(volume);
-                    },
-                    change: function (e) {
-
-
-                    },
-                    tooltip: {
-                        enabled: false
-                    }
-
-                }).data("kendoSlider");
+                            var volume = (e.value /@item.NumberOfLevels) * 100;
+            $("#@(item.Id + "estimated")").text(volume);
+                            },
+            change: function (e) {
 
 
-                $("#@(item.Id + "slider")").parent(".k-slider-wrap").find(".k-draghandle").text('@item.Level');
+            },
+            tooltip: {
+                enabled: false
+            }
 
-            });
+                        }).data("kendoSlider");
+
+
+            $("#@(item.Id + "slider")").parent(".k-slider-wrap").find(".k-draghandle").text('@item.Level');
+
+            renderOfferGrid('@(item.Id + "offer-grid")');
+            LoadOfferGridDataSource('@(item.Id + "offer-grid")');
+            ChangeColorButton('@(item.Id + "card")', '@item.ProgramCode');
+                    });
 
         </script>
 
-    }
+        }
 
-</div>
+    </div>
 
-<script>
-    $(document).ready(function () {
-                // $('p2nparagrap-text').readmore();
-                var slider = $(".slider").kendoSlider({
+    <script>
+        $(document).ready(function () {
+            // $('p2nparagrap-text').readmore();
+            var slider = $(".slider").kendoSlider({
 
-                    min: 0,
-                    max: 10,
-                    smallStep: 1,
-                    largeStep: 1,
-                    showButtons: false,
-                   value: 0,
-                    tickPlacement: "none",
-                    dragHandleTitle: "",
-                    slide: function (e) {
+                min: 0,
+                max: 10,
+                smallStep: 1,
+                largeStep: 1,
+                showButtons: false,
+                value: 0,
+                tickPlacement: "none",
+                dragHandleTitle: "",
+                slide: function (e) {
 
-                        var slide = this;
-                        var element = slide.element;
-                        $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
-
-
-                    },
-                    change: function (e) {
+                    var slide = this;
+                    var element = slide.element;
+                    $(element).parent(".k-slider-wrap").find(".k-draghandle").text(e.value);
 
 
-                    },
-                    tooltip: {
-                        enabled: false
-                    }
-
-                }).data("kendoSlider");
+                },
+                change: function (e) {
 
 
-               $(".slider").parent(".k-slider-wrap").find(".k-draghandle").text('0');
-
-            });
-
-                    function ShowHideOfferGrid(gridId, btnId) {
-                        var grid = document.getElementById(gridId);
-                        var btn = document.getElementById(btnId);
-
-                        if (grid.style.display === "none" ) {
-
-                            btn.innerHTML = "Hide <br/> Offers";
-                            grid.style.display = "";
-
-                        } else {
-
-                            btn.innerHTML = "Show <br/> Offers";
-                            grid.style.display = "none";
-                        }
-                    }
-
-            function myFunction(seemore, more, ) {
-
-
-
-                var moreText = document.getElementById(more);
-                var btnText = document.getElementById(seemore);
-
-                if (moreText.style.display === "none" || moreText.style.display === "") {
-
-                        btnText.innerHTML = "Read less";
-                    moreText.style.display = "inline";
-                    moreText.removeAttribute("class");
-                } else {
-
-                        btnText.innerHTML = "Read more";
-                    moreText.style.display = "none";
+                },
+                tooltip: {
+                    enabled: false
                 }
 
-                return false;
-    }
+            }).data("kendoSlider");
 
 
-</script>
+            $(".slider").parent(".k-slider-wrap").find(".k-draghandle").text('0');
+
+        });
+
+        function ChangeColorButton(cardId, programCode) {
+            debugger;
+            if (programCode == "P2N")
+            {
+                $("#" + cardId).find(".btn").addClass("pantone2925");
+               
+            }
+            else if (programCode == "N2B")
+            {
+                $("#" + cardId).find(".btn").addClass("pantone2294");
+              
+            }
+            else
+            {
+                $("#" + cardId).find(".btn").addClass("pantone1505");
+               
+            }
+        }
+
+        function ShowHideOfferGrid(gridId, btnId) {
+            var grid = document.getElementById(gridId);
+            var btn = document.getElementById(btnId);
+
+            if (grid.style.display === "none") {
+
+                btn.innerHTML = "Hide Offers";
+                grid.style.display = "";
+
+            } else {
+
+                btn.innerHTML = "Show Offers";
+                grid.style.display = "none";
+            }
+        }
+
+        function myFunction(seemore, more,) {
+
+
+          
+            var moreText = document.getElementById(more);
+            var btnText = document.getElementById(seemore);
+
+            if (moreText.style.display === "none" || moreText.style.display === "") {
+
+                btnText.innerHTML = "Read less";
+                moreText.style.display = "inline";
+                moreText.removeAttribute("class");
+            } else {
+
+                btnText.innerHTML = "Read more";
+                moreText.style.display = "none";
+            }
+
+            return false;
+        }
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        function renderOfferGrid(gridId) {
+
+            $("#" + gridId).kendoGrid({
+                dataSource: [],
+                noRecords: {
+                    template: "No data available."
+                },
+                sortable: true,
+                pageable: false,
+
+                columns: [{
+                    field: "Vehicle",
+                    title: "Vehicle",
+                    width: 25
+                },
+                {
+                    field: "OfferCode",
+                    title: "Offer Code",
+                    width: 30
+                },
+                {
+                    field: "OfferDescription",
+                    title: "Offer <br/> Description",
+                    width: 40
+                },
+                {
+                    field: "MarketRecommendation",
+                    title: "Market <br/> Recommendation($)",
+                    width: 40
+                },
+                {
+                    field: "SalonOverride",
+                    title: "Salon <br/> Override($)",
+                    width: 30
+                }
+
+                ]
+            });
+
+        }
+
+        function LoadOfferGridDataSource(gridId) {
+            $.post("@Url.Action("GetOfferList", "Subscription")")
+                .done(function (result) {
+                    if (result != null) {
+                       
+                        var offerListDatasource = new kendo.data.DataSource({
+                            data: result,
+                            sort: [{ field: "Vehicle", dir: "asc" }]
+                        });
+
+                        $("#" + gridId).data("kendoGrid").setDataSource(offerListDatasource);
+
+                    }
+
+
+                });
+        }
+        
+
+        $(function () {
+
+
+           
+
+            
+        });
+
+        
+
+
+
+
+
+    </script>
 
 

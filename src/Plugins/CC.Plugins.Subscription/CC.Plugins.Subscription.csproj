@@ -281,6 +281,7 @@
     <Compile Include="Controllers\SubscriptionController.cs" />
     <Compile Include="Models\MarketResponse.cs" />
     <Compile Include="Models\MarketOffersResponse.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\SalonSubscriptionDetailResponse.cs" />
     <Compile Include="Models\MarketSubscriptionResponse.cs" />
     <Compile Include="Models\SalonSubscriptionResponse.cs" />
@@ -345,6 +346,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Subscription\OfferList.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Subscription\_SubscriptionCardList.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Subscription\SubscriptionDetail.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
