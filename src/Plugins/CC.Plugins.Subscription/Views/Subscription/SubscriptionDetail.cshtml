@@ -152,7 +152,19 @@
         <div class="col-2 ">
         </div>
     </div>
+    <div class="row">
+        <div class="col-2 ">
+        </div>
+
+        <div class="col-6" style="padding-right:0px;">
+
+            <h4 style="text-align:left;" id="grid-caption"></h4>
+
+        </div>
+      
+    </div>
     <div class="row p2ncard-item" style="display:none;" id="orderGrid">
+
         <div class="col-2 ">
         </div>
 
@@ -160,17 +172,17 @@
 
             <div class="p2ncard " id='@(Model.Id + "cardOrder")'>
 
-                <div class="row"  id="@(Model.Id + "offer-grid-row")">
+                <div class="row" id="@(Model.Id + "offer-grid-row")">
                     <div class="col-sm-12" style="margin-top: 15px;"><div class="gc-grid sub-card-grid" id="@(Model.Id + "order-grid")"></div></div>
                 </div>
 
-                
+
 
             </div>
 
         </div>
         <div class="col-2 p2nitem">
-           
+
         </div>
         <div class="col-2 ">
         </div>
@@ -224,6 +236,7 @@
 <script>
     $(document).ready(function () {
         // $('p2nparagrap-text').readmore();
+        var gridFirstLoad = true;
         var slider = $(".slider").kendoSlider({
 
             min: 0,
@@ -279,9 +292,14 @@
 
         if (btnId == '@(Model.Id + "order-grid-btn")') {
 
+            $('#grid-caption').text('Future Orders');
+
             LoadOrderGridDataSource('@(Model.Id + "order-grid")');
         }
         else {
+
+            $('#grid-caption').text('Order History');
+
             LoadOrderHistoryGridDataSource('@(Model.Id + "order-grid")');
         }
 
@@ -289,8 +307,9 @@
 
           //  btn.innerHTML = "Hide Offers";
             grid.style.display = "";
+            gridFirstLoad = false;
 
-        } else {
+        } else if (gridFirstLoad){
 
            // btn.innerHTML = "Show Offers";
             grid.style.display = "none";

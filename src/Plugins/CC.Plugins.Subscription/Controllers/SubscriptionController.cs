@@ -131,46 +131,20 @@ namespace CC.Plugins.Subscription.Controllers
             Random rnd = new Random();
             var date = DateTime.Now.Date;
 
-            model.Add(new Order
-            {
-                Number = "#1",
-                Date = date.AddDays(-rnd.Next(1, 15)),
-                Status = "Completed",
-                TotalAmount = 25
-            });
+            int total = rnd.Next(5, 20);
 
-            model.Add(new Order
+            for (int i = 1; i <= total; i++)
             {
-                Number = "#2",
-                Date = date.AddDays(-rnd.Next(1, 15)),
-                Status = "Cancelled",
-                TotalAmount = 12
-            });
+                model.Add(new Order
+                {
+                    Number = $"#{i}",
+                    Date = date.AddDays(-i),
+                    Status = "Completed",
+                    TotalAmount = rnd.Next(1, 50)
+                }); 
+            }
 
-            model.Add(new Order
-            {
-                Number = "#3",
-                Date = date.AddDays(-rnd.Next(1, 15)),
-                Status = "Completed",
-                TotalAmount = 40
-            });
-
-            model.Add(new Order
-            {
-                Number = "#4",
-                Date = date.AddDays(-rnd.Next(1, 15)),
-                Status = "Completed",
-                TotalAmount = 36
-            });
-
-            model.Add(new Order
-            {
-                Number = "#5",
-                Date = date.AddDays(-rnd.Next(1, 15)),
-                Status = "Cancelled",
-                TotalAmount = 8
-            });
-
+            
             return new JsonResult()
             {
                 Data = model,
@@ -183,45 +157,19 @@ namespace CC.Plugins.Subscription.Controllers
             Random rnd = new Random();
             var date = DateTime.Now.Date;
 
-            model.Add(new Order
-            {
-                Number = "#1",
-                Date = date.AddDays(rnd.Next(1, 15)),
-                Status = "Pending",
-                TotalAmount = 25
-            });
+            int total = rnd.Next(5, 20);
 
-            model.Add(new Order
+            for(int i = 1; i <= total; i++)
             {
-                Number = "#2",
-                Date = date.AddDays(rnd.Next(1, 15)),
-                Status = "Pending",
-                TotalAmount = 12
-            });
+                model.Add(new Order
+                {
+                    Number = $"#{i}",
+                    Date = date.AddDays(i),
+                    Status = "Pending",
+                    TotalAmount = rnd.Next(1, 50)
+                });;
+            }
 
-            model.Add(new Order
-            {
-                Number = "#3",
-                Date = date.AddDays(rnd.Next(1, 15)),
-                Status = "Pending",
-                TotalAmount = 40
-            });
-
-            model.Add(new Order
-            {
-                Number = "#4",
-                Date = date.AddDays(rnd.Next(1, 15)),
-                Status = "Pending",
-                TotalAmount = 36
-            });
-
-            model.Add(new Order
-            {
-                Number = "#5",
-                Date = date.AddDays(rnd.Next(1, 15)),
-                Status = "Pending",
-                TotalAmount = 8
-            });
 
             return new JsonResult()
             {

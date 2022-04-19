@@ -10,31 +10,35 @@
 
 <nav class="menubar navbar navbar-slide">
     <nav class="menubar-group ml-0">
-        @{ 
-			Html.RenderAction("LanguageSelector", "Common");
-			Html.RenderAction("CurrencySelector", "Common");
+        @{
+            Html.RenderAction("LanguageSelector", "Common");
+            Html.RenderAction("CurrencySelector", "Common");
         }
     </nav>
+    <nav class="menubar-group ml-0">
+        @{
+            Html.RenderAction("Logo", "Common", new { area = "" });
+        }
+    </nav>
+    <nav class="menubar-group ml-auto">
 
-	<nav class="menubar-group ml-auto">
+        @{ Html.RenderWidget("header_menu_before"); }
 
-		@{ Html.RenderWidget("header_menu_before"); }
+        @if (Model.HasContactUsPage)
+        {
+            <a class="menubar-link" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>
+        }
 
-		@if (Model.HasContactUsPage)
-		{
-			<a class="menubar-link" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>
-		}
+        @{ Html.SmartStore().Menu().Name("HelpAndService").Template("Dropdown").Render(); }
 
-		@{ Html.SmartStore().Menu().Name("HelpAndService").Template("Dropdown").Render(); }
-
-		@if (Model.IsCustomerImpersonated)
-		{
-			<a class="menubar-link" href="@Url.RouteUrl("Logout")" title="@T("Account.ImpersonatedAs.Finish.Hint")" rel="nofollow">
-				<i class="fal fa-sign-out-alt menubar-icon"></i>
-				<span>@Model.CustomerEmailUsername</span>
-			</a>
-		}
-	</nav>
+        @if (Model.IsCustomerImpersonated)
+        {
+            <a class="menubar-link" href="@Url.RouteUrl("Logout")" title="@T("Account.ImpersonatedAs.Finish.Hint")" rel="nofollow">
+                <i class="fal fa-sign-out-alt menubar-icon"></i>
+                <span>@Model.CustomerEmailUsername</span>
+            </a>
+        }
+    </nav>
 
     <nav class="menubar-group menubar-group--special">
         @if (Model.NewsEnabled)
@@ -67,7 +71,7 @@
 
                     @if (Model.IsAuthenticated)
                     {
-					    <span title="@Model.CustomerEmailUsername">@Model.CustomerEmailUsername.Truncate(25, "...")</span>
+                        <span title="@Model.CustomerEmailUsername">@Model.CustomerEmailUsername.Truncate(25, "...")</span>
                         <i class="fal fa-angle-down menubar-caret"></i>
                     }
                     else
@@ -77,8 +81,8 @@
                 </a>
 
                 @if (Model.IsAuthenticated)
-			    {
-				    Html.RenderAction("AccountDropdown", "Common");
+                {
+                    Html.RenderAction("AccountDropdown", "Common");
                 }
             </div>
 
@@ -92,7 +96,7 @@
         <nav class="menubar-group menubar-group--special d-none d-xl-block">
             <a class="menubar-link" href="@Url.Content("~/admin")" target="_admin" rel="nofollow">
                 <i class="fal fa-cog menubar-icon"></i>
-				<span>@T("Account.Administration")</span>  
+                <span>@T("Account.Administration")</span>
             </a>
         </nav>
     }
