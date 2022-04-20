@@ -1,0 +1,106 @@
+﻿@using CC.Plugins.Location.Models
+@model LocationModel
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = T("Plugins.FriendlyName.SmartStore.Location").Text;
+
+}
+
+@if (Model == null)
+{
+    return;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <i class="fa fa-map-marker"></i>
+            @T("Plugins.FriendlyName.CC.Plugins.Location")
+        </div>
+
+    </div>
+
+
+
+
+
+    @(Html.Telerik().Grid<LocationModel>()
+        .Name("location-grid")
+        .ClientEvents(events => events
+            .OnDataBinding("onDataBinding")
+            .OnDataBound("onDataBound")
+            .OnRowDataBound("onRowDataBound"))
+        .Columns(columns =>
+        {
+            //columns.Bound(x => x.PaymentProfileId)
+            //    .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= PaymentProfileId #>' class='checkboxGroups'/>")
+            //    .Title("<input id='mastercheckbox' type='checkbox'/>")
+            //    .HtmlAttributes(new { style = "text-align:center" })
+            //    .HeaderHtmlAttributes(new { style = "text-align:center" });
+
+            columns.Bound(x => x.LocationName);
+
+
+            columns.Bound(x => x.LocationType);
+
+
+            columns.Bound(x => x.LocationId)
+                .Centered()
+                .ClientTemplate("<a href=\"EditLocation?locationId=<#= LocationId #>\" class=\"t-button\">" + T("Admin.Common.Edit").Text + "</a>")
+                .Title(String.Empty)
+                .HtmlAttributes(new { align = "right", @class = "omega" });
+
+
+        })
+        .Pageable(settings => settings.PageSize(Model.PageSize).Position(GridPagerPosition.Both))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("LoadLocations", "Location"))
+        .PreserveGridState()
+        .EnableCustomBinding(true))
+
+    <script>
+		@*Used by widget SmartStore.CommonExportProviders::ExportButtonsGeneral.cshtml*@
+		var selectedIds = [];
+
+		$(function () {
+
+
+		});
+
+		function onDataBound() {
+			//$('#customers-grid input[type=checkbox][id!=mastercheckbox]').each(function () {
+			//	var currentId = $(this).val();
+			//	var checked = jQuery.inArray(currentId, selectedIds);
+			//	// Set checked based on if current checkbox's value is in selectedIds.
+			//	$(this).attr('checked', checked > -1);
+			//});
+
+			//updateMasterCheckbox();
+        }
+
+        function onRowDataBound(e) {
+		    if (!e.dataItem.Active) {
+			    $(e.row).find('td').wrapInner('<span class="muted" />');
+		    }
+        }
+
+
+
+		function onDataBinding(e) {
+			e.data = {
+                LocationName: $('#@Html.FieldIdFor(model => model.LocationName)').val(),
+                LocationType: $('#@Html.FieldIdFor(model => model.LocationType)').val()
+    			};
+
+            var locationGrid = $('#location-grid');
+            if (locationGrid.data('init-loaded')) {
+
+			}
+			else {
+                locationGrid.data('init-loaded', true);
+
+			}
+		}
+    </script>
+}
+

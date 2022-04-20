@@ -278,7 +278,9 @@
     <Compile Include="..\..\AssemblyVersionInfo.cs">
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="LocationContext.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -314,15 +316,18 @@
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout123.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="packages.config" />
     <Content Include="web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Location\LoadLocations.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Location\EditLocation.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -349,10 +354,10 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Mapping\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\" />
     <Folder Include="Providers\" />
     <Folder Include="Services\" />
     <Folder Include="Views\Settings\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

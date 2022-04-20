@@ -21,6 +21,13 @@ namespace CC.Plugins.Location
                 new[] { "CC.Plugins.Location.Controllers" }
            )
            .DataTokens["area"] = Plugin.SystemName;
+
+            routes.MapRoute("CC.Plugins.Location.EditLocation",
+               "Plugin/Location/{action}/{id}",
+               new { controller = "Location", action = "EditLocation" },
+               new[] { "CC.Plugins.Location.Controllers" }
+          )
+          .DataTokens["area"] = Plugin.SystemName;
         }
 
 
