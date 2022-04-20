@@ -32,11 +32,12 @@ namespace CC.Plugins.Location.Controllers
         public ActionResult EditLocation(int locationId)
         {
             string sqlQuery = @"Select LocationID, LocationName, 'Salon' as LocationType from tbLocation
+                                where LocationID = {0}
                                 Union
-                                Select MarketID, MarketName, 'Market' as LocationType from tbMarket";
+                                Select MarketID, MarketName, 'Market' as LocationType from tbMarket
+                                where MarketID = {0}";
 
-            var result = _services.DbContext.SqlQuery<LocationModel>(sqlQuery).Where(x => x.LocationId == locationId);
-
+            var result = _services.DbContext.SqlQuery<LocationModel>(sqlQuery, locationId);
             
 
             return View(result.FirstOrDefault());
@@ -66,7 +67,7 @@ namespace CC.Plugins.Location.Controllers
 
             var filter = new LocationModel
             {                
-                PageIndex = command.Page,
+                PageIndex = command.Page - 1,
                 PageSize = command.PageSize
             };
 
@@ -76,7 +77,7 @@ namespace CC.Plugins.Location.Controllers
             var result = _services.DbContext.SqlQuery<LocationModel>(sqlQuery).ToList();
                                                     
             gridModel.Total = result.Count();
-            gridModel.Data = result.Take(filter.PageSize).Skip(filter.PageIndex); ;
+            gridModel.Data = result.Skip(filter.PageIndex * filter.PageSize).Take(filter.PageSize);
             
 
             return new JsonResult
