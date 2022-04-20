@@ -123,7 +123,7 @@ namespace CC.Plugins.Location
         {
          //   _settingService.DeleteSetting<ShippingByTotalSettings>();
 
-            _localizationService.DeleteLocaleStringResources(PluginDescriptor.ResourceRootKey);
+          //  _localizationService.DeleteLocaleStringResources(PluginDescriptor.ResourceRootKey);
 
           //  var migrator = new DbMigrator(new Configuration());
           //  migrator.Update(DbMigrator.InitialDatabase);
