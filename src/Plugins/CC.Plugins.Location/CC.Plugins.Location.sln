@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Plugins.Location", "CC.Plugins.Location.csproj", "{649AA864-E15C-42D8-B9F3-436FDEFA6140}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EFMigrations|Any CPU = EFMigrations|Any CPU
+		PluginDev|Any CPU = PluginDev|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.EFMigrations|Any CPU.ActiveCfg = EFMigrations|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.EFMigrations|Any CPU.Build.0 = EFMigrations|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.PluginDev|Any CPU.ActiveCfg = PluginDev|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.PluginDev|Any CPU.Build.0 = PluginDev|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B38746-2224-42B5-9910-FA9CB83B302B}
+	EndGlobalSection
+EndGlobal

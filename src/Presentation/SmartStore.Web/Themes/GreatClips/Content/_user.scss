@@ -45,7 +45,7 @@
 
 .marketTitleBar input {
     border-radius: 1rem;
-    height:50px;
+    height:40px;
 }
 
 .card-grid {
@@ -71,7 +71,15 @@
             border-spacing: 0 10px;
 
             tr {
-                height: 80px;
+                height: 50px;
+
+                :hover {
+                    cursor: pointer;
+                    border-width: 1px;
+                    background-color: #{$green};
+                    color: white;
+                    box-shadow: none !important;
+                }
             }
 
             td:first-child {
@@ -100,7 +108,7 @@
         padding: 0 !important;
 
         tr {
-            height: 70px;
+            height: 50px;
         }
     }
 
@@ -135,7 +143,7 @@
             border-spacing: 0 10px;
 
             tr {
-                height: 80px;
+                height: 50px;
             }
 
             td:first-child {
@@ -164,7 +172,7 @@
         padding: 0 !important;
 
         tr {
-            height: 70px;
+            height: 50px;
         }
     }
 

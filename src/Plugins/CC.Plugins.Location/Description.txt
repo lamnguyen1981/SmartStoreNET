@@ -1,0 +1,9 @@
+﻿FriendlyName: Location
+Description: Location
+SystemName: CC.Plugins.Location
+Group: Payment
+Version: 4.2.0
+MinAppVersion: 4.2.0
+DisplayOrder: 1
+FileName: CC.Plugins.Location.dll
+ResourceRootKey: Plugins.CC.Plugins.Location

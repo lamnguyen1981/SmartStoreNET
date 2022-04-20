@@ -76,6 +76,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartStore.CreditCardPay", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Plugins.Subscription", "Plugins\CC.Plugins.Subscription\CC.Plugins.Subscription.csproj", "{649AA864-E15C-42D8-B9F3-436FDEFA6140}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Plugins.Location", "Plugins\CC.Plugins.Location\CC.Plugins.Location.csproj", "{FA4822A8-7119-4775-AFC3-5D1487F79CC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -644,6 +646,30 @@ Global
 		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Release|x86.ActiveCfg = Release|Any CPU
 		{649AA864-E15C-42D8-B9F3-436FDEFA6140}.Release|x86.Build.0 = Release|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.EFMigrations|Any CPU.ActiveCfg = EFMigrations|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.EFMigrations|Any CPU.Build.0 = EFMigrations|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.EFMigrations|Mixed Platforms.ActiveCfg = EFMigrations|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.EFMigrations|Mixed Platforms.Build.0 = EFMigrations|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.EFMigrations|x86.ActiveCfg = EFMigrations|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.EFMigrations|x86.Build.0 = EFMigrations|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.PluginDev|Any CPU.ActiveCfg = PluginDev|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.PluginDev|Any CPU.Build.0 = PluginDev|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.PluginDev|Mixed Platforms.ActiveCfg = PluginDev|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.PluginDev|Mixed Platforms.Build.0 = PluginDev|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.PluginDev|x86.ActiveCfg = PluginDev|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.PluginDev|x86.Build.0 = PluginDev|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -670,6 +696,7 @@ Global
 		{BDA52691-29E8-4195-965F-2AEB95A25F6B} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 		{1498D720-5BCE-424C-956D-78036ACF74EA} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 		{649AA864-E15C-42D8-B9F3-436FDEFA6140} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
+		{FA4822A8-7119-4775-AFC3-5D1487F79CC8} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59B852CE-9608-479C-A92B-7EE2DE161049}

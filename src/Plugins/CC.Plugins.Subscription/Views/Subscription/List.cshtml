@@ -90,55 +90,7 @@
 
     });
 
-    function renderSalonSubscriptionGrid() {
-
-        $('#salon-subscription-grid').kendoGrid({
-            dataSource: [],
-            noRecords: {
-                template: "No data available."
-            },
-            sortable: true,
-            pageable: false,
-            
-            columns: [{
-                field: "SalonCode",
-                title: "Location<br/>#",
-                width: 70
-            },
-            {
-                field: "SalonName",
-                title: "Location<br/>Name",
-                width: 120
-            },
-            {
-                field: "Email",
-                title: "Owner Email",
-                width: 200
-                },
-            {
-                field: "P2N",
-                title: "P2N",
-                width: 70
-            },
-            {
-                field: "N2B",
-                title: "N2B",
-                width: 70
-            },
-            {
-                field: "B2G",
-                title: "B2G",
-                width: 70
-            },
-            {
-                title: "Action",
-                width: 100,
-                template: "<a href='/Plugin/Subscription/ListDetail?salonId=#=Id#' target='_blank' class='btn btn-primary'>Edit</a>"
-            }
-            ]
-        });
-
-    }
+    
 
     function renderMarketGrid() {
 
@@ -149,19 +101,15 @@
             },
             sortable: true,
             pageable: false,
-            height:800,
+           
             columns: [{
                 field: "Id",
-                title: "Market",
-                template: "#= MarketCode # - #=MarketName #",
-                attributes: { style: "text-align:left !important" },
-                width: 150
-            },
-            {
-                title: "Action",
-                width: 60,
-                template: "<span class='btn ' onclick='getSalonSubscriptionData(#= Id #, \"#= MarketCode #\", \"#= MarketName #\")'>>></span>"
+                title: "Market",                
+                attributes: { style: "text-align:left !important;"},
+                width: 150,
+                template: "<a  class='' style='display:block;text-align:left !important;'  onclick='getSalonSubscriptionData(#= Id #, \"#= MarketCode #\", \"#= MarketName #\")'>#= MarketCode # - #=MarketName #</a>"
             }
+            
             ]
         });
 
