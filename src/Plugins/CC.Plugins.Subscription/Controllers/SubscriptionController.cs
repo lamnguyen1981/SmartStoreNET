@@ -179,8 +179,9 @@ namespace CC.Plugins.Subscription.Controllers
 
         public ActionResult MarketList()
         {
-            string sqlQuery = @"select Id, REPLACE(STR(MarketCode, 3), SPACE(1), '0') as MarketCode, MarketName from [greatclips_api_dev].dbo.market
-                               order by MarketName";
+            string sqlQuery = @"select MarketID as Id, REPLACE(STR(MarketID, 3), SPACE(1), '0') as MarketCode, MarketName
+                                from dbo.tbMarket
+                                order by MarketName";
             var response = _services.DbContext.SqlQuery<MarketResponse>(sqlQuery);
 
 
