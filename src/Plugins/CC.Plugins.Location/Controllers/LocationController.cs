@@ -2,6 +2,7 @@
 using CC.Plugins.Location.Models;
 using SmartStore.Core.Domain.Common;
 using SmartStore.Core.Security;
+using SmartStore.Linq;
 using SmartStore.Services;
 using SmartStore.Web.Framework.Security;
 using SmartStore.Web.Framework.Theming;
@@ -68,14 +69,29 @@ namespace CC.Plugins.Location.Controllers
             var filter = new LocationModel
             {                
                 PageIndex = command.Page - 1,
-                PageSize = command.PageSize
+                PageSize = command.PageSize,
+                LocationName = model.LocationName,
+                LocationType = model.LocationType,
+                LocationId = model.LocationId
             };
 
             string sqlQuery = @"Select LocationID, LocationName, 'Salon' as LocationType from tbLocation
                                 Union
                                 Select MarketID, MarketName, 'Market' as LocationType from tbMarket";
-            var result = _services.DbContext.SqlQuery<LocationModel>(sqlQuery).ToList();
-                                                    
+            var result = _services.DbContext.SqlQuery<LocationModel>(sqlQuery);
+
+
+            var predicate = PredicateBuilder.New<LocationModel>();
+            predicate = predicate.Start(x=>x.LocationId !=0);
+            if (filter.LocationId !=0)
+                predicate.And(x => x.LocationId == filter.LocationId);
+            if (!string.IsNullOrEmpty(filter.LocationName ))
+                predicate.And(x => x.LocationName.ToLower().Contains(filter.LocationName.ToLower()));
+            if (!string.IsNullOrEmpty(filter.LocationType))
+                predicate.And(x => x.LocationType.ToLower().Contains(filter.LocationType.ToLower()));
+
+            result = result.Where(predicate);
+
             gridModel.Total = result.Count();
             gridModel.Data = result.Skip(filter.PageIndex * filter.PageSize).Take(filter.PageSize);
             

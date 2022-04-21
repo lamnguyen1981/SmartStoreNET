@@ -279,6 +279,7 @@
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\SubscriptionController.cs" />
+    <Compile Include="Models\MarketFutureOffersResponse.cs" />
     <Compile Include="Models\MarketResponse.cs" />
     <Compile Include="Models\MarketOffersResponse.cs" />
     <Compile Include="Models\Order.cs" />

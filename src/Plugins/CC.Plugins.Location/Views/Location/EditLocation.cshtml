@@ -31,28 +31,37 @@
     @Html.HiddenFor(model => model.LocationId)
 
 
-    <div class="adminContent">
-        <div class="adminRow">
-            <div class="adminTitle">
-                @Html.SmartLabelFor(model => model.LocationName)
-            </div>
-            <div class="adminData">
-                @Html.TextBoxFor(model => model.LocationName)
-                @Html.ValidationMessageFor(model => model.LocationName)
-            </div>
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.LocationId)
         </div>
-        <div class="adminRow">
-            <div class="adminTitle">
-                @Html.SmartLabelFor(model => model.LocationType)
-            </div>
-            <div class="adminData">
-                @Html.TextBoxFor(model => model.LocationType)
-                @Html.ValidationMessageFor(model => model.LocationType)
-
-            </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.LocationId)
+            @Html.ValidationMessageFor(model => model.LocationId)
         </div>
-
-
-
     </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.LocationName)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.LocationName)
+            @Html.ValidationMessageFor(model => model.LocationName)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.LocationType)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.LocationType)
+            @Html.ValidationMessageFor(model => model.LocationType)
+
+        </div>
+    </div>
+
+
+
+</div>
 }

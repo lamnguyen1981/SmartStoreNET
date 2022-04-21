@@ -13,19 +13,54 @@
 
 @using (Html.BeginForm())
 {
-    <div class="section-header">
-        <div class="title">
-            <i class="fa fa-map-marker"></i>
-            @T("Plugins.FriendlyName.CC.Plugins.Location")
-        </div>
+   
+<div class="section-header">
+    <div class="title">
+        <i class="fa fa-map-marker"></i>
+        @T("Plugins.FriendlyName.CC.Plugins.Location")
+    </div>
+    <div class="options">
+        @{ Html.RenderWidget("admin_button_toolbar_before"); }
 
+        <button type="button" class="btn btn-outline-secondary btn-toggle-filter" data-toggle="button" aria-pressed="false">
+            <i class="fa fa-filter"></i>
+            <span>@T("Common.Filter")</span>
+            <i class="fa fa-angle-double-down"></i>
+        </button>
+
+
+
+        @{ Html.RenderWidget("admin_button_toolbar_after"); }
+    </div>
+</div>
+
+
+<div class="row mt-3 grid-filter" style="display: none">
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.LocationId)
+        @Html.TextBoxFor(model => Model.LocationId, new { @class = "form-control sf" })
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.LocationName)
+        @Html.TextBoxFor(model => Model.LocationName, new { @class = "form-control sf" })
     </div>
 
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.LocationType)
+        @Html.TextBoxFor(model => Model.LocationType, new { @class = "form-control sf" })
+    </div>
 
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+      
+        <button type="submit" id="search-locations" name="search-locations" class="btn btn-warning btn-block">
+            <span>@T("Admin.Common.ApplyFilter")</span>
+        </button>
+    </div>
 
+    
+</div>
 
-
-    @(Html.Telerik().Grid<LocationModel>()
+        @(Html.Telerik().Grid<LocationModel>()
         .Name("location-grid")
         .ClientEvents(events => events
             .OnDataBinding("onDataBinding")
@@ -38,7 +73,7 @@
             //    .Title("<input id='mastercheckbox' type='checkbox'/>")
             //    .HtmlAttributes(new { style = "text-align:center" })
             //    .HeaderHtmlAttributes(new { style = "text-align:center" });
-
+            columns.Bound(x => x.LocationId);
             columns.Bound(x => x.LocationName);
 
 
@@ -58,12 +93,29 @@
         .PreserveGridState()
         .EnableCustomBinding(true))
 
-    <script>
+<script>
 		@*Used by widget SmartStore.CommonExportProviders::ExportButtonsGeneral.cshtml*@
 		var selectedIds = [];
 
 		$(function () {
+            $('.btn-toggle-filter').on('click', function (e) {
+                $('.grid-filter').slideToggle({ duration: 200, easing: 'ease-in-out' });
+            });
 
+            // Search button.
+            $('#search-locations').click(function () {
+                var grid = $('#location-grid').data('tGrid');
+                grid.currentPage = 1; //new search. Set page size to 1
+                grid.ajaxRequest();
+                return false;
+            });
+
+            $(".form-control.sf").on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    $("#search-locations").click();
+                    return false;
+                }
+            });
 
 		});
 
@@ -87,9 +139,12 @@
 
 
 		function onDataBinding(e) {
-			e.data = {
+            e.data = {
+                LocationId: $('#@Html.FieldIdFor(model => model.LocationId)').val(),
                 LocationName: $('#@Html.FieldIdFor(model => model.LocationName)').val(),
-                LocationType: $('#@Html.FieldIdFor(model => model.LocationType)').val()
+                LocationType: $('#@Html.FieldIdFor(model => model.LocationType)').val()               
+
+			
     			};
 
             var locationGrid = $('#location-grid');
@@ -101,6 +156,6 @@
 
 			}
 		}
-    </script>
-}
+</script>
+        }
 

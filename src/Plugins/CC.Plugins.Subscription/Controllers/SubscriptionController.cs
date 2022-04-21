@@ -125,6 +125,77 @@ namespace CC.Plugins.Subscription.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
+        public ActionResult GetFutureOfferList()
+        {
+            var model = new List<MarketFutureOffersResponse>();
+
+            model.Add(new MarketFutureOffersResponse
+            {
+                StartDate = "04/29/2022",
+                EndDate = "05/09/2022",
+                App = 6,
+                Email = 7,
+                Estimated = 2203,
+                Print = 7
+            });
+
+            model.Add(new MarketFutureOffersResponse
+            {
+                StartDate = "05/13/2022",
+                EndDate = "05/20/2022",
+                App = 2,
+                Email = 6,
+                Estimated = 180,
+                Print = 9
+            });
+            model.Add(new MarketFutureOffersResponse
+            {
+                StartDate = "06/01/2022",
+                EndDate = "06/09/2022",
+                App = 6,
+                Email = 10,
+                Estimated = 5220,
+                Print = 1
+            });
+
+            model.Add(new MarketFutureOffersResponse
+            {
+                StartDate = "07/01/2022",
+                EndDate = "07/14/2022",
+                App = 4,
+                Email = 9,
+                Estimated = 2120,
+                Print = 6
+            });
+
+            model.Add(new MarketFutureOffersResponse
+            {
+                StartDate = "07/20/2022",
+                EndDate = "07/29/2022",
+                App = 1,
+                Email = 8,
+                Estimated = 1220,
+                Print = 4
+            });
+
+            model.Add(new MarketFutureOffersResponse
+            {
+                StartDate = "08/01/2022",
+                EndDate = "08/09/2022",
+                App = 7,
+                Email = 7,
+                Estimated = 150,
+                Print = 3
+            });
+
+
+            return new JsonResult()
+            {
+                Data = model,
+            };
+        }
+
+        [System.Web.Mvc.HttpPost]
         public ActionResult GetOrderHistoryList()
         {
             var model = new List<Order>();

@@ -22,15 +22,15 @@
                         <div class="col-lg-9 col-sm-12 col-md-8 p2nitem">
                             @if (item.ProgramCode == "P2N")
                             {
-                            <h6>Your next great customer</h6>
+                                <h6>Your next great customer</h6>
                             }
                             else if (item.ProgramCode == "N2B")
                             {
-                            <h6>From rookie to regular</h6>
+                                <h6>From rookie to regular</h6>
                             }
                             else
                             {
-                            <h6>Undiscounted Loyalty</h6>
+                                <h6>Undiscounted Loyalty</h6>
                             }
                         </div>
                     </div>
@@ -80,56 +80,63 @@
                     </div>
                     @if (item.ProgramCode == "N2B" || item.ProgramCode == "B2G")
                     {
-                    <div class="row ">
-                        <div class="col-3">
-                            App
+                        <div class="row ">
+                            <div class="col-3">
+                                App
+                            </div>
+                            <div class="col-5 ">
+                                <input name="slider" class="balSlider slider" value="0" title="slider" />
+
+
+                            </div>
+                            <div class="col-3">
+
+
+                            </div>
                         </div>
-                        <div class="col-5 ">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
+                        <div class="row ">
+                            <div class="col-3">
+                                Email
+                            </div>
+                            <div class="col-5 ">
+                                <input name="slider" class="balSlider slider" value="0" title="slider" />
 
 
+                            </div>
+                            <div class="col-3">
+
+
+                            </div>
                         </div>
-                        <div class="col-3">
-
-
-                        </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-3">
-                            Email
-                        </div>
-                        <div class="col-5 ">
-                            <input name="slider" class="balSlider slider" value="0" title="slider" />
-
-
-                        </div>
-                        <div class="col-3">
-
-
-                        </div>
-                    </div>
                     }
 
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-md-6">
-                            <button id='@(item.Id + "offer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('@(item.Id + "offer-grid-row")','@(item.Id + "offer-grid-btn" )')">View Offers</button>
-
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-md-6" style="padding-left:0px;">
-                            <button id='@(item.Id + "subscription-detail-btn")' class="btn btn-info p2ncard-btn" onclick="location.href='SubscriptionDetail?programId=@item.Id'">@item.ProgramCode Details</button>
-
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-md-6">
-                        </div>
+                <div class="row p2ncard-item">
+                    <div class="col-lg-2 col-sm-6 col-md-6">
                     </div>
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <button id='@(item.Id + "offer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('@(item.Id + "offer-grid-row")','@(item.Id + "offer-grid-btn" )','@(item.Id + "futureoffer-grid-row" )')">Offers</button>
 
-                    <div class="row" style="display:none" id="@(item.Id + "offer-grid-row")">
-                        <div class="col-sm-12"><div class="gc-grid sub-card-grid" id="@(item.Id + "offer-grid")"></div></div>
                     </div>
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <button id='@(item.Id + "futureoffer-grid-btn")' class="btn btn-info p2ncard-btn" onclick="ShowHideOfferGrid('@(item.Id + "futureoffer-grid-row")','@(item.Id + "futureoffer-grid-btn" )','@(item.Id + "offer-grid-row" )' )">Future Offers</button>
 
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-md-6" >
+                        <button id='@(item.Id + "subscription-detail-btn")' class="btn btn-info p2ncard-btn" onclick="location.href='SubscriptionDetail?programId=@item.Id'">@item.ProgramCode Details</button>
 
+                    </div>
+                   
+                </div>
+
+                <div class="row" style="display:none" id="@(item.Id + "offer-grid-row")">
+                    <br />
+                    <div class="col-sm-12"><div class="gc-grid sub-card-grid" id="@(item.Id + "offer-grid")"></div></div>
+                </div>
+
+                <div class="row" style="display:none" id="@(item.Id + "futureoffer-grid-row")">
+                    <br />
+                    <div class="col-sm-12"><div class="gc-grid sub-card-grid" id="@(item.Id + "futureoffer-grid")"></div></div>
+                </div>
 
 
                 </div>
@@ -178,7 +185,9 @@
             $("#@(item.Id + "slider")").parent(".k-slider-wrap").find(".k-draghandle").text('@item.Level');
 
             renderOfferGrid('@(item.Id + "offer-grid")');
-            LoadOfferGridDataSource('@(item.Id + "offer-grid")');
+                LoadOfferGridDataSource('@(item.Id + "offer-grid")');
+                 renderFutureOfferGrid('@(item.Id + "futureoffer-grid")');
+            LoadFutureOfferGridDataSource('@(item.Id + "futureoffer-grid")');
             ChangeColorButton('@(item.Id + "card")', '@item.ProgramCode');
                     });
 
@@ -243,18 +252,20 @@
             }
         }
 
-        function ShowHideOfferGrid(gridId, btnId) {
+        function ShowHideOfferGrid(gridId, btnId, otherGridId) {
+            debugger;
             var grid = document.getElementById(gridId);
+            var otherGrid = document.getElementById(otherGridId);
             var btn = document.getElementById(btnId);
-
+            otherGrid.style.display = "none";
             if (grid.style.display === "none") {
 
-                btn.innerHTML = "Hide Offers";
+                //btn.innerHTML = "Hide Offers";
                 grid.style.display = "";
 
             } else {
 
-                btn.innerHTML = "Show Offers";
+               // btn.innerHTML = "Show Offers";
                 grid.style.display = "none";
             }
         }
@@ -284,6 +295,53 @@
     </script>
 
     <script type="text/javascript">
+
+        function renderFutureOfferGrid(gridId) {
+
+            $("#" + gridId).kendoGrid({
+                dataSource: [],
+                noRecords: {
+                    template: "No data available."
+                },
+                sortable: true,
+                pageable: false,
+
+                columns: [{
+                    field: "StartDate",
+                    title: "Start Date",
+                    width: 25
+                },
+                {
+                    field: "EndDate",
+                    title: "End Date",
+                    width: 25
+                },
+                {
+                    field: "Print",
+                    title: "Print",
+                    width: 15
+                },
+                {
+                    field: "App",
+                    title: "App",
+                    width: 15
+                },
+                {
+                    field: "Email",
+                    title: "Email",
+                    width: 15
+                 },
+                {
+                    field: "Estimated",
+                    title: "Estimated",
+                    width: 30,
+                    template: "$ #= Estimated #"
+                }
+
+                ]
+            });
+
+        }
 
         function renderOfferGrid(gridId) {
 
@@ -330,7 +388,7 @@
             $.post("@Url.Action("GetOfferList", "Subscription")")
                 .done(function (result) {
                     if (result != null) {
-                       
+
                         var offerListDatasource = new kendo.data.DataSource({
                             data: result,
                             sort: [{ field: "Vehicle", dir: "asc" }]
@@ -343,17 +401,35 @@
 
                 });
         }
-        
+
+        function LoadFutureOfferGridDataSource(gridId) {
+            $.post("@Url.Action("GetFutureOfferList", "Subscription")")
+                .done(function (result) {
+                    if (result != null) {
+
+                        var offerListDatasource = new kendo.data.DataSource({
+                            data: result,
+                            sort: [{ field: "StartDate", dir: "asc" }]
+                        });
+
+                        $("#" + gridId).data("kendoGrid").setDataSource(offerListDatasource);
+
+                    }
+
+
+                });
+        }
+
 
         $(function () {
 
 
-           
 
-            
+
+
         });
 
-        
+
 
 
 
