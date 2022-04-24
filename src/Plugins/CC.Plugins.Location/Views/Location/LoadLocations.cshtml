@@ -45,19 +45,36 @@
         @Html.TextBoxFor(model => Model.LocationName, new { @class = "form-control sf" })
     </div>
 
-    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
-        @Html.SmartLabelFor(model => model.LocationType)
-        @Html.TextBoxFor(model => Model.LocationType, new { @class = "form-control sf" })
-    </div>
+    
+    @{
+
+        var locationType = new List<SelectListItem>();
+        locationType.Add(new SelectListItem { Text = "Market", Value = "Market" });
+        locationType.Add(new SelectListItem { Text = "Salon", Value = "Salon" });
+
+
+
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            <div>
+                @Html.SmartLabelFor(model => model.LocationType)
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    @Html.DropDownListFor(model => Model.LocationType, locationType)
+                </div>
+
+            </div>
+        </div>
+    }
 
     <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
-      
+
         <button type="submit" id="search-locations" name="search-locations" class="btn btn-warning btn-block">
             <span>@T("Admin.Common.ApplyFilter")</span>
         </button>
     </div>
 
-    
+
 </div>
 
         @(Html.Telerik().Grid<LocationModel>()
@@ -73,7 +90,8 @@
             //    .Title("<input id='mastercheckbox' type='checkbox'/>")
             //    .HtmlAttributes(new { style = "text-align:center" })
             //    .HeaderHtmlAttributes(new { style = "text-align:center" });
-            columns.Bound(x => x.LocationId);
+            columns.Bound(x => x.LocationId)                   
+                    .ClientTemplate("<a href=\"EditLocation?locationId=<#= LocationId #>\" ><#= LocationId #></a>");
             columns.Bound(x => x.LocationName);
 
 

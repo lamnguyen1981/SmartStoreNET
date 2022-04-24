@@ -1,0 +1,180 @@
+﻿@using CC.Plugins.Zoho.Models
+@model InvoiceModel
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = T("Plugins.FriendlyName.SmartStore.Zoho").Text;
+
+}
+
+@if (Model == null)
+{
+    return;
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="section-header">
+        <div class="title">
+            <i class="fas fa-file-invoice-dollar"></i>
+            @T("Plugins.FriendlyName.CC.Plugins.Zoho")
+        </div>
+        <div class="options">
+            @{ Html.RenderWidget("admin_button_toolbar_before"); }
+
+            <button type="button" class="btn btn-outline-secondary btn-toggle-filter" data-toggle="button" aria-pressed="false">
+                <i class="fa fa-filter"></i>
+                <span>@T("Common.Filter")</span>
+                <i class="fa fa-angle-double-down"></i>
+            </button>
+
+
+
+            @{ Html.RenderWidget("admin_button_toolbar_after"); }
+        </div>
+    </div>
+
+
+    <div class="row mt-3 grid-filter" style="display: none">
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            @Html.SmartLabelFor(model => model.InvoiveNumber)
+            @Html.TextBoxFor(model => Model.InvoiveNumber, new { @class = "form-control sf" })
+        </div>
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            @Html.SmartLabelFor(model => model.CustomerName)
+            @Html.TextBoxFor(model => Model.CustomerName, new { @class = "form-control sf" })
+        </div>
+
+        @{
+
+            var invoiceType = new List<SelectListItem>();
+            invoiceType.Add(new SelectListItem { Text = "Draft", Value = "Draft" });
+           
+
+
+
+            <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+                <div>
+                    @Html.SmartLabelFor(model => model.Status)
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        @Html.DropDownListFor(model => Model.Status, invoiceType)
+                    </div>
+
+                </div>
+            </div>
+        }
+
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+
+            <button type="submit" id="search-invoices" name="search-invoices" class="btn btn-warning btn-block">
+                <span>@T("Admin.Common.ApplyFilter")</span>
+            </button>
+        </div>
+
+
+    </div>
+
+    @(Html.Telerik().Grid<InvoiceModel>()
+        .Name("invoice-grid")
+        .ClientEvents(events => events
+            .OnDataBinding("onDataBinding")
+            .OnDataBound("onDataBound")
+            .OnRowDataBound("onRowDataBound"))
+        .Columns(columns =>
+        {
+            //columns.Bound(x => x.PaymentProfileId)
+            //    .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= PaymentProfileId #>' class='checkboxGroups'/>")
+            //    .Title("<input id='mastercheckbox' type='checkbox'/>")
+            //    .HtmlAttributes(new { style = "text-align:center" })
+            //    .HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(x => x.InvoiveNumber)
+                .ClientTemplate("<a href=\"EditInvoices?invoiceId=<#= InvoiveId #>\" ><#= InvoiveNumber #></a>");
+
+
+            columns.Bound(x => x.InvoiveDateStringFormat)
+               .Title("Invoice Date");
+
+
+            columns.Bound(x => x.CustomerName);
+
+            columns.Bound(x => x.Total)
+                    .ClientTemplate("<#= CurrencySymbol #> <#= Total #>");
+
+
+
+
+
+        })
+        .Pageable(settings => settings.PageSize(Model.PageSize).Position(GridPagerPosition.Both))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("GetInvoices", "Zoho"))
+        .PreserveGridState()
+        .EnableCustomBinding(true))
+
+    <script>
+		
+		var selectedIds = [];
+
+		$(function () {
+            $('.btn-toggle-filter').on('click', function (e) {
+                $('.grid-filter').slideToggle({ duration: 200, easing: 'ease-in-out' });
+            });
+
+            // Search button.
+            $('#search-invoices').click(function () {
+                var grid = $('#invoice-grid').data('tGrid');
+                grid.currentPage = 1; //new search. Set page size to 1
+                grid.ajaxRequest();
+                return false;
+            });
+
+            $(".form-control.sf").on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    $("#search-invoices").click();
+                    return false;
+                }
+            });
+
+		});
+
+		function onDataBound() {
+			//$('#customers-grid input[type=checkbox][id!=mastercheckbox]').each(function () {
+			//	var currentId = $(this).val();
+			//	var checked = jQuery.inArray(currentId, selectedIds);
+			//	// Set checked based on if current checkbox's value is in selectedIds.
+			//	$(this).attr('checked', checked > -1);
+			//});
+
+			//updateMasterCheckbox();
+        }
+
+        function onRowDataBound(e) {
+		    if (!e.dataItem.Active) {
+			    $(e.row).find('td').wrapInner('<span class="muted" />');
+		    }
+        }
+
+
+
+		function onDataBinding(e) {
+            e.data = {
+                InvoiveNumber: $('#@Html.FieldIdFor(model => model.InvoiveNumber)').val(),
+                CustomerName: $('#@Html.FieldIdFor(model => model.CustomerName)').val(),
+                Status: $('#@Html.FieldIdFor(model => model.Status)').val()
+
+
+    			};
+
+            var invoiceGrid = $('#invoice-grid');
+            if (invoiceGrid.data('init-loaded')) {
+
+			}
+			else {
+                invoiceGrid.data('init-loaded', true);
+
+			}
+		}
+    </script>
+}
+

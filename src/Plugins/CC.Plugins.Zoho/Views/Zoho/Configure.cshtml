@@ -1,0 +1,97 @@
+﻿@using SmartStore.Web.Framework;
+@model CC.Plugins.Zoho.Models.ConfigurationModel
+@{
+    Layout = "";
+}
+
+<div class="plugin-actions">
+    <button type="submit" name="save" value="save" class="btn btn-warning">
+        <i class="fa fa-check"></i>
+        <span>@T("Admin.Common.Save")</span>
+    </button>
+</div>
+
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+<div class="alert alert-info">
+    Need to input Heartland secret Key
+</div>
+
+@using (Html.BeginForm())
+{
+<div class="adminContent">
+
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ClientId)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.ClientId)
+            @Html.ValidationMessageFor(model => model.ClientId)
+        </div>
+
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ClientSecret)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.ClientSecret)
+            @Html.ValidationMessageFor(model => model.ClientSecret)
+        </div>
+
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.RefreshToken)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.RefreshToken)
+            @Html.ValidationMessageFor(model => model.RefreshToken)
+        </div>
+
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.OauthToken)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.OauthToken)
+            @Html.ValidationMessageFor(model => model.OauthToken)
+        </div>
+
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.OrganizationId)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.OrganizationId)
+            @Html.ValidationMessageFor(model => model.OrganizationId)
+        </div>
+
+    </div>
+
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.AuthToken)
+        </div>
+        <div class="adminData">
+            @Html.SettingEditorFor(model => model.AuthToken)
+            @Html.ValidationMessageFor(model => model.AuthToken)
+        </div>
+
+    </div>
+    @*<div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.HearlandPublicKey)
+            </div>
+            <div class="adminData">
+                @Html.SettingEditorFor(model => model.HearlandPublicKey)
+                @Html.ValidationMessageFor(model => model.HearlandPublicKey)
+            </div>
+
+        </div>*@
+
+</div>
+}

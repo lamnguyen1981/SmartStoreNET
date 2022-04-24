@@ -1,0 +1,94 @@
+﻿@using CC.Plugins.Zoho.Models
+@model InvoiceModel
+@{
+    //ViewBag.Title = T("Admin.Rules.AddRule").Text;
+    ViewBag.Title = "View Invoice";
+    Layout = "_AdminLayout";
+}
+
+@if (Model == null)
+{
+    return;
+}
+
+@using (Html.BeginForm("Charge", "CustomerCreditCard", FormMethod.Post))
+{
+    <div class="section-header">
+        <div class="title">
+            @ViewBag.Title @Html.ActionLink("(" + @T("Admin.Common.BackToList") + ")", "GetInvoices")
+        </div>
+        <div class="options">
+            @*<button type="submit" name="save" value="save" class="btn btn-primary">
+                    <i class="fa fa-check"></i>
+                    <span>@T("Admin.Common.Save")</span>
+                </button>*@
+
+        </div>
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    @Html.HiddenFor(model => model.InvoiveId)
+
+
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.InvoiveNumber)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.InvoiveNumber)
+            @Html.ValidationMessageFor(model => model.InvoiveNumber)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.InvoiveDate)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.InvoiveDateStringFormat)
+            @Html.ValidationMessageFor(model => model.InvoiveDateStringFormat)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CustomerName)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.CustomerName)
+            @Html.ValidationMessageFor(model => model.CustomerName)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Total)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.Total)
+            @Html.ValidationMessageFor(model => model.Total)
+        </div>
+    </div>
+
+    @{
+
+        var invoiceType = new List<SelectListItem>();
+        invoiceType.Add(new SelectListItem { Text = "Draft", Value = "Draft" });
+
+
+
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Status)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => Model.Status, invoiceType)
+                @Html.ValidationMessageFor(model => model.Status)
+            </div>
+        </div>
+
+    }
+
+
+
+</div>
+}

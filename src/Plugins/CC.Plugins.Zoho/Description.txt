@@ -1,0 +1,9 @@
+﻿FriendlyName: Zoho
+Description: Zoho
+SystemName: CC.Plugins.Zoho
+Group: Payment
+Version: 4.2.0
+MinAppVersion: 4.2.0
+DisplayOrder: 1
+FileName: CC.Plugins.Zoho.dll
+ResourceRootKey: Plugins.CC.Plugins.Zoho

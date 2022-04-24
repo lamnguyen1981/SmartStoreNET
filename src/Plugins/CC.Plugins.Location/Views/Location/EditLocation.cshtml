@@ -50,16 +50,25 @@
             @Html.ValidationMessageFor(model => model.LocationName)
         </div>
     </div>
-    <div class="adminRow">
-        <div class="adminTitle">
-            @Html.SmartLabelFor(model => model.LocationType)
-        </div>
-        <div class="adminData">
-            @Html.TextBoxFor(model => model.LocationType)
-            @Html.ValidationMessageFor(model => model.LocationType)
 
+    @{
+
+        var locationType = new List<SelectListItem>();
+        locationType.Add(new SelectListItem { Text = "Market", Value = "Market" });
+        locationType.Add(new SelectListItem { Text = "Salon", Value = "Salon" });
+
+
+        <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.LocationType)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => Model.LocationType, locationType)
+                    @Html.ValidationMessageFor(model => model.LocationType)
+                </div>
         </div>
-    </div>
+        
+    }
 
 
 
