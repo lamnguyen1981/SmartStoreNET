@@ -82,7 +82,7 @@ namespace CC.Plugins.Subscription
             //        {"Namespaces", "CC.Plugins.ChamberlainProductSubscription.Controllers"},
             //        {"area", "CC.Plugins.ChamberlainProductSubscription"},
             //        {"widgetZone", widgetZone},
-            //        {"productId", productModel != null ? productModel.Id : 0 }
+            //        {"productId", productModel != null ? productModel.id : 0 }
             //        //{"additionalData", routeValues }
             //    };
             //} 

@@ -4,7 +4,6 @@ using SmartStore.Web.Framework.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -50,8 +49,26 @@ namespace CC.Plugins.Subscription.Controllers
         public PartialViewResult MarketSubscriptionList(int marketId)
         {
             var model = GetMarketSubscriptionList(marketId);
-            return PartialView("_SubscriptionCardList", model);
+            var calendarModel = InitializeCalendarView(new DateTime(2022,1,1), new DateTime(2022,2,1));
+            var tupleModel = new Tuple<SubscriptionCalendarView, IEnumerable<SalonSubscriptionDetailResponse>>(calendarModel, model);
+            return PartialView("_SubscriptionCardList", tupleModel);
         }
+
+        public PartialViewResult RederCalendarView(string fromDate, string toDate)
+        {
+            if     (!String.IsNullOrEmpty(fromDate) && !String.IsNullOrEmpty(toDate))
+            {
+                var fromArr = fromDate.Split(new char[] { '/' });
+                var toArr = toDate.Split(new char[] { '/' });
+                var calendarModel = InitializeCalendarView(new DateTime(int.Parse(fromArr[1]), int.Parse(fromArr[0]),1), 
+                                                                        new DateTime(int.Parse(toArr[1]), int.Parse(toArr[0]), 1));
+                return PartialView("_SubscriptionCalendarView", calendarModel);
+            }
+            return PartialView("_SubscriptionCalendarView");
+
+        }
+
+        
 
         public ActionResult OfferList()
         {            
@@ -250,7 +267,7 @@ namespace CC.Plugins.Subscription.Controllers
 
         public ActionResult MarketList()
         {
-            string sqlQuery = @"select MarketID as Id, REPLACE(STR(MarketID, 3), SPACE(1), '0') as MarketCode, MarketName
+            string sqlQuery = @"select MarketID as id, REPLACE(STR(MarketID, 3), SPACE(1), '0') as MarketCode, MarketName
                                 from dbo.tbMarket
                                 order by MarketName";
             var response = _services.DbContext.SqlQuery<MarketResponse>(sqlQuery);
@@ -294,7 +311,7 @@ namespace CC.Plugins.Subscription.Controllers
 
         private IEnumerable<SalonSubscriptionDetailResponse> GetMarketSubscriptionList(int marketId )
         {
-            string sqlQuery = @"select p.Id, m.Id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
+            string sqlQuery = @"select p.id, m.id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
                                     from [greatclips_api_dev].dbo.Market m
                                     cross join [greatclips_api_dev].dbo.Program p
                                     left join [greatclips_api_dev].dbo.MarketSubscription ms on m.ID = ms.fk_MarketId and ms.fk_programid = p.id
@@ -304,13 +321,107 @@ namespace CC.Plugins.Subscription.Controllers
            
         }
 
+        private SubscriptionCalendarView InitializeCalendarView(DateTime fromDate, DateTime toDate)
+        {
+            var events = new List<Event>();
+
+            events.Add(new Event
+            {
+                id = "1",
+                start = new DateTime(2022, 4, 5),
+                end = new DateTime(2022, 4, 7),
+                title = "P2N"
+            });
+           
+            events.Add(new Event
+            {
+                id ="2",
+                start = new DateTime(2022, 3, 19),
+                end = new DateTime(2022, 3, 21),
+                title = "N2B"
+            });
+
+            events.Add(new Event
+            {
+                id = "3",
+                start = new DateTime(2022, 5, 19),
+                end = new DateTime(2022, 5, 21),
+                title = "P2N"
+            });
+
+            events.Add(new Event
+            {
+                id = "4",
+                start = new DateTime(2022, 1, 19),
+                end = new DateTime(2022, 1, 21),
+                title = "B2G"
+            });
+
+
+            events.Add(new Event
+            {
+                id = "5",
+                start = new DateTime(2022, 2, 19),
+                end = new DateTime(2022, 2, 21),
+                title = "P2N"
+            });
+
+            events.Add(new Event
+            {
+                id = "6",
+                start = new DateTime(2022, 6, 19),
+                end = new DateTime(2022, 6, 21),
+                title = "B2G"
+            });
+
+            events.Add(new Event
+            {
+                id = "7",
+                start = new DateTime(2022, 7, 19),
+                end = new DateTime(2022, 7, 21),
+                title = "N2B"
+            });
+
+            events.Add(new Event
+            {
+                id = "8",
+                start = new DateTime(2022, 8, 19),
+                end = new DateTime(2022, 8, 21),
+                title = "B2G"
+            });
+            events.Add(new Event
+            {
+                id = "9",
+                start = new DateTime(2022, 5, 19),
+                end = new DateTime(2022, 5, 21),
+                title = "N2B"
+            });
+            events.Add(new Event
+            {
+                id = "10",
+                start = new DateTime(2022, 10, 19),
+                end = new DateTime(2022, 10, 21),
+                title = "B2G"
+            });
+
+            var view = new SubscriptionCalendarView
+            {
+                
+                StartDate = fromDate,
+                EndDate = toDate,
+                Events = events
+            };
+
+            return view;
+        }
+
         private SalonSubscriptionDetailResponse GetMarketSubscriptionDetail(int programId)
         {
-            string sqlQuery = @"select p.Id, m.Id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
+            string sqlQuery = @"select p.id, m.id as MarketId, m.MarketCode, m.MarketName, p.ProgramCode, p.ProgramName, p.ShortDescription, p.LongDescription, p.NumberOfLevels, ISNULL(ms.Level,0) as Level, ms.MaxVolume 
                                     from [greatclips_api_dev].dbo.Market m
                                     cross join [greatclips_api_dev].dbo.Program p
                                     left join [greatclips_api_dev].dbo.MarketSubscription ms on m.ID = ms.fk_MarketId and ms.fk_programid = p.id
-                                    where p.Id = {0} and ms.Year = 2021 and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
+                                    where p.id = {0} and ms.Year = 2021 and p.ProgramType = 'Journey' and ProgramCode <> 'NBS'";
             return _services.DbContext.SqlQuery<SalonSubscriptionDetailResponse>(sqlQuery, programId).FirstOrDefault();
 
 

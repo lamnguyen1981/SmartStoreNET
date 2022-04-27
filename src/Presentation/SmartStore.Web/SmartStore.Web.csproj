@@ -1602,6 +1602,7 @@
     <Content Include="Scripts\public.common.js" />
     <Content Include="Scripts\smartstore.jquery.utils.js" />
     <Content Include="Scripts\smartstore.system.js" />
+    <Content Include="Themes\GreatClips\Content\datepicker.css" />
     <Content Include="Themes\GreatClips\Content\Images\121_hexagon_icons-01.jpg" />
     <Content Include="Themes\GreatClips\Content\Images\121_hexagon_icons-01.png" />
     <Content Include="Themes\GreatClips\Content\Images\121_hexagon_icons-02.jpg" />
@@ -1650,6 +1651,7 @@
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Measures.png" />
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Promotion Control.png" />
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Promotion Delivery.png" />
+    <Content Include="Themes\GreatClips\Content\js\bootstrap-datepicker.js" />
     <Content Include="Themes\GreatClips\Content\js\readmore.js" />
     <Content Include="Themes\GreatClips\Content\kendo\css\bootstrap.min.css" />
     <Content Include="Themes\GreatClips\Content\kendo\css\Default\animated-overlay.gif" />

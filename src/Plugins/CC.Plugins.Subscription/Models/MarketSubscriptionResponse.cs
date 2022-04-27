@@ -48,7 +48,7 @@ namespace CC.Plugins.Subscription.Models
             }
         }
 
-        
+      
 
     }
 }

@@ -279,6 +279,7 @@
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\SubscriptionController.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\MarketFutureOffersResponse.cs" />
     <Compile Include="Models\MarketResponse.cs" />
     <Compile Include="Models\MarketOffersResponse.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Models\SalonSubscriptionDetailResponse.cs" />
     <Compile Include="Models\MarketSubscriptionResponse.cs" />
     <Compile Include="Models\SalonSubscriptionResponse.cs" />
+    <Compile Include="Models\SubscriptionCalendarView.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="SubscriptionContext.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -353,6 +355,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Subscription\SubscriptionDetail.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Subscription\_SubscriptionCalendarView.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

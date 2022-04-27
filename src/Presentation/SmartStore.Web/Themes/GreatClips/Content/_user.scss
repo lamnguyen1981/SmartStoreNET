@@ -43,11 +43,50 @@
     
 }
 
+
+
 .marketTitleBar input {
     border-radius: 1rem;
     height:40px;
 }
+/*This is for calendar*/
+.k-scheduler-content
+{
+    overflow:visible!important;
+}
+.k-scheduler-toolbar {
+    display: none !important;
+}
+/*This is for calendar*/
+.not-first-calendar .k-scheduler-header {
+    display: none;
+}
 
+.k-event-template {
+    text-align :center!important;
+    color:white!important;
+    border:none;
+}
+
+.not-first-calendar {
+    margin-top: -2px;
+}
+
+.common-hide-element {
+    display: none !important;
+}
+
+.k-scheduler-header th {
+    background-color: #{$darkblue} !important;
+    color:white;
+
+}
+/*End This is for calendar*/
+#viewCard
+{
+    padding-left:15px;
+    padding-right:15px;
+}
 .card-grid {
 
     .k-alt {
