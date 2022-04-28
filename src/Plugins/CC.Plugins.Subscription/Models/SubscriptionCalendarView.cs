@@ -12,5 +12,7 @@ namespace CC.Plugins.Subscription.Models
         public DateTime EndDate { get; set; }
 
         public IList<Event> Events { get; set; }
+
+        public IEnumerable<DateTime> MonthRange { get; set; }
     }
 }

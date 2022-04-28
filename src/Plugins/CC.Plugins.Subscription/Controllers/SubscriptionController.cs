@@ -28,9 +28,7 @@ namespace CC.Plugins.Subscription.Controllers
         [ChildActionOnly]
         
         public ActionResult Configure()
-        {
-           
-
+        {          
             return View();
         }
 
@@ -56,19 +54,33 @@ namespace CC.Plugins.Subscription.Controllers
 
         public PartialViewResult RederCalendarView(string fromDate, string toDate)
         {
+            
             if     (!String.IsNullOrEmpty(fromDate) && !String.IsNullOrEmpty(toDate))
             {
                 var fromArr = fromDate.Split(new char[] { '/' });
                 var toArr = toDate.Split(new char[] { '/' });
-                var calendarModel = InitializeCalendarView(new DateTime(int.Parse(fromArr[1]), int.Parse(fromArr[0]),1), 
-                                                                        new DateTime(int.Parse(toArr[1]), int.Parse(toArr[0]), 1));
+                var start = new DateTime(int.Parse(fromArr[1]), int.Parse(fromArr[0]), 1);
+                var end = new DateTime(int.Parse(toArr[1]), int.Parse(toArr[0]), 1);
+               
+                var calendarModel = InitializeCalendarView(start, end);
+                                                                        
                 return PartialView("_SubscriptionCalendarView", calendarModel);
             }
             return PartialView("_SubscriptionCalendarView");
 
         }
 
-        
+        private  IEnumerable<DateTime> LoopYearMonths(DateTime startDate, DateTime endDate)
+        {
+          //  string format = "yyyy-MM";
+            //DateTime startDT = DateTime.ParseExact(startYearMonth, format, CultureInfo.InvariantCulture);
+           // DateTime endDT = DateTime.ParseExact(endYearMonth, format, CultureInfo.InvariantCulture);
+            while (startDate <= endDate)
+            {
+                yield return startDate;
+                startDate = startDate.AddMonths(1);
+            }
+        }
 
         public ActionResult OfferList()
         {            
@@ -144,6 +156,7 @@ namespace CC.Plugins.Subscription.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult GetFutureOfferList()
         {
+
             var model = new List<MarketFutureOffersResponse>();
 
             model.Add(new MarketFutureOffersResponse
@@ -323,93 +336,37 @@ namespace CC.Plugins.Subscription.Controllers
 
         private SubscriptionCalendarView InitializeCalendarView(DateTime fromDate, DateTime toDate)
         {
-            var events = new List<Event>();
+            var events = new List<Event>();         
 
-            events.Add(new Event
-            {
-                id = "1",
-                start = new DateTime(2022, 4, 5),
-                end = new DateTime(2022, 4, 7),
-                title = "P2N"
-            });
-           
-            events.Add(new Event
-            {
-                id ="2",
-                start = new DateTime(2022, 3, 19),
-                end = new DateTime(2022, 3, 21),
-                title = "N2B"
-            });
+            var title = "B2G";
+            var monthRange = LoopYearMonths(fromDate, toDate);
 
-            events.Add(new Event
+            foreach(var date in monthRange)
             {
-                id = "3",
-                start = new DateTime(2022, 5, 19),
-                end = new DateTime(2022, 5, 21),
-                title = "P2N"
-            });
+                Random rnd = new Random();
+                var num1 = rnd.Next(1, 27);
+                var num2 = rnd.Next(1, 27);
+                var starDate = new DateTime(date.Year, date.Month, (num1 > num2) ? num2 : num1);
+                var endDate = new DateTime(date.Year, date.Month, (num1 > num2) ? num1 : num2);
+                if (date.Month % 3 == 0) title = "N2B";
+                if (date.Month % 2 == 0) title = "P2N";
+                events.Add(new Event
+                {
+                    id = date.Ticks.ToString(),
+                    start = starDate,
+                    end = endDate,
+                    title = title
+                });
+            }
 
-            events.Add(new Event
-            {
-                id = "4",
-                start = new DateTime(2022, 1, 19),
-                end = new DateTime(2022, 1, 21),
-                title = "B2G"
-            });
-
-
-            events.Add(new Event
-            {
-                id = "5",
-                start = new DateTime(2022, 2, 19),
-                end = new DateTime(2022, 2, 21),
-                title = "P2N"
-            });
-
-            events.Add(new Event
-            {
-                id = "6",
-                start = new DateTime(2022, 6, 19),
-                end = new DateTime(2022, 6, 21),
-                title = "B2G"
-            });
-
-            events.Add(new Event
-            {
-                id = "7",
-                start = new DateTime(2022, 7, 19),
-                end = new DateTime(2022, 7, 21),
-                title = "N2B"
-            });
-
-            events.Add(new Event
-            {
-                id = "8",
-                start = new DateTime(2022, 8, 19),
-                end = new DateTime(2022, 8, 21),
-                title = "B2G"
-            });
-            events.Add(new Event
-            {
-                id = "9",
-                start = new DateTime(2022, 5, 19),
-                end = new DateTime(2022, 5, 21),
-                title = "N2B"
-            });
-            events.Add(new Event
-            {
-                id = "10",
-                start = new DateTime(2022, 10, 19),
-                end = new DateTime(2022, 10, 21),
-                title = "B2G"
-            });
 
             var view = new SubscriptionCalendarView
             {
-                
+
                 StartDate = fromDate,
                 EndDate = toDate,
-                Events = events
+                Events = events,
+                MonthRange = monthRange
             };
 
             return view;

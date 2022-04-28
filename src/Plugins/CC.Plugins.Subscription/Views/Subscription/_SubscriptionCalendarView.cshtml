@@ -106,40 +106,38 @@
     }
 </script>
 @{
-
+    var count = 0;
     var startMonth = Model.StartDate.Month;
     var endMonth = Model.EndDate.Month;
     var year = Model.StartDate.Year;
-    for (int month = startMonth; month <= endMonth; month++)
+    var startDate = Model.MonthRange.First();
+    foreach (var month in Model.MonthRange)
+    // for (int month = startMonth; month <= endMonth; month++)
     {
-        var dateValue = new DateTime(year, month, 1);
-        <div id='@(month + "scheduler")'></div>
+
+       // var dateValue = new DateTime(year, month, 1);
+        <div id='@(month.Ticks)'></div>
         <script>
             var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
-            bindScheduler('@(month + "scheduler")', '@dateValue', stringList);
-
+            bindScheduler('@(month.Ticks)', '@month', stringList);
+            console.log('Mylog');
+            console.log('@(month)');
+            console.log('@(month.Ticks)');
             $(document).ready(function () {
-                var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
-                console.log(stringList);
+               // var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
+               // console.log(stringList);
 
 
-                if ('@(month >= startMonth)' == 'True' && '@(month < endMonth)' == 'True')
-                {
-                    // RemoveLastDuplicateCalendarRow('@(month + "scheduler")');
-                }
 
-                if ('@(month > startMonth)' == 'True')
-                {
-                    // RemoveFirstDuplicateCalendarRow('@(month + "scheduler")');
-                }
 
-                if ('@(month > startMonth)'=='True') {
-                    $("#" + '@(month + "scheduler")').addClass('not-first-calendar');
+                if ('@(month > startDate)'=='True') {
+                    $("#" + '@(month.Ticks)').addClass('not-first-calendar');
                 }
                 setColor();
                 removeUnusedButton();
             });
         </script>
+       
     }
 }
 
