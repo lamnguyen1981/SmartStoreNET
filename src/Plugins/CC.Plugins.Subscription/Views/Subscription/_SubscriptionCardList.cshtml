@@ -282,6 +282,7 @@
 
         $(document).ready(function () {
             // $('p2nparagrap-text').readmore();
+           
             var slider = $(".slider").kendoSlider({
 
                 min: 0,
@@ -314,12 +315,16 @@
             $(".slider").parent(".k-slider-wrap").find(".k-draghandle").text('0');
             var calendar = document.getElementById('viewCalendar');
             calendar.style.display = "none";
-          
-
+           /* $('.datepicker').datepicker({
+                format: 'mm-yyyy',
+                viewMode: 1
+            });*/
+           
+           
         });
 
         function ChangeColorButton(cardId, programCode) {
-            debugger;
+           
             if (programCode == "P2N")
             {
                 $("#" + cardId).find(".btn").addClass("pantone2925");

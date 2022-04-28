@@ -55,11 +55,17 @@
     overflow:visible!important;
 }
 .k-scheduler-toolbar {
-    display: none !important;
+    background-color: white !important;
+
+    .k-link {
+        font-size: 30px;
+        font-weight: 600;
+        color: #009BDE !important
+    }
 }
 /*This is for calendar*/
 .not-first-calendar .k-scheduler-header {
-    display: none;
+    
 }
 
 .k-event-template {

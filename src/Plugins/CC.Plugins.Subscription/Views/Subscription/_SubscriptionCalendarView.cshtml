@@ -18,8 +18,8 @@
 
             views: [
                 {
-                    type: "month",
-                    dayTemplate: kendo.template("#= kendo.toString(date, 'd/M') #")
+                    type: "month"
+                   
                 }
             ],
             dataSource: events[0]
@@ -50,6 +50,17 @@
 
     }
 
+    function removeUnusedButton() {
+        $("div.k-scheduler-toolbar .k-nav-today").remove();
+        $("div.k-scheduler-toolbar .k-nav-prev").remove();
+        $("div.k-scheduler-toolbar .k-nav-next").remove();
+        $("div.k-scheduler-toolbar .k-i-calendar").remove();
+        $("div.k-scheduler-toolbar .k-scheduler-refresh").remove();
+        $("div.k-scheduler-content .k-more-events").remove();
+        $("div.k-scheduler-content .k-more-events").remove();
+        $(".k-scheduler").find("td.k-other-month").removeClass("k-other-month");
+    }
+
     function RemoveFirstDuplicateCalendarRow(id) {
 
 
@@ -74,14 +85,14 @@
 
     $(document).ready(function () {
 
-        // setColor();
+       
 
 
     });
 
     function setColor() {
         $('.k-event-template').each(function () {
-            debugger;
+          
             if ($(this).get(0).innerText == 'P2N') {
                 $(this).addClass('pantone2925');
             }
@@ -114,18 +125,19 @@
 
                 if ('@(month >= startMonth)' == 'True' && '@(month < endMonth)' == 'True')
                 {
-                    // RemoveLastDuplicateCalendarRow('@(month + "scheduler")');
+                     RemoveLastDuplicateCalendarRow('@(month + "scheduler")');
                 }
 
                 if ('@(month > startMonth)' == 'True')
                 {
-                    // RemoveFirstDuplicateCalendarRow('@(month + "scheduler")');
+                     RemoveFirstDuplicateCalendarRow('@(month + "scheduler")');
                 }
 
                 if ('@(month > startMonth)'=='True') {
                     $("#" + '@(month + "scheduler")').addClass('not-first-calendar');
                 }
                 setColor();
+                removeUnusedButton();
             });
         </script>
     }
