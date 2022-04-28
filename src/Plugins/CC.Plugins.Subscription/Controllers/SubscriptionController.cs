@@ -47,7 +47,8 @@ namespace CC.Plugins.Subscription.Controllers
         public PartialViewResult MarketSubscriptionList(int marketId)
         {
             var model = GetMarketSubscriptionList(marketId);
-            var calendarModel = InitializeCalendarView(new DateTime(2022,1,1), new DateTime(2022,2,1));
+            var currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var calendarModel = InitializeCalendarView(currentMonth.AddMonths(-1), currentMonth);
             var tupleModel = new Tuple<SubscriptionCalendarView, IEnumerable<SalonSubscriptionDetailResponse>>(calendarModel, model);
             return PartialView("_SubscriptionCardList", tupleModel);
         }
