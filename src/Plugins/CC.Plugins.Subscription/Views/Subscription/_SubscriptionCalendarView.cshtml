@@ -58,7 +58,7 @@
         $("div.k-scheduler-toolbar .k-scheduler-refresh").remove();
         $("div.k-scheduler-content .k-more-events").remove();
         $("div.k-scheduler-content .k-more-events").remove();
-        $(".k-scheduler").find("td.k-other-month").removeClass("k-other-month");
+      //  $(".k-scheduler").find("td.k-other-month").removeClass("k-other-month");
     }
 
     function RemoveFirstDuplicateCalendarRow(id) {
@@ -125,12 +125,12 @@
 
                 if ('@(month >= startMonth)' == 'True' && '@(month < endMonth)' == 'True')
                 {
-                     RemoveLastDuplicateCalendarRow('@(month + "scheduler")');
+                    // RemoveLastDuplicateCalendarRow('@(month + "scheduler")');
                 }
 
                 if ('@(month > startMonth)' == 'True')
                 {
-                     RemoveFirstDuplicateCalendarRow('@(month + "scheduler")');
+                    // RemoveFirstDuplicateCalendarRow('@(month + "scheduler")');
                 }
 
                 if ('@(month > startMonth)'=='True') {
