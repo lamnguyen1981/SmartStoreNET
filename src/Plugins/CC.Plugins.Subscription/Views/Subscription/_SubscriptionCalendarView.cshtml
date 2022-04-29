@@ -110,12 +110,12 @@
     var startMonth = Model.StartDate.Month;
     var endMonth = Model.EndDate.Month;
     var year = Model.StartDate.Year;
-    var startDate = Model.MonthRange.First();
+    var startDate = Model.MonthRange.FirstOrDefault();
     foreach (var month in Model.MonthRange)
     // for (int month = startMonth; month <= endMonth; month++)
     {
 
-       // var dateValue = new DateTime(year, month, 1);
+        // var dateValue = new DateTime(year, month, 1);
         <div id='@(month.Ticks)'></div>
         <script>
             var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
