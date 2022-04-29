@@ -63,9 +63,12 @@
         color: #009BDE !important
     }
 }
-/*This is for calendar*/
+.k-event
+{
+    border:none!important;
+}
+
 .not-first-calendar .k-scheduler-header {
-    
 }
 
 .k-event-template {
@@ -87,11 +90,15 @@
     color:white;
 
 }
-/*End This is for calendar*/
-#viewCard
+
+.k-more-events
 {
-    padding-left:15px;
-    padding-right:15px;
+    display:none!important;
+}
+/*End This is for calendar*/
+#viewCard {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .card-grid {
 

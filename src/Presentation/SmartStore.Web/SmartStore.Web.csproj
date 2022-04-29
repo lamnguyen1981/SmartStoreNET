@@ -1602,7 +1602,6 @@
     <Content Include="Scripts\public.common.js" />
     <Content Include="Scripts\smartstore.jquery.utils.js" />
     <Content Include="Scripts\smartstore.system.js" />
-    <Content Include="Themes\GreatClips\Content\datepicker.css" />
     <Content Include="Themes\GreatClips\Content\Images\121_hexagon_icons-01.jpg" />
     <Content Include="Themes\GreatClips\Content\Images\121_hexagon_icons-01.png" />
     <Content Include="Themes\GreatClips\Content\Images\121_hexagon_icons-02.jpg" />
@@ -1651,7 +1650,6 @@
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Measures.png" />
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Promotion Control.png" />
     <Content Include="Themes\GreatClips\Content\Images\promotional platform_icons_solid_Promotion Delivery.png" />
-    <Content Include="Themes\GreatClips\Content\js\bootstrap-datepicker.js" />
     <Content Include="Themes\GreatClips\Content\js\readmore.js" />
     <Content Include="Themes\GreatClips\Content\kendo\css\bootstrap.min.css" />
     <Content Include="Themes\GreatClips\Content\kendo\css\Default\animated-overlay.gif" />
@@ -1675,7 +1673,7 @@
     <Content Include="Themes\GreatClips\Content\kendo\js\bootstrap.min.js" />
     <Content Include="Themes\GreatClips\Content\kendo\js\kendo.all.min.js" />
     <Content Include="Themes\GreatClips\Content\kendo\js\kendo.window.onload.js" />
-    <Content Include="Themes\GreatClips\Content\style.css" />
+    <Content Include="Themes\GreatClips\Content\tempusdominus-datetimepicker.css" />
     <Content Include="Themes\GreatClips\preview.png" />
     <Content Include="Views\Shared\ConfigureTheme.cshtml" />
     <Content Include="Web.config">

@@ -5,31 +5,29 @@
     Layout = "_Layout";
 }
 
-@*<link rel="stylesheet" href="~/Themes/GreatClips/Content/style.css" />*@
+<link rel="stylesheet" href="~/Themes/GreatClips/Content/tempusdominus-datetimepicker.css" />
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.default.min.css" />
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.mobile.all.min.css" />
 <link rel="stylesheet" href="~/Themes/GreatClips/Content/kendo/css/kendo.common.min.css" />
-<link rel="stylesheet" href="~/Themes/GreatClips/Content/datepicker.css" />
 <script src="~/Themes/GreatClips/Content/kendo/js/kendo.all.min.js"></script>
-<script src="~/Themes/GreatClips/Content/js/bootstrap-datepicker.js"></script>
 
 
 
 
 <div class="container">
 
-    <div class="row marketTitleBar" >
+    <div class="row marketTitleBar">
         <div class="col-sm-4">
             <div class="form-group row">
                 @*<label for="inputEmail3" class="col-sm-2 col-form-label">Market</label>*@
                 <div class="col-sm-12">
 
                     <input type="text" class="form-control" id="txtMarketFilter" placeholder="Enter market name to search" />
-                    
-                    
+
+
                 </div>
             </div>
-            
+
         </div>
         <div class="col-sm-6 align-self-center">
             <h4 style="text-align:center;" id="market-caption"></h4>
@@ -92,7 +90,7 @@
 
     });
 
-    
+
 
     function renderMarketGrid() {
 
@@ -103,15 +101,15 @@
             },
             sortable: true,
             pageable: false,
-           
+
             columns: [{
                 field: "Id",
-                title: "Market",                
+                title: "Market",
                 attributes: { style: "text-align:left !important;"},
                 width: 150,
                 template: "<a  class='' style='display:block;text-align:left !important;'  onclick='getSalonSubscriptionData(#= Id #, \"#= MarketCode #\", \"#= MarketName #\")'>#= MarketCode # - #=MarketName #</a>"
             }
-            
+
             ]
         });
 
@@ -128,7 +126,7 @@
             contentType: 'application/json',
             success: function (result) {
 
-                if (result != null) {                   
+                if (result != null) {
 
                     $('#salon-subscription-grid').html(result);
 
@@ -140,4 +138,3 @@
 
 </script>
 
-   
