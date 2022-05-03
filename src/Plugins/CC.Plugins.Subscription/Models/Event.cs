@@ -14,5 +14,9 @@ namespace CC.Plugins.Subscription.Models
         public DateTime start { get; set; }
 
         public DateTime end { get; set; }
+
+        public int level { get; set; }
+
+        public decimal total { get; set; }
     }
 }

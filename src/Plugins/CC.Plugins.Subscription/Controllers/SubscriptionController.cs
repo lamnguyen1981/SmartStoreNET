@@ -47,8 +47,8 @@ namespace CC.Plugins.Subscription.Controllers
         public PartialViewResult MarketSubscriptionList(int marketId)
         {
             var model = GetMarketSubscriptionList(marketId);
-            var currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var calendarModel = InitializeCalendarView(currentMonth.AddMonths(-1), currentMonth);
+            var startMonth = new DateTime(DateTime.Now.Year, 1, 1);
+            var calendarModel = InitializeCalendarView(startMonth, startMonth.AddMonths(11));
             var tupleModel = new Tuple<SubscriptionCalendarView, IEnumerable<SalonSubscriptionDetailResponse>>(calendarModel, model);
             return PartialView("_SubscriptionCardList", tupleModel);
         }
@@ -342,13 +342,16 @@ namespace CC.Plugins.Subscription.Controllers
             var title = "B2G";
             var monthRange = LoopYearMonths(fromDate, toDate);
 
-            foreach(var date in monthRange)
+            foreach (var date in monthRange)
             {
                 Random rnd = new Random();
                 var num1 = rnd.Next(1, 27);
                 var num2 = rnd.Next(1, 27);
+                var total = rnd.Next(100, 3000);
                 var starDate = new DateTime(date.Year, date.Month, (num1 > num2) ? num2 : num1);
                 var endDate = new DateTime(date.Year, date.Month, (num1 > num2) ? num1 : num2);
+                //var starDate = new DateTime(date.Year, date.Month, 1);
+                //var endDate = new DateTime(date.Year, date.Month, 3);
                 if (date.Month % 3 == 0) title = "N2B";
                 if (date.Month % 2 == 0) title = "P2N";
                 events.Add(new Event
@@ -356,8 +359,10 @@ namespace CC.Plugins.Subscription.Controllers
                     id = date.Ticks.ToString(),
                     start = starDate,
                     end = endDate,
-                    title = title
-                });
+                    title = title,
+                    level = 10,
+                    total = total
+                }); ;
             }
 
 

@@ -54,7 +54,7 @@
     
 
 </div>
-<div id="cardView">
+<div id="cardView" >
     @foreach (var item in Model.Item2)
     {
         <div class="row p2ncard-item">
@@ -242,7 +242,7 @@
 
     }
 </div>
-<div class="row" id="viewCalendar">
+<div class="row" id="viewCalendar" >
 
     @{
         Html.RenderPartial("_SubscriptionCalendarView", Model.Item1);
@@ -286,10 +286,11 @@
 
             if (calendar.style.display === "none") {
 
-                btn.innerHTML = "Show Cards";
+                btn.innerHTML = "Close Calendar";
                 calendar.style.display = "";
                 card.style.display = "none";
                 filterGroup.style.display = "";
+                viewMode = 1;
 
             } else {
 
@@ -297,8 +298,34 @@
                 card.style.display = "";
                 calendar.style.display = "none";
                 filterGroup.style.display = "none";
+                viewMode = 0;
             }
+    }
+
+    function showSefaultViewMode() {
+        var calendar = document.getElementById('viewCalendar');
+        var card = document.getElementById('cardView');
+        var btn = document.getElementById('viewType');
+        var filterGroup = document.getElementById('calendarfilerGroup');
+
+
+        if (viewMode === 1) {
+
+            btn.innerHTML = "Close Calendar";
+            calendar.style.display = "";
+            card.style.display = "none";
+            filterGroup.style.display = "";
+           // viewMode = 1;
+
+        } else {
+
+            btn.innerHTML = "Show Calendar";
+            card.style.display = "";
+            calendar.style.display = "none";
+            filterGroup.style.display = "none";
+          //  viewMode = 0;
         }
+    }
 
         $(document).ready(function () {
             // $('p2nparagrap-text').readmore();
@@ -345,6 +372,19 @@
                 format: 'MM/YYYY',
                 defaultDate: "@Model.Item1.EndDate",
             });
+            debugger;
+           /* var calendar = document.getElementById('viewCalendar');
+            if (viewMode === 1) {
+                btn.innerHTML = "Show Cards";
+                calendar.style.display = "";
+                card.style.display = "none";
+                filterGroup.style.display = "";
+            }
+            else
+                calendar.style.display = "";*/
+
+            showSefaultViewMode();
+
         });
 
         function ChangeColorButton(cardId, programCode) {

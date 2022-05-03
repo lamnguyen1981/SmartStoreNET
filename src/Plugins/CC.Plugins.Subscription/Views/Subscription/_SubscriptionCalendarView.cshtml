@@ -22,12 +22,37 @@
                    
                 }
             ],
-            dataSource: events[0]
+            dataSource: events[0],
+            editable: false,
+            dataBound: function (e) {
+                $("td.k-other-month span").hide();
+                $("span.k-link").removeClass('k-link');
+                $("span.k-nav-day").removeClass('k-nav-day');
+                $("span.k-event-actions").remove();
+                
+                var data = e.sender.dataSource.data();
+               // var currentMonth = e.sender.view()._firstDayOfMonth.getMonthdate
+                var mydate = new Date(date);
+                var currentMonth = mydate.getMonth();
+                var event;
+                var eventElement;
+                var view = this.view();
+                for (var i = 0; i < data.length; i++) {                   
+                    event = data[i];
+                    eventElement = $("div.k-scheduler-content div[data-uid='" + event.uid + "']");
+                    if (event.start.getMonth() !== currentMonth) {
+                        $("div.k-scheduler-content div[data-uid='" + event.uid + "']").hide();
+                    }
+                    setEventsColor(event.title, eventElement)
+                    $(eventElement).find(".k-event-template").text(event.title + " Level " + event.level + " $" + event.total);
+                }
+            }
 
         });
 
         var scheduler = $("#" + id).data("kendoScheduler");
         // scheduler.view("month");
+       // scheduler.trigger("dataBinding", { action: "rebind" });
     }
 
     function RemoveLastDuplicateCalendarRow(id) {
@@ -36,12 +61,11 @@
 
         var count = trElements.length;
 
-        for (var i = count - 1; i > 0; i--) {
-            // var trElement = $('#' + id + " div.k-scheduler-content > tr:nth-child(" + i + ")");
+        for (var i = count - 1; i > 0; i--) {            
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
-            if (elements.length > 0) {
+            if (elements.length == 7) {              
                 $(trElement).addClass('common-hide-element');
             }
             else
@@ -51,7 +75,8 @@
     }
 
     function removeUnusedButton() {
-        $("div.k-scheduler-toolbar .k-nav-today").remove();
+        $("div.k-scheduler-toolbar .k-nav-today").remove();       
+         
         $("div.k-scheduler-toolbar .k-nav-prev").remove();
         $("div.k-scheduler-toolbar .k-nav-next").remove();
         $("div.k-scheduler-toolbar .k-i-calendar").remove();
@@ -63,18 +88,19 @@
 
     function RemoveFirstDuplicateCalendarRow(id) {
 
-
         var trElements = $('#' + id).find('div.k-scheduler-content tr');
 
         var count = trElements.length;
 
-        for (var i = 0; i < count; i++) {
-            //  var trElement = $('#' + id + " div.k-scheduler-content > tr:nth-child(" + i + ")");
+        for (var i = 0; i < count; i++) {            
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
             if (elements.length == 7) {
-                $(trElement).addClass('common-hide-element');
+                $(trElement).addClass('common-hide-element');               
+                var scheduler = $('#' + id).data("kendoScheduler");
+                scheduler.refresh();
+               // setColor();
             }
             else
                 break;
@@ -104,12 +130,23 @@
             }
         });
     }
+    function setEventsColor(title, element) {     
+
+        if (title == 'P2N') {
+            $(element).find(".k-event-template").addClass('pantone2925');
+            }
+        else if (title == 'N2B') {
+            $(element).find(".k-event-template").addClass('pantone2294');
+            }//N2B B2G
+        else if (title == 'B2G') {
+            $(element).find(".k-event-template").addClass('pantone1505');
+            }
+       
+    }
+
 </script>
 @{
-    var count = 0;
-    var startMonth = Model.StartDate.Month;
-    var endMonth = Model.EndDate.Month;
-    var year = Model.StartDate.Year;
+   
     var startDate = Model.MonthRange.FirstOrDefault();
     foreach (var month in Model.MonthRange)
     // for (int month = startMonth; month <= endMonth; month++)
@@ -133,8 +170,10 @@
                 if ('@(month > startDate)'=='True') {
                     $("#" + '@(month.Ticks)').addClass('not-first-calendar');
                 }
-                setColor();
+            //    setColor();
                 removeUnusedButton();
+                RemoveLastDuplicateCalendarRow('@(month.Ticks)');
+                 RemoveFirstDuplicateCalendarRow('@(month.Ticks)')
             });
         </script>
        
