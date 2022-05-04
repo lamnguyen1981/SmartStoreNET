@@ -377,7 +377,7 @@ namespace CC.Plugins.Subscription.Controllers
                     {
                         id = "lam",
                         start = new DateTime(date.Year, date.Month, 25),
-                        end = new DateTime(date.Year, date.Month, 29) ,
+                        end = new DateTime(date.Year, date.Month, 27) ,
                         title = "N2B",
                         level = 8,
                         total = total
@@ -386,7 +386,7 @@ namespace CC.Plugins.Subscription.Controllers
                     {
                         id = "lam1",
                         start = new DateTime(date.Year, date.Month, 24),
-                        end = new DateTime(date.Year, date.Month, 28),
+                        end = new DateTime(date.Year, date.Month, 27),
                         title = "B2G",
                         level = 10,
                         total = total
