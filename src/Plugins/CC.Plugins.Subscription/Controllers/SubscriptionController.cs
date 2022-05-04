@@ -357,17 +357,44 @@ namespace CC.Plugins.Subscription.Controllers
                 //var endDate = new DateTime(date.Year, date.Month, 3);
                 if (date.Month % 3 == 0) title = "N2B";
                 if (date.Month % 2 == 0) title = "P2N";
-                events.Add(new Event
+                if (date.Month != 1)
                 {
-                    id = date.Ticks.ToString(),
-                    start = starDate,
-                    end = endDate,
-                    title = title,
-                    level = 10,
-                    total = total
-                }); ;
+                    events.Add(new Event
+                    {
+                        id = date.Ticks.ToString(),
+                        start = starDate,
+                        end = endDate,
+                        title = title,
+                        level = 10,
+                        total = total
+                    });
+                }
+                
+
+                if (date.Month == 1)
+                {
+                    events.Add(new Event
+                    {
+                        id = "lam",
+                        start = new DateTime(date.Year, date.Month, 25),
+                        end = new DateTime(date.Year, date.Month, 29) ,
+                        title = "N2B",
+                        level = 8,
+                        total = total
+                    }); ;
+                    events.Add(new Event
+                    {
+                        id = "lam1",
+                        start = new DateTime(date.Year, date.Month, 24),
+                        end = new DateTime(date.Year, date.Month, 28),
+                        title = "B2G",
+                        level = 10,
+                        total = total
+                    }); ;
+                }
             }
 
+            
 
             var view = new SubscriptionCalendarView
             {

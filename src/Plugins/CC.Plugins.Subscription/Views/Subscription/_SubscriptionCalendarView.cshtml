@@ -4,57 +4,58 @@
     ViewBag.Title = "_SubscriptionCalendar";
 }
 
-@if (Model == null )
-    {
+@if (Model == null)
+{
     return;
-    }
+}
 <script>
     function bindScheduler(id, date, events) {
         console.log(id);
         console.log(date);
         console.log(events[0]);
         $("#" + id).kendoScheduler({
-            date: date,           
+            date: date,
             views: [
                 {
                     type: "month",
-                    workDays: [1, 2,3, 4,5]
-                   
+                    eventsPerDay: 2
+
                 }
             ],
             dataSource: events[0],
-            editable: false,
+
             dataBound: function (e) {
                 $("td.k-other-month span").hide();
                 $("span.k-link").removeClass('k-link');
                 $("span.k-nav-day").removeClass('k-nav-day');
                 $("span.k-event-actions").remove();
-                
+
                 var data = e.sender.dataSource.data();
-               // var currentMonth = e.sender.view()._firstDayOfMonth.getMonthdate
+                // var currentMonth = e.sender.view()._firstDayOfMonth.getMonthdate
                 var mydate = new Date(date);
                 var currentMonth = mydate.getMonth();
                 var event;
-                var eventElement;
-                var view = this.view();
-                for (var i = 0; i < data.length; i++) {                   
+                var eventElement;                
+                $("#" + id + "summary").empty();
+                for (var i = 0; i < data.length; i++) {
                     event = data[i];
                     eventElement = $("div.k-scheduler-content div[data-uid='" + event.uid + "']");
                     if (event.start.getMonth() !== currentMonth) {
-                        $("div.k-scheduler-content div[data-uid='" + event.uid + "']").hide();
+                          $("div.k-scheduler-content div[data-uid='" + event.uid + "']").hide();
                     }
                     setEventsColor(event.title, eventElement)
+                    if (event.start.getMonth() === currentMonth) {                       
+                        var str = event.title + " Level " + event.level + " -Total: " + "$" + event.total
+                        $("#" + id + "summary").append("<p>" + str + "</p>");
+                    }
                     $(eventElement).find(".k-event-template").text(event.title + " Level " + event.level + " $" + event.total);
-                    $("#" + id + "level").text("Level: " + event.level);
-                    $("#" + id + "total").text("Total: $" + event.total);
+                    
                 }
             }
 
         });
 
-        var scheduler = $("#" + id).data("kendoScheduler");
-        // scheduler.view("month");
-       // scheduler.trigger("dataBinding", { action: "rebind" });
+        var scheduler = $("#" + id).data("kendoScheduler");        
     }
 
     function RemoveLastDuplicateCalendarRow(id) {
@@ -63,11 +64,12 @@
 
         var count = trElements.length;
 
-        for (var i = count - 1; i > 0; i--) {            
+        for (var i = count - 1; i > 0; i--) {
+            debugger;
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
-            if (elements.length > 4) {              
+            if (elements.length >= 5) {
                 $(trElement).addClass('common-hide-element');
             }
             else
@@ -77,15 +79,15 @@
     }
 
     function removeUnusedButton() {
-        $("div.k-scheduler-toolbar .k-nav-today").remove();       
-         
+        $("div.k-scheduler-toolbar .k-nav-today").remove();
+
         $("div.k-scheduler-toolbar .k-nav-prev").remove();
         $("div.k-scheduler-toolbar .k-nav-next").remove();
         $("div.k-scheduler-toolbar .k-i-calendar").remove();
         $("div.k-scheduler-toolbar .k-scheduler-refresh").remove();
         $("div.k-scheduler-content .k-more-events").remove();
         $("div.k-scheduler-content .k-more-events").remove();
-      //  $(".k-scheduler").find("td.k-other-month").removeClass("k-other-month");
+        //  $(".k-scheduler").find("td.k-other-month").removeClass("k-other-month");
     }
 
     function RemoveFirstDuplicateCalendarRow(id) {
@@ -94,15 +96,15 @@
 
         var count = trElements.length;
 
-        for (var i = 0; i < count; i++) {            
+        for (var i = 0; i < count; i++) {
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
-            if (elements.length >4) {
-                $(trElement).addClass('common-hide-element');               
+            if (elements.length >= 5) {
+                $(trElement).addClass('common-hide-element');
                 var scheduler = $('#' + id).data("kendoScheduler");
                 scheduler.refresh();
-               // setColor();
+                // setColor();
             }
             else
                 break;
@@ -113,14 +115,14 @@
 
     $(document).ready(function () {
 
-       
+
 
 
     });
 
     function setColor() {
         $('.k-event-template').each(function () {
-          
+
             if ($(this).get(0).innerText == 'P2N') {
                 $(this).addClass('pantone2925');
             }
@@ -132,45 +134,43 @@
             }
         });
     }
-    function setEventsColor(title, element) {     
+    function setEventsColor(title, element) {
 
         if (title == 'P2N') {
             $(element).find(".k-event-template").addClass('pantone2925');
-            }
+        }
         else if (title == 'N2B') {
             $(element).find(".k-event-template").addClass('pantone2294');
-            }//N2B B2G
+        }//N2B B2G
         else if (title == 'B2G') {
             $(element).find(".k-event-template").addClass('pantone1505');
-            }
-       
+        }
+
     }
 
 </script>
 @{
-   
+
     var startDate = Model.MonthRange.FirstOrDefault();
     foreach (var month in Model.MonthRange)
     // for (int month = startMonth; month <= endMonth; month++)
     {
-    <div class="row">
-        <div class="col-9">
-            <div id='@(month.Ticks)'></div>
-        </div>
-        <div class="col-3 p2nitem">
-            <div class="subscription-calendar-summary">
-                <div>
-                    <p id="@(month.Ticks)level">Level: 10</p>
-                   
-                    <p id="@(month.Ticks)total">Level: 10</p>
-                </div>
+        <div class="row">
+            <div class="col-9">
+                <div id='@(month.Ticks)'></div>
+            </div>
+            <div class="col-3 p2nitem">
+                <div class="subscription-calendar-summary">
+                    <div class="calendar-summary-content" id="@(month.Ticks)summary">
+                       
+                    </div>
 
+                </div>
             </div>
         </div>
-    </div>
         <script>
             var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
-            bindScheduler('@(month.Ticks)', '@month', stringList);            
+            bindScheduler('@(month.Ticks)', '@month', stringList);
             $(document).ready(function () {
                // var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
                // console.log(stringList);
@@ -187,7 +187,7 @@
                  RemoveFirstDuplicateCalendarRow('@(month.Ticks)')
             });
         </script>
-       
+
     }
 }
 

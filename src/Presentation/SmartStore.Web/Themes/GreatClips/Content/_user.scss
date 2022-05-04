@@ -75,6 +75,7 @@
     text-align :center!important;
     color:white!important;
     border:none;
+    
 }
 
 .not-first-calendar {
@@ -91,9 +92,8 @@
 
 }
 
-.k-more-events
-{
-    display:none!important;
+.k-more-events {
+   // display: none !important;
 }
 
 .k-scheduler-table th:first-child,
@@ -104,11 +104,15 @@
 .k-scheduler-table td:first-child,
 .k-scheduler-table td:last-child {
     display: none !important;
+   
+}
+    
+.k-scheduler-table td:nth-child(2) {
     border-left: none !important;
 }
 
-.k-scheduler-table td:nth-child(2) {
-    border-left: none !important;
+.k-scheduler-monthview .k-scheduler-table td {
+    height: 6.5em!important;
 }
 
 .subscription-calendar-summary {
