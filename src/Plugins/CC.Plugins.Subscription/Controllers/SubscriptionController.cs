@@ -345,11 +345,14 @@ namespace CC.Plugins.Subscription.Controllers
             foreach (var date in monthRange)
             {
                 Random rnd = new Random();
-                var num1 = rnd.Next(1, 27);
-                var num2 = rnd.Next(1, 27);
+              //  var num1 = rnd.Next(1, 27);
+               // var num2 = rnd.Next(1, 27);
                 var total = rnd.Next(100, 3000);
-                var starDate = new DateTime(date.Year, date.Month, (num1 > num2) ? num2 : num1);
-                var endDate = new DateTime(date.Year, date.Month, (num1 > num2) ? num1 : num2);
+                var firstMonthMonday = date.AddDays((DayOfWeek.Monday + 7 - date.DayOfWeek) % 7);
+                var num1 = rnd.Next(0,3);
+                var starDate = firstMonthMonday.AddDays(num1 + 7);
+                var num2 = rnd.Next(2, 5);
+                var endDate = starDate.AddDays(num2);
                 //var starDate = new DateTime(date.Year, date.Month, 1);
                 //var endDate = new DateTime(date.Year, date.Month, 3);
                 if (date.Month % 3 == 0) title = "N2B";

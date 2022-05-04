@@ -95,6 +95,37 @@
 {
     display:none!important;
 }
+
+.k-scheduler-table th:first-child,
+.k-scheduler-table th:last-child {
+    display: none !important;
+}
+
+.k-scheduler-table td:first-child,
+.k-scheduler-table td:last-child {
+    display: none !important;
+    border-left: none !important;
+}
+
+.k-scheduler-table td:nth-child(2) {
+    border-left: none !important;
+}
+
+.subscription-calendar-summary {
+    border-radius: 35px;
+    background: rgb(239, 239, 239);    
+    overflow: hidden;
+    padding-top: 8px;
+    height: 98%;
+    display: flex;
+    align-items: center;
+    border-color: #c5c5c5!important;
+    border:1px;
+    border-style:solid;
+    padding-left:15px;
+    font-weight:600;
+}
+
 /*End This is for calendar*/
 #viewCard {
     padding-left: 15px;

@@ -14,11 +14,11 @@
         console.log(date);
         console.log(events[0]);
         $("#" + id).kendoScheduler({
-            date: date,
-
+            date: date,           
             views: [
                 {
-                    type: "month"
+                    type: "month",
+                    workDays: [1, 2,3, 4,5]
                    
                 }
             ],
@@ -45,6 +45,8 @@
                     }
                     setEventsColor(event.title, eventElement)
                     $(eventElement).find(".k-event-template").text(event.title + " Level " + event.level + " $" + event.total);
+                    $("#" + id + "level").text("Level: " + event.level);
+                    $("#" + id + "total").text("Total: $" + event.total);
                 }
             }
 
@@ -65,7 +67,7 @@
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
-            if (elements.length == 7) {              
+            if (elements.length > 4) {              
                 $(trElement).addClass('common-hide-element');
             }
             else
@@ -96,7 +98,7 @@
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
-            if (elements.length == 7) {
+            if (elements.length >4) {
                 $(trElement).addClass('common-hide-element');               
                 var scheduler = $('#' + id).data("kendoScheduler");
                 scheduler.refresh();
@@ -151,15 +153,24 @@
     foreach (var month in Model.MonthRange)
     // for (int month = startMonth; month <= endMonth; month++)
     {
+    <div class="row">
+        <div class="col-9">
+            <div id='@(month.Ticks)'></div>
+        </div>
+        <div class="col-3 p2nitem">
+            <div class="subscription-calendar-summary">
+                <div>
+                    <p id="@(month.Ticks)level">Level: 10</p>
+                   
+                    <p id="@(month.Ticks)total">Level: 10</p>
+                </div>
 
-        // var dateValue = new DateTime(year, month, 1);
-        <div id='@(month.Ticks)'></div>
+            </div>
+        </div>
+    </div>
         <script>
             var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
-            bindScheduler('@(month.Ticks)', '@month', stringList);
-            console.log('Mylog');
-            console.log('@(month)');
-            console.log('@(month.Ticks)');
+            bindScheduler('@(month.Ticks)', '@month', stringList);            
             $(document).ready(function () {
                // var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
                // console.log(stringList);
