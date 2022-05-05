@@ -56,7 +56,10 @@
 }
 .k-scheduler-toolbar {
     background-color: white !important;
-
+    display:flex!important;
+    align-items:center!important;
+    padding-right:40px!important;
+    height:50px!important;
     .k-link {
         font-size: 30px;
         font-weight: 600;
@@ -66,6 +69,11 @@
 .k-event
 {
     border:none!important;
+    background:none!important;
+}
+
+.k-event + .k-event {
+    margin-top:-5px!important;
 }
 
 .not-first-calendar .k-scheduler-header {
@@ -75,6 +83,7 @@
     text-align :center!important;
     color:white!important;
     border:none;
+    padding:0!important;
     
 }
 
@@ -116,20 +125,17 @@
 }
 
 .subscription-calendar-summary {
-    border-radius: 35px;
-    background: rgb(239, 239, 239);    
-    overflow: hidden;
-    padding-top: 8px;
-    height: 98%;
-    display: flex;
-    align-items: center;
-    border-color: #c5c5c5!important;
-    border:1px;
-    border-style:solid;
-    padding-left:15px;
+    margin-left: auto;
+}
+
+.calendar-summary-content
+{
     font-weight:600;
 }
 
+#subscrition-container .throbber .throbber-flex {
+    align-items: flex-start!important;
+}
 /*End This is for calendar*/
 #viewCard {
     padding-left: 15px;

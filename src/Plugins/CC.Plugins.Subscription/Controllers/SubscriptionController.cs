@@ -350,9 +350,9 @@ namespace CC.Plugins.Subscription.Controllers
                 var total = rnd.Next(100, 3000);
                 var firstMonthMonday = date.AddDays((DayOfWeek.Monday + 7 - date.DayOfWeek) % 7);
                 var num1 = rnd.Next(0,3);
-                var starDate = firstMonthMonday.AddDays(num1 + 7);
+                var starDate = firstMonthMonday.AddDays(num1 + 6);
                 var num2 = rnd.Next(2, 5);
-                var endDate = starDate.AddDays(num2);
+                var endDate = starDate.AddDays(4);
                 //var starDate = new DateTime(date.Year, date.Month, 1);
                 //var endDate = new DateTime(date.Year, date.Month, 3);
                 if (date.Month % 3 == 0) title = "N2B";
@@ -377,7 +377,7 @@ namespace CC.Plugins.Subscription.Controllers
                     {
                         id = "lam",
                         start = new DateTime(date.Year, date.Month, 25),
-                        end = new DateTime(date.Year, date.Month, 27) ,
+                        end = new DateTime(date.Year, date.Month, 28) ,
                         title = "N2B",
                         level = 8,
                         total = total
@@ -386,7 +386,7 @@ namespace CC.Plugins.Subscription.Controllers
                     {
                         id = "lam1",
                         start = new DateTime(date.Year, date.Month, 24),
-                        end = new DateTime(date.Year, date.Month, 27),
+                        end = new DateTime(date.Year, date.Month, 28),
                         title = "B2G",
                         level = 10,
                         total = total

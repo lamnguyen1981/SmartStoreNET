@@ -35,19 +35,40 @@
                 var mydate = new Date(date);
                 var currentMonth = mydate.getMonth();
                 var event;
-                var eventElement;                
-                $("#" + id + "summary").empty();
+                var eventElement;               
+                
+                $(`#${id} .subscription-calendar-summary`).remove();
+                var parentDiv = document.createElement('div');
+                parentDiv.classList.add('subscription-calendar-summary');
+                
                 for (var i = 0; i < data.length; i++) {
                     event = data[i];
                     eventElement = $("div.k-scheduler-content div[data-uid='" + event.uid + "']");
+
                     if (event.start.getMonth() !== currentMonth) {
                           $("div.k-scheduler-content div[data-uid='" + event.uid + "']").hide();
                     }
+
                     setEventsColor(event.title, eventElement)
-                    if (event.start.getMonth() === currentMonth) {                       
+                   
+                    
+                   /* if (data.length > 1 && numberofEventsInMonth < data.length-1) {
+                        var currentPos = $(eventElement).css('top');
+                        var newPos = `${parseInt(currentPos, 10) - 4}px`;
+                        $(eventElement).css({ top: newPos});
+                    }*/
+
+                    
+
+                    if (event.start.getMonth() === currentMonth) {   
+                        var chirldDiv = document.createElement('div');
+                        chirldDiv.classList.add('calendar-summary-content');
                         var str = event.title + " Level " + event.level + " -Total: " + "$" + event.total
-                        $("#" + id + "summary").append("<p>" + str + "</p>");
+                        chirldDiv.textContent = str;
+                        parentDiv.appendChild(chirldDiv);                       
+                        
                     }
+                    $(`#${id} .k-scheduler-toolbar`).append(parentDiv);
                     $(eventElement).find(".k-event-template").text(event.title + " Level " + event.level + " $" + event.total);
                     
                 }
@@ -65,7 +86,7 @@
         var count = trElements.length;
 
         for (var i = count - 1; i > 0; i--) {
-            debugger;
+          
             var trElement = trElements[i];
             var elements = $(trElement).find('.k-other-month');
 
@@ -113,27 +134,8 @@
 
     }
 
-    $(document).ready(function () {
-
-
-
-
-    });
-
-    function setColor() {
-        $('.k-event-template').each(function () {
-
-            if ($(this).get(0).innerText == 'P2N') {
-                $(this).addClass('pantone2925');
-            }
-            else if ($(this).get(0).innerText == 'N2B') {
-                $(this).addClass('pantone2294');
-            }//N2B B2G
-            else if ($(this).get(0).innerText == 'B2G') {
-                $(this).addClass('pantone1505');
-            }
-        });
-    }
+    
+        
     function setEventsColor(title, element) {
 
         if (title == 'P2N') {
@@ -156,35 +158,23 @@
     // for (int month = startMonth; month <= endMonth; month++)
     {
         <div class="row">
-            <div class="col-9">
+            <div class="col">
                 <div id='@(month.Ticks)'></div>
             </div>
-            <div class="col-3 p2nitem">
-                <div class="subscription-calendar-summary">
-                    <div class="calendar-summary-content" id="@(month.Ticks)summary">
-                       
-                    </div>
-
-                </div>
-            </div>
+            
         </div>
         <script>
             var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
             bindScheduler('@(month.Ticks)', '@month', stringList);
-            $(document).ready(function () {
-               // var stringList = [@(Html.Raw(Json.Encode(this.Model.Events)))];
-               // console.log(stringList);
-
-
-
+            $(document).ready(function () {             
 
                 if ('@(month > startDate)'=='True') {
                     $("#" + '@(month.Ticks)').addClass('not-first-calendar');
                 }
-            //    setColor();
+          
                 removeUnusedButton();
                 RemoveLastDuplicateCalendarRow('@(month.Ticks)');
-                 RemoveFirstDuplicateCalendarRow('@(month.Ticks)')
+                RemoveFirstDuplicateCalendarRow('@(month.Ticks)')
             });
         </script>
 

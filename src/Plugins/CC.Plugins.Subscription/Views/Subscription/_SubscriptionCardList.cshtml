@@ -54,7 +54,7 @@
     
 
 </div>
-<div id="cardView" >
+<div id="cardView"  style="display:none">
     @foreach (var item in Model.Item2)
     {
         <div class="row p2ncard-item">
@@ -242,20 +242,23 @@
 
     }
 </div>
-<div class="row" id="viewCalendar" >
+<div class="row" id="viewCalendar" style="visibility: hidden">
 
     @{
         Html.RenderPartial("_SubscriptionCalendarView", Model.Item1);
     }
 </div>
 
-</div>
+
+
 
 <script>
-    function getCalendarView() {
-      
-       
+
     
+    function getCalendarView() {
+        debugger;
+        showThrobber();
+
         var fromDate = $("#txtFromDate").data('date');
         var toDate = $("#txtToDate").data('date');
 
@@ -270,7 +273,7 @@
                 if (result != null) {
 
                     $('#viewCalendar').html(result);
-
+                    hideThrobber();
                 }
 
             },
@@ -282,10 +285,10 @@
             var card = document.getElementById('cardView');
             var btn = document.getElementById('viewType');
             var filterGroup = document.getElementById('calendarfilerGroup');
-
+            
 
             if (calendar.style.display === "none") {
-
+                $(calendar).removeAttr("style");
                 btn.innerHTML = "Close Calendar";
                 calendar.style.display = "";
                 card.style.display = "none";
@@ -310,7 +313,7 @@
 
 
         if (viewMode === 1) {
-
+            $(calendar).removeAttr("style");
             btn.innerHTML = "Close Calendar";
             calendar.style.display = "";
             card.style.display = "none";
@@ -372,7 +375,7 @@
                 format: 'MM/YYYY',
                 defaultDate: "@Model.Item1.EndDate",
             });
-            debugger;
+          
            /* var calendar = document.getElementById('viewCalendar');
             if (viewMode === 1) {
                 btn.innerHTML = "Show Cards";
