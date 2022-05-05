@@ -350,9 +350,10 @@ namespace CC.Plugins.Subscription.Controllers
                 var total = rnd.Next(100, 3000);
                 var firstMonthMonday = date.AddDays((DayOfWeek.Monday + 7 - date.DayOfWeek) % 7);
                 var num1 = rnd.Next(0,3);
-                var starDate = firstMonthMonday.AddDays(num1 + 5);
+                var starDate = firstMonthMonday.AddDays(7);
+               // if (starDate.DayOfWeek != DayOfWeek.Monday) starDate = starDate.AddDays(-1);
                 var num2 = rnd.Next(2, 5);
-                var endDate = starDate.AddDays(5);
+                var endDate = starDate.AddDays(6);
                 //var starDate = new DateTime(date.Year, date.Month, 1);
                 //var endDate = new DateTime(date.Year, date.Month, 3);
                 if (date.Month % 3 == 0) title = "N2B";
