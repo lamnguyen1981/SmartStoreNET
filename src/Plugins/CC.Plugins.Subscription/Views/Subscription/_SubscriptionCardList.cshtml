@@ -54,7 +54,7 @@
     
 
 </div>
-<div id="cardView"  style="display:none">
+<div id="cardView"  style="visibility: hidden">
     @foreach (var item in Model.Item2)
     {
         <div class="row p2ncard-item">
@@ -296,7 +296,7 @@
                 viewMode = 1;
 
             } else {
-
+                $(card).removeAttr("style");
                 btn.innerHTML = "Show Calendar";
                 card.style.display = "";
                 calendar.style.display = "none";
@@ -321,7 +321,7 @@
            // viewMode = 1;
 
         } else {
-
+            $(card).removeAttr("style");
             btn.innerHTML = "Show Calendar";
             card.style.display = "";
             calendar.style.display = "none";
@@ -363,8 +363,12 @@
 
 
             $(".slider").parent(".k-slider-wrap").find(".k-draghandle").text('0');
+
             var calendar = document.getElementById('viewCalendar');
             calendar.style.display = "none";
+            var card = document.getElementById('cardView');
+            card.style.display = "none";
+            
             $('#txtFromDate').datetimepicker({
                 viewMode: 'months',
                 format: 'MM/YYYY',
@@ -375,16 +379,7 @@
                 format: 'MM/YYYY',
                 defaultDate: "@Model.Item1.EndDate",
             });
-          
-           /* var calendar = document.getElementById('viewCalendar');
-            if (viewMode === 1) {
-                btn.innerHTML = "Show Cards";
-                calendar.style.display = "";
-                card.style.display = "none";
-                filterGroup.style.display = "";
-            }
-            else
-                calendar.style.display = "";*/
+                    
 
             showSefaultViewMode();
 
