@@ -377,7 +377,7 @@ namespace CC.Plugins.Subscription.Controllers
                     events.Add(new Event
                     {
                         id = "lam",
-                        start = new DateTime(date.Year, date.Month, 25),
+                        start = new DateTime(date.Year, date.Month, 24),
                         end = new DateTime(date.Year, date.Month, 28) ,
                         title = "N2B",
                         level = 8,
@@ -386,7 +386,7 @@ namespace CC.Plugins.Subscription.Controllers
                     events.Add(new Event
                     {
                         id = "lam1",
-                        start = new DateTime(date.Year, date.Month, 25),
+                        start = new DateTime(date.Year, date.Month, 24),
                         end = new DateTime(date.Year, date.Month, 28),
                         title = "B2G",
                         level = 10,
