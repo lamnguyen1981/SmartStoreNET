@@ -31,12 +31,14 @@
                 $("span.k-event-actions").remove();
 
                 var data = e.sender.dataSource.data();
+                console.log(data);
                 // var currentMonth = e.sender.view()._firstDayOfMonth.getMonthdate
                 var mydate = new Date(date);
                 var currentMonth = mydate.getMonth();
+                var currentYear = mydate.getFullYear();
                 var event;
                 var eventElement;               
-                
+                debugger;
                 $(`#${id} .subscription-calendar-summary`).remove();
                 var parentDiv = document.createElement('div');
                 parentDiv.classList.add('subscription-calendar-summary');
@@ -60,7 +62,7 @@
 
                     
 
-                    if (event.start.getMonth() === currentMonth) {   
+                    if (event.start.getMonth() === currentMonth && currentYear === event.start.getFullYear()) {   
                         var chirldDiv = document.createElement('div');
                         chirldDiv.classList.add('calendar-summary-content');
                         var str = event.title + " Level " + event.level + " -Total: " + "$" + event.total

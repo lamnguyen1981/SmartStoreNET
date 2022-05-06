@@ -358,21 +358,21 @@ namespace CC.Plugins.Subscription.Controllers
                 //var endDate = new DateTime(date.Year, date.Month, 3);
                 if (date.Month % 3 == 0) title = "N2B";
                 if (date.Month % 2 == 0) title = "P2N";
-                if (date.Month != 1)
-                {
-                    events.Add(new Event
-                    {
-                        id = date.Ticks.ToString(),
-                        start = starDate,
-                        end = endDate,
-                        title = title,
-                        level = 10,
-                        total = total
-                    });
-                }
+                //if (date.Month != 1 && date.Year!=DateTime.Now.Year)
+                //{
+                //    events.Add(new Event
+                //    {
+                //        id = date.Ticks.ToString(),
+                //        start = starDate,
+                //        end = endDate,
+                //        title = title,
+                //        level = 10,
+                //        total = total
+                //    });
+                //}
                 
 
-                if (date.Month == 1)
+                if (date.Month == 1 &&  date.Year == DateTime.Now.Year)
                 {
                     events.Add(new Event
                     {
@@ -393,6 +393,18 @@ namespace CC.Plugins.Subscription.Controllers
                         total = total
                     }); ;
                    
+                }
+                else
+                {
+                    events.Add(new Event
+                    {
+                        id = date.Ticks.ToString(),
+                        start = starDate,
+                        end = endDate,
+                        title = title,
+                        level = 10,
+                        total = total
+                    });
                 }
             }
 
