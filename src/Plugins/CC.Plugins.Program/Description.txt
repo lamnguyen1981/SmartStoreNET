@@ -1,0 +1,9 @@
+﻿FriendlyName: Program
+Description: Program
+SystemName: CC.Plugins.Program
+Group: Payment
+Version: 4.2.0
+MinAppVersion: 4.2.0
+DisplayOrder: 1
+FileName: CC.Plugins.Program.dll
+ResourceRootKey: Plugins.CC.Plugins.Program

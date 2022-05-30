@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Plugins.Tactic", "CC.Plugins.Tactic.csproj", "{650B7876-82C2-422A-98A7-44B687B99053}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EFMigrations|Any CPU = EFMigrations|Any CPU
+		PluginDev|Any CPU = PluginDev|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{650B7876-82C2-422A-98A7-44B687B99053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.EFMigrations|Any CPU.ActiveCfg = EFMigrations|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.EFMigrations|Any CPU.Build.0 = EFMigrations|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.PluginDev|Any CPU.ActiveCfg = PluginDev|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.PluginDev|Any CPU.Build.0 = PluginDev|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650B7876-82C2-422A-98A7-44B687B99053}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B38746-2224-42B5-9910-FA9CB83B302B}
+	EndGlobalSection
+EndGlobal
