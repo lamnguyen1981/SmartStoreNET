@@ -45,7 +45,7 @@ namespace CC.Plugins.Tactic.Controllers
         [AdminThemed]
         public ActionResult Index()
         {
-            var test = _protbTactic.Table.ToList();
+           
             var model = new TacticViewModel
             {
                 PageSize = _adminAreaSettings.GridPageSize,
@@ -53,79 +53,87 @@ namespace CC.Plugins.Tactic.Controllers
             };
 
             ViewBag.tbTacticList = LoadtbTactic();
+            ViewBag.VehicleList = LoadVehicleListItem();
             return View(model);
         }
 
         [AdminAuthorize]
         [AdminThemed]
-        [Permission(Permissions.Configuration.Country.Create)]
-        [Permission(Permissions.Configuration.Country.Update)]
-        public ActionResult AddEditTactic(int id=0)
+        [Permission(Permissions.Catalog.Category.Create)]
+        public ActionResult Create()
         {
+            var model = new TacticViewModel();
+
+            ViewBag.tbTacticList = LoadtbTactic(true);
+            ViewBag.VehicleList = LoadVehicleListItem(true);
+            return View("AddEditTactic", model);
+        }
+
+        [AdminAuthorize]
+        [AdminThemed]
+        [Permission(Permissions.Catalog.Category.Read)]
+        public ActionResult Edit(int id)
+        {
+            ViewBag.tbTacticList = LoadtbTactic(true);
+            ViewBag.VehicleList = LoadVehicleListItem(true);
             var model = new TacticViewModel();
             if (id != 0)
             {
                 model = QueryTactics(id.ToString()).FirstOrDefault();
+                model.StartWeek = string.Format("{0} - {1}", WeeksOfYearHelper.GetFridayDateByYearWeek(model.StartYW.ToString()).ToString("MM-dd-yyyy"),
+                                                               WeeksOfYearHelper.GetFridayDateByYearWeek(model.StartYW.ToString()).AddDays(7).ToString("MM-dd-yyyy"));
+
+                model.EndWeek = string.Format("{0} - {1}", WeeksOfYearHelper.GetFridayDateByYearWeek(model.EndYW.ToString()).ToString("MM-dd-yyyy"),
+                                                                WeeksOfYearHelper.GetFridayDateByYearWeek(model.EndYW.ToString()).AddDays(7).ToString("MM-dd-yyyy"));
             }
 
-            ViewBag.tbTacticList = LoadtbTactic(true);
-            return View(model);
+            //ViewBag.tbVehicleList = LoadtbVehicle(true);
+            return View("AddEditTactic", model);
         }
+
         [HttpPost]
-        [AdminAuthorize]
-        [AdminThemed]
+        
         [ValidateAntiForgeryToken]
         [Permission(Permissions.Configuration.Country.Create)]
         [Permission(Permissions.Configuration.Country.Update)]
         public ActionResult AddEditTactic(TacticViewModel model, FormCollection form)
-        {         
-            
+        {
+
+            ViewBag.tbTacticList = LoadtbTactic(true);
+            ViewBag.VehicleList = LoadVehicleListItem(true);
+
             if (!ModelState.IsValid)
             {
-                ViewBag.tbTacticList = LoadtbTactic(true);
                 return View(model);
             }
 
             var entity = Utils.Map<TacticViewModel, CCTactic>(model);
-            
+            entity.StartYW = ParseYYYYWW(model.StartWeek);
+            entity.EndYW = ParseYYYYWW(model.EndWeek);
+
+            if (entity.StartYW == 0 || entity.EndYW == 0)
+            {
+                ModelState.AddModelError("1", "Start Week or End Week is invalid");
+                return View(model);
+            }
+
             if (model.Id > 0)
             {
                 entity.UpdatedByUser = _workContext.CurrentCustomer.Id;
                 _proRepository.Update(entity);
-                NotifySuccess("Tactic has been updated successfully");
+                NotifySuccess("Vehicle has been updated successfully");
             }
             else
             {
                 entity.CreatedByUser = _workContext.CurrentCustomer.Id;
                 _proRepository.Insert(entity);
-                NotifySuccess("Tactic has been added successfully");
+                NotifySuccess("Vehicle has been added successfully");
             }
-            
+
             return RedirectToAction("Index");
         }
 
-        private IList<SelectListItem> LoadtbTactic(bool isEdit=false)
-        {
-            string sqlQuery = @"Select * from tbTactic";
-
-            var query = _services.DbContext.SqlQuery<tbTacticViewModel>(sqlQuery).ToList();
-            if (!isEdit)
-            {
-                query.Insert(0, (new tbTacticViewModel
-                {
-                    TacticCode = string.Empty,
-                    TacticName = "All"
-                }));
-            }
-            
-            return query
-                .Select(x => new SelectListItem
-                {
-                    Text = x.TacticName,
-                    Value = x.TacticCode
-                })
-                .ToList();
-        }
+        
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -166,12 +174,11 @@ namespace CC.Plugins.Tactic.Controllers
                 PageIndex = command.Page - 1,
                 PageSize = command.PageSize,
                 Deleted = model.Deleted,
-                Name = model.Name,
-                Code = model.Code,
-                ShortDescription = model.ShortDescription,
-                tbTacticCode = model.tbTacticCode,
-                LongDescription = model.LongDescription,
-                 TacticType = model.TacticType
+                TacticType = model.TacticType,
+                TacticCode = model.TacticCode,
+                TacticDescription = model.TacticDescription,
+                tbTacticId = model.tbTacticId,
+                VehicleId = model.VehicleId
             };
            
 
@@ -180,8 +187,19 @@ namespace CC.Plugins.Tactic.Controllers
             var predicate = GenericFilter.BuildFilterQuery<TacticViewModel, TacticViewModel>(filter);
             query = query.Where(predicate);
 
-            gridModel.Total = query.Count();
-            gridModel.Data = query.Skip(filter.PageIndex * filter.PageSize).Take(filter.PageSize);                           
+            var result = query.ToList();
+
+            foreach (var item in result)
+            {
+                item.StartWeek = string.Format("{0} - {1}", WeeksOfYearHelper.GetFridayDateByYearWeek(item.StartYW.ToString()).ToString("MM-dd-yyyy"),
+                                                               WeeksOfYearHelper.GetFridayDateByYearWeek(item.StartYW.ToString()).AddDays(7).ToString("MM-dd-yyyy"));
+
+                item.EndWeek = string.Format("{0} - {1}", WeeksOfYearHelper.GetFridayDateByYearWeek(item.EndYW.ToString()).ToString("MM-dd-yyyy"),
+                                                                WeeksOfYearHelper.GetFridayDateByYearWeek(item.EndYW.ToString()).AddDays(7).ToString("MM-dd-yyyy"));
+            }
+
+            gridModel.Total = result.Count();
+            gridModel.Data = result.Skip(filter.PageIndex * filter.PageSize).Take(filter.PageSize);                           
 
             return new JsonResult
             {
@@ -191,13 +209,68 @@ namespace CC.Plugins.Tactic.Controllers
 
         private IEnumerable<TacticViewModel> QueryTactics(string id ="")
         {
-            string sqlQuery = @"Select cc.* , tb.TacticName as tbTacticName
-                                From CCTactic cc inner join tbTactic tb on tb.TacticCode = cc.tbTacticCode
-                                where (cc.Deleted is null or cc.Deleted =0)";
+            string sqlQuery = @"Select cc.* , tb.Tactic as tbTacticName, v.[Name] as VehicleName
+                                From CCTactic cc inner join tbTacticID tb on tb.TacticID = cc.tbTacticId
+                                inner join CCVehicle v on v.Id = cc.VehicleId
+                                where (cc.Deleted is null or cc.Deleted = 0)";
             if (id != "")
                 sqlQuery = sqlQuery + " and cc.Id=" + id;
 
             return _services.DbContext.SqlQuery<TacticViewModel>(sqlQuery);
+        }
+
+        private IList<SelectListItem> LoadtbTactic(bool isEdit = false)
+        {
+            string sqlQuery = @"Select * from tbTacticID";
+
+            var query = _services.DbContext.SqlQuery<tbTacticViewModel>(sqlQuery).ToList();
+            if (!isEdit)
+            {
+                query.Insert(0, (new tbTacticViewModel
+                {
+                    Id = 0,
+                    Tactic = "All"
+                }));
+            }
+
+            return query
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Tactic,
+                    Value = x.TacticID.ToString()
+                })
+                .ToList();
+        }
+
+        private IList<SelectListItem> LoadVehicleListItem(bool isEdit = false)
+        {
+            string sqlQuery = @"Select * from CCVehicle";
+
+            var query = _services.DbContext.SqlQuery<CCVehicle>(sqlQuery).ToList();
+            if (!isEdit)
+            {
+                query.Insert(0, (new CCVehicle
+                {
+                    Id = 0,
+                    Name = "All"
+                }));
+            }
+
+            return query
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+        }
+
+        private int ParseYYYYWW(string weekRange)
+        {
+            if (string.IsNullOrEmpty(weekRange)) return 0;
+            var arr = weekRange.Split(new string[] { " - " }, StringSplitOptions.None);
+            if (arr == null || arr.Count() < 2) return 0;
+            return WeeksOfYearHelper.GetWeekOfYearByDateTime(DateTime.Parse(arr[0]));
         }
     }
 }

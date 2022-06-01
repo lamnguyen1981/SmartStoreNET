@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "Add/Edit Tactic";
+}
+
+
+<script src="~/Themes/GreatClips/Content/kendo/js/kendo.all.min.js"></script>
+
+
+<h2>Add/Edit Tactic</h2>
+@using CC.Plugins.Tactic.Models
+@model TacticViewModel
+@{
+    //ViewBag.Title = T("Admin.Rules.AddRule").Text;
+
+    Layout = "_AdminLayout";
+}
+
+@if (Model == null)
+{
+    return;
+}
+
+@using (Html.BeginForm("AddEditTactic", "Tactic", FormMethod.Post))
+{
+    <div class="section-header">
+        <div class="title">
+            @ViewBag.Title @Html.ActionLink("(" + @T("Admin.Common.BackToList") + ")", "Index")
+        </div>
+
+        <div class="options">
+            <button type="submit" name="save" value="save" class="btn btn-warning">
+                <i class="fa fa-check"></i>
+                <span>@T("Admin.Common.Save")</span>
+            </button>
+            @if (Model.Id > 0)
+            {
+                <span id="tactic-delete" class="btn btn-danger">
+                    <i class="far fa-trash-alt"></i>
+                    <span>@T("Admin.Common.Delete")</span>
+                </span>
+            }
+
+        </div>
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CreatedOnUtc)
+    @Html.HiddenFor(model => model.CreatedByUser)
+
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TacticCode)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.TacticCode)
+
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TacticType)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.TacticType)
+
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TacticDescription)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.TacticDescription)
+
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TacticAmount)
+        </div>
+        <div class="adminData">
+            @Html.TextBoxFor(model => model.TacticAmount)
+
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.tbTacticName)
+        </div>
+        <div class="adminData">
+
+            @Html.DropDownListFor(model => Model.tbTacticId, ViewBag.tbTacticList as List<SelectListItem>)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.VehicleName)
+        </div>
+        <div class="adminData">
+
+            @Html.DropDownListFor(model => Model.VehicleId, ViewBag.VehicleList as List<SelectListItem>)
+        </div>
+    </div>
+
+   
+
+    
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.StartWeek)
+        </div>
+        <div class="adminData">
+            <div class="input-group date" id="datetimepickerStart" data-target-input="nearest">
+
+                @*<input id="datetimepickerStartInput" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerStart" />*@
+
+                @Html.TextBoxFor(model => model.StartWeek, new { id = "datetimepickerStartInput", @class = "form-control datetimepicker-input", data_target = "#datetimepickerStart" })
+                <div class="input-group-append" data-target="#datetimepickerStart" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.EndWeek)
+        </div>
+        <div class="adminData">
+
+
+            <div class="input-group date" id="datetimepickerEnd" data-target-input="nearest">
+
+                @* <input id="datetimepickerEndInput" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEnd" />*@
+                @* @Html.TextBox("", value, new { @class = "form-control datetimepicker-input", data_target = "#" + id + "-parent", data_format = format })*@
+                @Html.TextBoxFor(model => model.EndWeek, new { id = "datetimepickerEndInput", @class = "form-control datetimepicker-input", data_target = "#datetimepickerEnd" })
+                <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="adminData">
+            <div class="adminData">
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        @*$("#StartWeek").css("visibility", "hidden");
+        $("#StartEnd").css("visibility", "hidden");
+        $("#datetimepickerStartInput").val(''@Model.EndWeek'');
+        $("#datetimepickerStartInput").val('@Model.StartWeek');*@
+       //  $("#datetimepickerStartInput").val(''@Model.EndWeek'');
+       // $("#datetimepickerEndInput").val('@Model.StartWeek');
+        $('#datetimepickerEnd').datetimepicker();
+        $('#datetimepickerStart').datetimepicker();
+
+        $("#datetimepickerStart").on("change.datetimepicker", function (e) {
+            if (e.date != null) {
+
+                var value = e.date;
+                var firstDate = moment(value, "MM-DD-YYYY").day(1).format("MM-DD-YYYY");
+                var lastDate = moment(value, "MM-DD-YYYY").day(7).format("MM-DD-YYYY");
+                $("#datetimepickerStartInput").val(firstDate + " - " + lastDate);
+               // $("#StartWeek").val(firstDate + " - " + lastDate);
+
+                e.date = null;
+            }
+
+
+        })
+
+        $("#datetimepickerEnd").on("change.datetimepicker", function (e) {
+            //  alert('date has changed!');
+            if (e.date != null) {
+
+                var value = e.date;
+                var firstDate = moment(value, "MM-DD-YYYY").day(1).format("MM-DD-YYYY");
+                var lastDate = moment(value, "MM-DD-YYYY").day(7).format("MM-DD-YYYY");
+                $("#datetimepickerEndInput").val(firstDate + " - " + lastDate);
+               // $("#EndWeek").val(firstDate + " - " + lastDate);
+                e.date = null;
+            }
+
+
+        })
+
+    });
+</script>
+
+@Html.DeleteConfirmation("tactic-delete")

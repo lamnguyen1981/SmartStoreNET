@@ -1,0 +1,9 @@
+﻿FriendlyName: Vehicle
+Description: Vehicle
+SystemName: CC.Plugins.Vehicle
+Group: Payment
+Version: 4.2.0
+MinAppVersion: 4.2.0
+DisplayOrder: 1
+FileName: CC.Plugins.Vehicle.dll
+ResourceRootKey: Plugins.CC.Plugins.Vehicle

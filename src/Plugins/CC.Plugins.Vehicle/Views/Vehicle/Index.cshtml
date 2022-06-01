@@ -1,0 +1,175 @@
+﻿@using CC.Plugins.Vehicle.Models
+@model VehicleViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = T("Plugins.FriendlyName.SmartStore.Vehicle").Text;
+
+}
+
+@if (Model == null)
+{
+    return;
+}
+
+@using (Html.BeginForm())
+{
+
+<div class="section-header">
+    <div class="title">
+        <i class="fa fa-map-marker"></i>
+        @T("Plugins.FriendlyName.CC.Plugins.Vehicle")
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            <span>@T("Admin.Common.AddNew")</span>
+        </a>
+    </div>
+    <div class="options">
+        @{ Html.RenderWidget("admin_button_toolbar_before"); }
+
+        <button type="button" class="btn btn-outline-secondary btn-toggle-filter" data-toggle="button" aria-pressed="false">
+            <i class="fa fa-filter"></i>
+            <span>@T("Common.Filter")</span>
+            <i class="fa fa-angle-double-down"></i>
+        </button>
+
+
+
+        @{ Html.RenderWidget("admin_button_toolbar_after"); }
+    </div>
+</div>
+
+
+<div class="row mt-3 grid-filter" style="display: none">
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.Name)
+        @Html.TextBoxFor(model => Model.Name, new { @class = "form-control sf" })
+    </div>
+
+
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.tbVehicleId)
+        @Html.DropDownListFor(model => Model.tbVehicleId, ViewBag.tbVehicleLists as List<SelectListItem>)
+    </div>
+
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.ProgramId)
+        @Html.DropDownListFor(model => Model.ProgramId, ViewBag.Programs as List<SelectListItem>)
+    </div>
+
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+
+        <button type="submit" id="search-Vehicles" name="search-Vehicles" class="btn btn-warning btn-block">
+            <span>@T("Admin.Common.ApplyFilter")</span>
+        </button>
+    </div>
+
+
+</div>
+
+    @(Html.Telerik().Grid<VehicleViewModel>()
+        .Name("Vehicle-grid")
+        .ClientEvents(events => events
+            .OnDataBinding("onDataBinding")
+            .OnDataBound("onDataBound")
+            .OnRowDataBound("onRowDataBound"))
+        .Columns(columns =>
+        {
+            
+            columns.Bound(x => x.Name)
+
+                    .ClientTemplate("<a href='Vehicle/Edit/<#= Id #>'><#= Name #></a>");
+           
+
+
+            columns.Bound(x => x.StartWeek);
+
+            columns.Bound(x => x.EndWeek);           
+            columns.Bound(x => x.NumberOfLevels);
+            columns.Bound(x => x.SellUnitPrice)
+            .ClientTemplate("$ <#= SellUnitPrice #>");
+           
+            columns.Bound(x => x.ProgramName);
+            columns.Bound(x => x.tbVehicleName);
+
+            //columns.Bound(x => x.Id)
+            //    .Centered()
+            //    .ClientTemplate("<a href=\"EditVehicle/<#= Id #>\" class=\"t-button\">" + T("Admin.Common.Edit").Text + "</a>")
+            //    .Title(String.Empty)
+            //    .HtmlAttributes(new { align = "right", @class = "omega" });
+
+
+        })
+        .Pageable(settings => settings.PageSize(Model.PageSize).Position(GridPagerPosition.Both))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("LoadVehicles", "Vehicle"))
+        .PreserveGridState()
+        .EnableCustomBinding(true))
+
+<script>
+		@*Used by widget SmartStore.CommonExportProviders::ExportButtonsGeneral.cshtml*@
+		var selectedIds = [];
+
+		$(function () {
+            $('.btn-toggle-filter').on('click', function (e) {
+                $('.grid-filter').slideToggle({ duration: 200, easing: 'ease-in-out' });
+            });
+
+            // Search button.
+            $('#search-Vehicles').click(function () {
+                var grid = $('#Vehicle-grid').data('tGrid');
+                grid.currentPage = 1; //new search. Set page size to 1
+                grid.ajaxRequest();
+                return false;
+            });
+
+            $(".form-control.sf").on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    $("#search-Vehicles").click();
+                    return false;
+                }
+            });
+
+		});
+
+		function onDataBound() {
+			//$('#customers-grid input[type=checkbox][id!=mastercheckbox]').each(function () {
+			//	var currentId = $(this).val();
+			//	var checked = jQuery.inArray(currentId, selectedIds);
+			//	// Set checked based on if current checkbox's value is in selectedIds.
+			//	$(this).attr('checked', checked > -1);
+			//});
+
+			//updateMasterCheckbox();
+        }
+
+        function onRowDataBound(e) {
+		    if (!e.dataItem.Active) {
+			    $(e.row).find('td').wrapInner('<span class="muted" />');
+		    }
+        }
+
+
+
+		function onDataBinding(e) {
+            e.data = {
+                Id: $('#@Html.FieldIdFor(model => model.Id)').val(),
+                Name: $('#@Html.FieldIdFor(model => model.Name)').val(),
+                
+                tbVehicleId: $('#@Html.FieldIdFor(model => model.tbVehicleId)').val(),
+                ProgramId: $('#@Html.FieldIdFor(model => model.ProgramId)').val()
+
+    			};
+
+            var VehicleGrid = $('#Vehicle-grid');
+            if (VehicleGrid.data('init-loaded')) {
+
+			}
+			else {
+                VehicleGrid.data('init-loaded', true);
+
+			}
+		}
+</script>
+}
+

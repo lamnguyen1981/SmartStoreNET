@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
+using CC.Plugins.Core.Data.Mapping;
 using CC.Plugins.Core.Domain;
-using CC.Plugins.Tactic.Mapping;
+
+
 using SmartStore.Core;
 using SmartStore.Data;
 
@@ -15,7 +17,7 @@ namespace CC.Plugins.Tactic.Data
     {
         public const string ALIASKEY = "sm_object_context_Tactic";
 
-        public virtual DbSet<tbTactic> tbTactics { get; set; }
+      
 
         /// <summary>
         /// For tooling support, e.g. EF Migrations
@@ -38,6 +40,7 @@ namespace CC.Plugins.Tactic.Data
         {            
             modelBuilder.Configurations.Add(new CCTacticMapping());
             modelBuilder.Configurations.Add(new tbTaticMapping());
+            modelBuilder.Configurations.Add(new CCVehicleMapping());
             base.OnModelCreating(modelBuilder);
         }
 

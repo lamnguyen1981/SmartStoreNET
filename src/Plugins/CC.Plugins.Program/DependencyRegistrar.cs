@@ -30,10 +30,7 @@ namespace CC.Plugins.Program
                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(ProgramContext.ALIASKEY))
                .InstancePerRequest();
 
-            builder.RegisterType<EfRepository<tbTacticID>>()
-              .As<IRepository<tbTacticID>>()
-              .WithParameter(ResolvedParameter.ForNamed<IDbContext>(ProgramContext.ALIASKEY))
-              .InstancePerRequest();
+            
         }
 
         public int Order => 1;

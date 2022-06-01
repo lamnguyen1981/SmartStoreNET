@@ -1,0 +1,183 @@
+﻿@using CC.Plugins.Tactic.Models
+@model TacticViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = T("Plugins.FriendlyName.SmartStore.Tactic").Text;
+
+}
+
+@if (Model == null)
+{
+    return;
+}
+
+@using (Html.BeginForm())
+{
+
+<div class="section-header">
+    <div class="title">
+        <i class="fa fa-map-marker"></i>
+        @T("Plugins.FriendlyName.CC.Plugins.Tactic")
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            <span>@T("Admin.Common.AddNew")</span>
+        </a>
+    </div>
+    <div class="options">
+        @{ Html.RenderWidget("admin_button_toolbar_before"); }
+
+        <button type="button" class="btn btn-outline-secondary btn-toggle-filter" data-toggle="button" aria-pressed="false">
+            <i class="fa fa-filter"></i>
+            <span>@T("Common.Filter")</span>
+            <i class="fa fa-angle-double-down"></i>
+        </button>
+
+
+
+        @{ Html.RenderWidget("admin_button_toolbar_after"); }
+    </div>
+</div>
+
+
+<div class="row mt-3 grid-filter" style="display: none">
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.TacticCode)
+        @Html.TextBoxFor(model => Model.TacticCode, new { @class = "form-control sf" })
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.TacticType)
+        @Html.TextBoxFor(model => Model.TacticType, new { @class = "form-control sf" })
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.TacticDescription)
+        @Html.TextBoxFor(model => Model.TacticDescription, new { @class = "form-control sf" })
+    </div>
+
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.tbTacticName)
+        @Html.DropDownListFor(model => Model.tbTacticId, ViewBag.tbTacticList as List<SelectListItem>)
+    </div>
+
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        @Html.SmartLabelFor(model => model.VehicleName)
+        @Html.DropDownListFor(model => Model.VehicleId, ViewBag.VehicleList as List<SelectListItem>)
+    </div>
+
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+
+        <button type="submit" id="search-Tactics" name="search-Tactics" class="btn btn-warning btn-block">
+            <span>@T("Admin.Common.ApplyFilter")</span>
+        </button>
+    </div>
+
+
+</div>
+
+    @(Html.Telerik().Grid<TacticViewModel>()
+        .Name("Tactic-grid")
+        .ClientEvents(events => events
+            .OnDataBinding("onDataBinding")
+            .OnDataBound("onDataBound")
+            .OnRowDataBound("onRowDataBound"))
+        .Columns(columns =>
+        {
+            
+            columns.Bound(x => x.TacticCode)
+
+                    .ClientTemplate("<a href='Tactic/Edit/<#= Id #>'><#= TacticCode #></a>");
+            columns.Bound(x => x.TacticType);
+
+
+            columns.Bound(x => x.TacticDescription);
+
+            columns.Bound(x => x.StartWeek);
+            columns.Bound(x => x.EndWeek);
+            columns.Bound(x => x.TacticType);
+            columns.Bound(x => x.TacticAmount);
+            columns.Bound(x => x.tbTacticName);
+            columns.Bound(x => x.VehicleName);
+            
+
+
+            //columns.Bound(x => x.Id)
+            //    .Centered()
+            //    .ClientTemplate("<a href=\"EditTactic/<#= Id #>\" class=\"t-button\">" + T("Admin.Common.Edit").Text + "</a>")
+            //    .Title(String.Empty)
+            //    .HtmlAttributes(new { align = "right", @class = "omega" });
+
+
+        })
+        .Pageable(settings => settings.PageSize(Model.PageSize).Position(GridPagerPosition.Both))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("LoadTactics", "Tactic"))
+        .PreserveGridState()
+        .EnableCustomBinding(true))
+
+<script>
+		@*Used by widget SmartStore.CommonExportProviders::ExportButtonsGeneral.cshtml*@
+		var selectedIds = [];
+
+		$(function () {
+            $('.btn-toggle-filter').on('click', function (e) {
+                $('.grid-filter').slideToggle({ duration: 200, easing: 'ease-in-out' });
+            });
+
+            // Search button.
+            $('#search-Tactics').click(function () {
+                var grid = $('#Tactic-grid').data('tGrid');
+                grid.currentPage = 1; //new search. Set page size to 1
+                grid.ajaxRequest();
+                return false;
+            });
+
+            $(".form-control.sf").on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    $("#search-Tactics").click();
+                    return false;
+                }
+            });
+
+		});
+
+		function onDataBound() {
+			//$('#customers-grid input[type=checkbox][id!=mastercheckbox]').each(function () {
+			//	var currentId = $(this).val();
+			//	var checked = jQuery.inArray(currentId, selectedIds);
+			//	// Set checked based on if current checkbox's value is in selectedIds.
+			//	$(this).attr('checked', checked > -1);
+			//});
+
+			//updateMasterCheckbox();
+        }
+
+        function onRowDataBound(e) {
+		    if (!e.dataItem.Active) {
+			    $(e.row).find('td').wrapInner('<span class="muted" />');
+		    }
+        }
+
+
+
+		function onDataBinding(e) {
+            e.data = {
+                Id: $('#@Html.FieldIdFor(model => model.Id)').val(),
+                TacticCode: $('#@Html.FieldIdFor(model => model.TacticCode)').val(),
+                TacticType: $('#@Html.FieldIdFor(model => model.TacticType)').val(),
+                TacticDescription: $('#@Html.FieldIdFor(model => model.TacticDescription)').val(),
+                VehicleId: $('#@Html.FieldIdFor(model => model.VehicleId)').val(),
+                tbTacticId: $('#@Html.FieldIdFor(model => model.tbTacticId)').val(),
+    			};
+
+            var TacticGrid = $('#Tactic-grid');
+            if (TacticGrid.data('init-loaded')) {
+
+			}
+			else {
+                TacticGrid.data('init-loaded', true);
+
+			}
+		}
+</script>
+}
+

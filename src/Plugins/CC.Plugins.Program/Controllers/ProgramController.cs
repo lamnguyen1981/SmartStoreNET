@@ -27,17 +27,17 @@ namespace CC.Plugins.Program.Controllers
         private readonly AdminAreaSettings _adminAreaSettings;
         private readonly IRepository<CCProgram> _proRepository;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<tbTacticID> _protbProgram;
+      
 
         public ProgramController(ICommonServices services, AdminAreaSettings adminAreaSettings, 
-            IRepository<CCProgram> proRepository, IWorkContext workContext,
-            IRepository<tbTacticID> protbProgram)
+            IRepository<CCProgram> proRepository, IWorkContext workContext
+           )
         {
             _services = services;
             _adminAreaSettings = adminAreaSettings;
             _proRepository = proRepository;
             _workContext = workContext;
-            _protbProgram = protbProgram;
+            
         }
         
 
@@ -45,7 +45,7 @@ namespace CC.Plugins.Program.Controllers
         [AdminThemed]
         public ActionResult Index()
         {
-            var test = _protbProgram.Table.ToList();
+           
             var model = new ProgramViewModel
             {
                 PageSize = _adminAreaSettings.GridPageSize,

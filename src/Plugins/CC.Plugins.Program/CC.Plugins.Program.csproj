@@ -96,15 +96,15 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.SqlServerCompact.6.4.4\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentValidation.7.4.0\lib\net45\FluentValidation.dll</HintPath>
@@ -284,27 +284,9 @@
     </Compile>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
-    <Compile Include="Mapping\tbTaticMapping.cs" />
-    <Compile Include="Mapping\CCProgramMapping.cs" />
-    <Compile Include="Migrations\202205290439543_initial_database.cs" />
-    <Compile Include="Migrations\202205290439543_initial_database.designer.cs">
-      <DependentUpon>202205290439543_initial_database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202205291132120_ccProgram_UpdateField.cs" />
-    <Compile Include="Migrations\202205291132120_ccProgram_UpdateField.designer.cs">
-      <DependentUpon>202205291132120_ccProgram_UpdateField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202205292148390_change_fields.cs" />
-    <Compile Include="Migrations\202205292148390_change_fields.designer.cs">
-      <DependentUpon>202205292148390_change_fields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202205300531405_add_tbtable.cs" />
-    <Compile Include="Migrations\202205300531405_add_tbtable.designer.cs">
-      <DependentUpon>202205300531405_add_tbtable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202205300611257_add_tbTatic.cs" />
-    <Compile Include="Migrations\202205300611257_add_tbTatic.designer.cs">
-      <DependentUpon>202205300611257_add_tbTatic.cs</DependentUpon>
+    <Compile Include="Migrations\202205310312096_Initial_database.cs" />
+    <Compile Include="Migrations\202205310312096_Initial_database.designer.cs">
+      <DependentUpon>202205310312096_Initial_database.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ProgramViewModel.cs" />
@@ -321,22 +303,22 @@
     <ProjectReference Include="..\..\Libraries\SmartStore.Core\SmartStore.Core.csproj">
       <Project>{6bda8332-939f-45b7-a25e-7a797260ae59}</Project>
       <Name>SmartStore.Core</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SmartStore.Services\SmartStore.Services.csproj">
       <Project>{210541AD-F659-47DA-8763-16F36C5CD2F4}</Project>
       <Name>SmartStore.Services</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SmartStore.Data\SmartStore.Data.csproj">
       <Project>{ccd7f2c9-6a2c-4cf0-8e89-076b8fc0f144}</Project>
       <Name>SmartStore.Data</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Presentation\SmartStore.Web.Framework\SmartStore.Web.Framework.csproj">
       <Project>{75fd4163-333c-4dd5-854d-2ef294e45d94}</Project>
       <Name>SmartStore.Web.Framework</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\CC.Plugins.Core\CC.Plugins.Core.csproj">
       <Project>{9ee45ed4-9558-45d9-b4db-32aa5270d75f}</Project>
@@ -345,11 +327,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="packages.config" />
     <Content Include="web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -384,26 +362,16 @@
     <Folder Include="Content\" />
     <Folder Include="Domain\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Mapping\" />
     <Folder Include="Providers\" />
+    <Folder Include="Scripts\" />
     <Folder Include="Services\" />
     <Folder Include="Views\Settings\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202205290439543_initial_database.resx">
-      <DependentUpon>202205290439543_initial_database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205291132120_ccProgram_UpdateField.resx">
-      <DependentUpon>202205291132120_ccProgram_UpdateField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205292148390_change_fields.resx">
-      <DependentUpon>202205292148390_change_fields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205300531405_add_tbtable.resx">
-      <DependentUpon>202205300531405_add_tbtable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205300611257_add_tbTatic.resx">
-      <DependentUpon>202205300611257_add_tbTatic.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205310312096_Initial_database.resx">
+      <DependentUpon>202205310312096_Initial_database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

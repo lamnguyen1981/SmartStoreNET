@@ -34,6 +34,11 @@ namespace CC.Plugins.Tactic
               .As<IRepository<tbTacticID>>()
               .WithParameter(ResolvedParameter.ForNamed<IDbContext>(TacticContext.ALIASKEY))
               .InstancePerRequest();
+
+            builder.RegisterType<EfRepository<CCVehicle>>()
+             .As<IRepository<CCVehicle>>()
+             .WithParameter(ResolvedParameter.ForNamed<IDbContext>(TacticContext.ALIASKEY))
+             .InstancePerRequest();
         }
 
         public int Order => 1;

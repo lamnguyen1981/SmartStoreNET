@@ -7,13 +7,13 @@ using System.Web;
 
 namespace CC.Plugins.Core.Data.Mapping
 {
-    public class tbTaticMapping : EntityTypeConfiguration<tbTacticID>
+    public class tbTacticleMapping : EntityTypeConfiguration<tbTacticID>
     {
-        public tbTaticMapping()
+        public tbTacticleMapping()
         { 
-            this.ToTable("tbTacticID");
+            this.ToTable("tbTaticID");
             this.Property(x => x.Id).HasColumnName("TacticID");
-            //this.Property(x => x.Tactic).HasColumnName("TacticID");
+            
 
         }
     }

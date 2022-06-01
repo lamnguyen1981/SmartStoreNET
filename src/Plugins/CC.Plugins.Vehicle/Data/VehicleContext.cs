@@ -5,29 +5,29 @@ using CC.Plugins.Core.Domain;
 using SmartStore.Core;
 using SmartStore.Data;
 
-namespace CC.Plugins.Program.Data
+namespace CC.Plugins.Vehicle.Data
 {
 
     /// <summary>
     /// Object context
     /// </summary>
-    public class ProgramContext : ObjectContextBase
+    public class VehicleContext : ObjectContextBase
     {
-        public const string ALIASKEY = "sm_object_context_Program";
+        public const string ALIASKEY = "sm_object_context_Vehicle";
 
-        
+       
 
         /// <summary>
         /// For tooling support, e.g. EF Migrations
         /// </summary>
-        public ProgramContext()
+        public VehicleContext()
             : base()
         {
            
         }
         
 
-        public ProgramContext(string nameOrConnectionString)
+        public VehicleContext(string nameOrConnectionString)
             : base(nameOrConnectionString, ALIASKEY)
         {
         
@@ -36,8 +36,9 @@ namespace CC.Plugins.Program.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {            
+            modelBuilder.Configurations.Add(new CCVehicleMapping());
+            modelBuilder.Configurations.Add(new tbVehicleMapping());
             modelBuilder.Configurations.Add(new CCProgramMapping());
-           
             base.OnModelCreating(modelBuilder);
         }
 
